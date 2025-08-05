@@ -4,7 +4,7 @@ description: "Comprehensive security standards, best practices, authentication p
 version: "1.0.0"
 author: "Cursor Rules"
 created: "2024-01-01"
-updated: "2024-01-01"
+updated: "2025-08-05"
 category: "security"
 priority: "high"
 tags:
@@ -227,8 +227,8 @@ function generateToken(user) {
     
     return jwt.sign(payload, process.env.JWT_SECRET, {
         algorithm: 'HS256',
-        issuer: 'your-app',
-        audience: 'your-app-users'
+        issuer: 'my-application',
+        audience: 'my-application-users'
     });
 }
 
@@ -236,8 +236,8 @@ function verifyToken(token) {
     try {
         return jwt.verify(token, process.env.JWT_SECRET, {
             algorithms: ['HS256'],
-            issuer: 'your-app',
-            audience: 'your-app-users'
+            issuer: 'my-application',
+            audience: 'my-application-users'
         });
     } catch (error) {
         throw new Error('Invalid token');
@@ -347,7 +347,8 @@ function sanitizeOutput(data) {
 app.use((req, res, next) => {
     res.setHeader('Content-Security-Policy', 
         "default-src 'self'; " +
-        "script-src 'self' 'unsafe-inline' https://cdn.example.com; " +
+        // Example CDN endpoint - replace with actual CDN for your application
+"script-src 'self' 'unsafe-inline' https://cdn.example.com; " +
         "style-src 'self' 'unsafe-inline'; " +
         "img-src 'self' data: https:; " +
         "font-src 'self' https://fonts.gstatic.com;"
@@ -1134,7 +1135,7 @@ public class SecureHttpClient
     {
         _securityManager = securityManager;
         _httpClient = new HttpClient();
-        _httpClient.DefaultRequestHeaders.Add("User-Agent", "YourApp/1.0");
+        _httpClient.DefaultRequestHeaders.Add("User-Agent", "MyApplication/1.0");
     }
     
     public async Task<string> GetSecureAsync(string url)

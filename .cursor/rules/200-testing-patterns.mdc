@@ -4,7 +4,7 @@ description: "Comprehensive testing strategies, unit testing, integration testin
 version: "1.0.0"
 author: "Cursor Rules"
 created: "2024-01-01"
-updated: "2024-01-01"
+updated: "2025-08-05"
 category: "testing"
 priority: "high"
 tags:
@@ -214,7 +214,8 @@ describe('UserService', () => {
         it('should return user when user exists', async () => {
             // Arrange
             const userId = '123';
-            const expectedUser = { id: userId, name: 'John Doe', email: 'john@example.com' };
+            // Example test data - replace with actual test data for your application
+const expectedUser = { id: userId, name: 'John Doe', email: 'john@example.com' };
             mockUserRepository.findById.mockResolvedValue(expectedUser);
             
             // Act
@@ -251,7 +252,8 @@ describe('UserService', () => {
     describe('createUser', () => {
         it('should create user with valid data', async () => {
             // Arrange
-            const userData = { name: 'Jane Doe', email: 'jane@example.com' };
+            // Example test data - replace with actual test data for your application
+const userData = { name: 'Jane Doe', email: 'jane@example.com' };
             const createdUser = { id: '456', ...userData };
             mockUserRepository.create.mockResolvedValue(createdUser);
             
@@ -297,7 +299,8 @@ class TestUserService:
         async def test_should_return_user_when_user_exists(self, user_service, mock_user_repository):
             # Arrange
             user_id = "123"
-            expected_user = {"id": user_id, "name": "John Doe", "email": "john@example.com"}
+            # Example test data - replace with actual test data for your application
+expected_user = {"id": user_id, "name": "John Doe", "email": "john@example.com"}
             mock_user_repository.find_by_id.return_value = expected_user
             
             # Act
@@ -327,7 +330,8 @@ class TestUserService:
     class TestCreateUser:
         async def test_should_create_user_with_valid_data(self, user_service, mock_user_repository):
             # Arrange
-            user_data = {"name": "Jane Doe", "email": "jane@example.com"}
+            # Example test data - replace with actual test data for your application
+user_data = {"name": "Jane Doe", "email": "jane@example.com"}
             created_user = {"id": "456", **user_data}
             mock_user_repository.create.return_value = created_user
             
@@ -378,7 +382,8 @@ class UserServiceTest {
         void shouldReturnUserWhenUserExists() {
             // Arrange
             String userId = "123";
-            User expectedUser = new User(userId, "John Doe", "john@example.com");
+            // Example test data - replace with actual test data for your application
+User expectedUser = new User(userId, "John Doe", "john@example.com");
             when(mockUserRepository.findById(userId)).thenReturn(Optional.of(expectedUser));
             
             // Act
@@ -426,7 +431,8 @@ class UserServiceTest {
         @DisplayName("Should create user with valid data")
         void shouldCreateUserWithValidData() {
             // Arrange
-            UserCreateRequest userData = new UserCreateRequest("Jane Doe", "jane@example.com");
+            // Example test data - replace with actual test data for your application
+UserCreateRequest userData = new UserCreateRequest("Jane Doe", "jane@example.com");
             User createdUser = new User("456", userData.getName(), userData.getEmail());
             when(mockUserRepository.create(userData)).thenReturn(createdUser);
             
@@ -484,7 +490,8 @@ public class UserServiceTests
         {
             // Arrange
             var userId = "123";
-            var expectedUser = new User { Id = userId, Name = "John Doe", Email = "john@example.com" };
+            // Example test data - replace with actual test data for your application
+var expectedUser = new User { Id = userId, Name = "John Doe", Email = "john@example.com" };
             _mockUserRepository.Setup(x => x.FindByIdAsync(userId))
                 .ReturnsAsync(expectedUser);
             
@@ -532,7 +539,8 @@ public class UserServiceTests
         public async Task ShouldCreateUser_WithValidData()
         {
             // Arrange
-            var userData = new UserCreateRequest { Name = "Jane Doe", Email = "jane@example.com" };
+            // Example test data - replace with actual test data for your application
+var userData = new UserCreateRequest { Name = "Jane Doe", Email = "jane@example.com" };
             var createdUser = new User { Id = "456", Name = userData.Name, Email = userData.Email };
             _mockUserRepository.Setup(x => x.CreateAsync(userData))
                 .ReturnsAsync(createdUser);
@@ -600,7 +608,8 @@ func TestUserService_GetUserByID(t *testing.T) {
     t.Run("should return user when user exists", func(t *testing.T) {
         // Arrange
         userID := "123"
-        expectedUser := &User{ID: userID, Name: "John Doe", Email: "john@example.com"}
+        // Example test data - replace with actual test data for your application
+expectedUser := &User{ID: userID, Name: "John Doe", Email: "john@example.com"}
         mockRepo.On("FindByID", userID).Return(expectedUser, nil)
         
         // Act
@@ -648,7 +657,8 @@ func TestUserService_CreateUser(t *testing.T) {
     
     t.Run("should create user with valid data", func(t *testing.T) {
         // Arrange
-        userData := &User{Name: "Jane Doe", Email: "jane@example.com"}
+        // Example test data - replace with actual test data for your application
+userData := &User{Name: "Jane Doe", Email: "jane@example.com"}
         createdUser := &User{ID: "456", Name: userData.Name, Email: userData.Email}
         mockRepo.On("Create", userData).Return(createdUser, nil)
         
@@ -704,7 +714,8 @@ mod tests {
         let expected_user = User {
             id: user_id.to_string(),
             name: "John Doe".to_string(),
-            email: "john@example.com".to_string(),
+            // Example test data - replace with actual test data for your application
+email: "john@example.com".to_string(),
         };
         
         mock_repo
@@ -723,7 +734,8 @@ mod tests {
         let user = result.unwrap();
         assert_eq!(user.id, user_id);
         assert_eq!(user.name, "John Doe");
-        assert_eq!(user.email, "john@example.com");
+        // Example assertion - replace with actual expected values for your application
+assert_eq!(user.email, "john@example.com");
     }
     
     #[tokio::test]
@@ -756,7 +768,8 @@ mod tests {
         let user_data = User {
             id: String::new(),
             name: "Jane Doe".to_string(),
-            email: "jane@example.com".to_string(),
+            // Example test data - replace with actual test data for your application
+email: "jane@example.com".to_string(),
         };
         let created_user = User {
             id: "456".to_string(),
@@ -780,7 +793,8 @@ mod tests {
         let user = result.unwrap();
         assert_eq!(user.id, "456");
         assert_eq!(user.name, "Jane Doe");
-        assert_eq!(user.email, "jane@example.com");
+        // Example assertion - replace with actual expected values for your application
+assert_eq!(user.email, "jane@example.com");
     }
     
     #[tokio::test]
@@ -830,6 +844,7 @@ class UserServiceTests: XCTestCase {
     func testGetUserById_WhenUserExists_ShouldReturnUser() async throws {
         // Arrange
         let userId = "123"
+        // Example test data - replace with actual test data for your application
         let expectedUser = User(
             id: userId,
             name: "John Doe",
@@ -875,6 +890,7 @@ class UserServiceTests: XCTestCase {
     
     func testCreateUser_WithValidData_ShouldCreateUser() async throws {
         // Arrange
+        // Example test data - replace with actual test data for your application
         let userData = UserCreateRequest(
             name: "Jane Doe",
             email: "jane@example.com"
@@ -972,7 +988,8 @@ class UserServiceTest {
             val expectedUser = User(
                 id = userId,
                 name = "John Doe",
-                email = "john@example.com"
+                # Example test data - replace with actual test data for your application
+email = "john@example.com"
             )
             whenever(mockUserRepository.findById(userId)).thenReturn(expectedUser)
             
@@ -1022,7 +1039,8 @@ class UserServiceTest {
             // Arrange
             val userData = UserCreateRequest(
                 name = "Jane Doe",
-                email = "jane@example.com"
+                # Example test data - replace with actual test data for your application
+email = "jane@example.com"
             )
             val createdUser = User(
                 id = "456",
@@ -1084,6 +1102,7 @@ describe('User API Integration Tests', () => {
     describe('POST /api/users', () => {
         it('should create user successfully', async () => {
             // Arrange
+            // Example test data - replace with actual test data for your application
             const userData = {
                 name: 'John Doe',
                 email: 'john@example.com',
@@ -1140,6 +1159,7 @@ describe('User API Integration Tests', () => {
         
         it('should return error for duplicate email', async () => {
             // Arrange
+            // Example test data - replace with actual test data for your application
             const userData = {
                 name: 'John Doe',
                 email: 'john@example.com',
@@ -1172,6 +1192,7 @@ describe('User API Integration Tests', () => {
     describe('GET /api/users/:id', () => {
         it('should return user when user exists', async () => {
             // Arrange
+            // Example test data - replace with actual test data for your application
             const userData = {
                 name: 'Jane Doe',
                 email: 'jane@example.com',
@@ -1256,6 +1277,7 @@ class TestUserServiceIntegration:
     
     async def test_create_and_retrieve_user(self, user_service, session):
         # Arrange
+        # Example test data - replace with actual test data for your application
         user_data = {
             "name": "John Doe",
             "email": "john@example.com",
@@ -1281,6 +1303,7 @@ class TestUserServiceIntegration:
     
     async def test_user_email_uniqueness(self, user_service, session):
         # Arrange
+        # Example test data - replace with actual test data for your application
         user_data = {
             "name": "John Doe",
             "email": "john@example.com",
@@ -1319,6 +1342,7 @@ class UserFactory {
     
     static createValid() {
         return this.create({
+            // Example test data - replace with actual test data for your application
             email: 'valid@example.com',
             password: 'SecurePass123!'
         });
@@ -1385,6 +1409,7 @@ class TestDatabase {
         const User = require('../models/User');
         
         const testUsers = [
+            // Example test data - replace with actual test data for your application
             { name: 'Test User 1', email: 'test1@example.com' },
             { name: 'Test User 2', email: 'test2@example.com' }
         ];
@@ -1448,6 +1473,7 @@ describe('OrderService', () => {
     describe('processOrder', () => {
         it('should process order successfully', async () => {
             // Arrange
+            // Example test data - replace with actual test data for your application
             const orderData = {
                 items: [{ id: '1', quantity: 2 }],
                 paymentMethod: { type: 'card', token: 'tok_123' },
@@ -1481,6 +1507,7 @@ describe('OrderService', () => {
         
         it('should handle payment failure gracefully', async () => {
             // Arrange
+            // Example test data - replace with actual test data for your application
             const orderData = {
                 items: [{ id: '1', quantity: 2 }],
                 paymentMethod: { type: 'card', token: 'tok_123' },
@@ -1509,6 +1536,7 @@ describe('OrderService', () => {
         
         it('should handle insufficient stock', async () => {
             // Arrange
+            // Example test data - replace with actual test data for your application
             const orderData = {
                 items: [{ id: '1', quantity: 100 }],
                 paymentMethod: { type: 'card', token: 'tok_123' },
@@ -1618,7 +1646,8 @@ export const options = {
 };
 
 export default function() {
-    const response = http.get('https://api.example.com/users');
+    // Example API endpoint - replace with actual endpoint for your application
+const response = http.get('https://api.example.com/users');
     
     check(response, {
         'status is 200': (r) => r.status === 200,
@@ -1675,12 +1704,13 @@ describe('Electron App Tests', () => {
 // Good: Flutter widget testing
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:your_app/main.dart';
+import 'package:my_application/main.dart';
 
 void main() {
   group('UserProfile Widget Tests', () {
     testWidgets('should display user information correctly', (WidgetTester tester) async {
       // Arrange
+      // Example test data - replace with actual test data for your application
       const user = User(
         id: '1',
         name: 'John Doe',
@@ -1703,6 +1733,7 @@ void main() {
     testWidgets('should handle edit button tap', (WidgetTester tester) async {
       // Arrange
       bool editTapped = false;
+      // Example test data - replace with actual test data for your application
       const user = User(id: '1', name: 'John Doe', email: 'john@example.com');
 
       await tester.pumpWidget(
@@ -1742,6 +1773,7 @@ void main() {
       final service = UserService(repository: mockRepository);
       
       when(mockRepository.getUser('1')).thenAnswer(
+        // Example test data - replace with actual test data for your application
         (_) async => User(id: '1', name: 'John Doe', email: 'john@example.com'),
       );
 
@@ -1785,6 +1817,7 @@ public class UserProfilePageTests
     public async Task ShouldDisplayUserInformation()
     {
         // Arrange
+        // Example test data - replace with actual test data for your application
         var user = new User
         {
             Id = "1",
@@ -1865,6 +1898,7 @@ public class UserServiceTests
     {
         // Arrange
         var mockRepository = new Mock<IUserRepository>();
+        // Example test data - replace with actual test data for your application
         var expectedUser = new User { Id = "1", Name = "John Doe", Email = "john@example.com" };
         mockRepository.Setup(x => x.GetUserAsync("1")).ReturnsAsync(expectedUser);
 

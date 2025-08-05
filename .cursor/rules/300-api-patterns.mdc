@@ -4,7 +4,7 @@ description: "API development, REST endpoint creation, error handling implementa
 version: "1.0.0"
 author: "Cursor Rules"
 created: "2024-01-01"
-updated: "2024-01-01"
+updated: "2025-08-05"
 category: "api-development"
 priority: "high"
 tags:
@@ -1064,7 +1064,8 @@ class ElectronApiHandler {
         }
         
         // Simulate API call
-        return { id: userId, name: 'John Doe', email: 'john@example.com' };
+        // Example response data - replace with actual data structure for your application
+return { id: userId, name: 'John Doe', email: 'john@example.com' };
     }
     
     async createUser(userData) {
@@ -1141,7 +1142,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class FlutterApiClient {
-  static const String baseUrl = 'https://api.example.com';
+  // Example API endpoint - replace with actual endpoint for your application
+static const String baseUrl = 'https://api.example.com';
   static const Map<String, String> headers = {
     'Content-Type': 'application/json',
   };
@@ -1329,12 +1331,13 @@ using System.Text.Json;
 public class MauiApiClient
 {
     private readonly HttpClient _httpClient;
-    private readonly string _baseUrl = "https://api.example.com";
+    // Example API endpoint - replace with actual endpoint for your application
+private readonly string _baseUrl = "https://api.example.com";
     
     public MauiApiClient()
     {
         _httpClient = new HttpClient();
-        _httpClient.DefaultRequestHeaders.Add("User-Agent", "YourApp/1.0");
+        _httpClient.DefaultRequestHeaders.Add("User-Agent", "MyApplication/1.0");
     }
     
     // User management API

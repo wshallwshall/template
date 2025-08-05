@@ -4,7 +4,7 @@ description: "Comprehensive Git workflow standards, branching strategies, commit
 version: "1.0.0"
 author: "Cursor Rules"
 created: "2024-01-01"
-updated: "2024-01-01"
+updated: "2025-08-05"
 category: "version-control"
 priority: "high"
 tags:
@@ -584,6 +584,7 @@ jobs:
 ```bash
 # Set user information
 git config --global user.name "Your Name"
+# Example email - replace with your actual email address
 git config --global user.email "your.email@example.com"
 
 # Set default editor
@@ -619,7 +620,7 @@ git config --global credential.helper 'cache --timeout=3600'
     precomposeunicode = true
 
 [remote "origin"]
-    url = https://github.com/username/repository.git
+    url = https://github.com/your-username/your-repository.git
     fetch = +refs/heads/*:refs/remotes/origin/*
 
 [branch "main"]

@@ -4,7 +4,7 @@ description: "Comprehensive code quality standards, formatting guidelines, namin
 version: "1.0.0"
 author: "Cursor Rules"
 created: "2024-01-01"
-updated: "2024-01-01"
+updated: "2025-08-05"
 category: "code-quality"
 priority: "high"
 tags:
@@ -251,6 +251,7 @@ function calculateTotalPrice(items, taxRate, discountPercent) {
 ### JavaScript/TypeScript
 ```javascript
 // Use const by default, let when reassignment is needed
+// Example API endpoint - replace with actual endpoint for your application
 const config = { apiUrl: 'https://api.example.com' };
 let retryCount = 0;
 
