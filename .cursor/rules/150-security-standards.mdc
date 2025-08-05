@@ -1,0 +1,1382 @@
+---
+name: "Security Standards"
+description: "Comprehensive security standards, best practices, authentication patterns, data protection, and secure coding guidelines across multiple programming languages"
+version: "1.0.0"
+author: "Cursor Rules"
+created: "2024-01-01"
+updated: "2024-01-01"
+category: "security"
+priority: "high"
+tags:
+  - "security"
+  - "authentication"
+  - "authorization"
+  - "data-protection"
+  - "encryption"
+  - "input-validation"
+  - "secure-coding"
+  - "owasp"
+  - "vulnerabilities"
+  - "privacy"
+  - "compliance"
+  - "penetration-testing"
+
+# Apply Intelligently Settings
+applyIntelligently: true
+alwaysApply: false
+autoApply: false
+
+# Trigger Conditions
+triggers:
+  - "implementing authentication"
+  - "handling user input"
+  - "storing sensitive data"
+  - "implementing authorization"
+  - "processing user data"
+  - "connecting to databases"
+  - "handling passwords"
+  - "implementing encryption"
+  - "validating user input"
+  - "managing sessions"
+  - "handling file uploads"
+  - "implementing APIs"
+  - "storing configuration"
+  - "logging sensitive information"
+
+# File Patterns
+filePatterns:
+  - "**/*.js"
+  - "**/*.ts"
+  - "**/*.jsx"
+  - "**/*.tsx"
+  - "**/*.py"
+  - "**/*.java"
+  - "**/*.cs"
+  - "**/*.cpp"
+  - "**/*.h"
+  - "**/*.php"
+  - "**/*.rb"
+  - "**/*.go"
+  - "**/*.rs"
+  - "**/auth/**/*"
+  - "**/security/**/*"
+  - "**/middleware/**/*"
+  - "**/controllers/**/*"
+  - "**/services/**/*"
+  - "**/config/**/*"
+  - "**/utils/**/*"
+  - "**/helpers/**/*"
+  - "**/models/**/*"
+  - "**/routes/**/*"
+  - "**/api/**/*"
+  - "**/endpoints/**/*"
+
+# Language Support
+languages:
+  - "javascript"
+  - "typescript"
+  - "python"
+  - "java"
+  - "csharp"
+  - "cpp"
+  - "go"
+  - "rust"
+  - "swift"
+  - "kotlin"
+  - "dart"
+
+# Context Keywords
+keywords:
+  - "security"
+  - "authentication"
+  - "authorization"
+  - "encryption"
+  - "hashing"
+  - "password"
+  - "jwt"
+  - "oauth"
+  - "session"
+  - "csrf"
+  - "xss"
+  - "sql-injection"
+  - "input-validation"
+  - "sanitization"
+  - "vulnerability"
+  - "penetration-testing"
+  - "owasp"
+  - "compliance"
+  - "gdpr"
+  - "privacy"
+  - "data-protection"
+  - "secure-coding"
+  - "crypto"
+  - "bcrypt"
+  - "argon2"
+  - "salt"
+  - "pepper"
+  - "nonce"
+  - "csrf-token"
+  - "rate-limiting"
+  - "cors"
+  - "https"
+  - "tls"
+  - "ssl"
+
+# Exclusions
+excludePatterns:
+  - "node_modules/**"
+  - "dist/**"
+  - "build/**"
+  - ".git/**"
+  - "*.min.js"
+  - "*.bundle.js"
+  - "vendor/**"
+  - "target/**"
+  - "bin/**"
+  - "obj/**"
+  - "test/**"
+  - "tests/**"
+  - "__tests__/**"
+  - "coverage/**"
+
+# Dependencies
+dependencies: []
+
+# Related Rules
+relatedRules:
+  - "100-code-quality"
+  - "210-docs-standards"
+  - "300-api-patterns"
+
+# Usage Examples
+examples:
+  - "When implementing user authentication"
+  - "When handling user input and form data"
+  - "When storing sensitive information"
+  - "When implementing authorization checks"
+  - "When processing file uploads"
+  - "When connecting to databases"
+  - "When implementing API security"
+  - "When handling session management"
+  - "When implementing encryption"
+  - "When validating user permissions"
+
+# Notes
+notes:
+  - "This rule provides comprehensive security standards and best practices"
+  - "Covers OWASP Top 10 vulnerabilities and mitigation strategies"
+  - "Includes authentication, authorization, and data protection patterns"
+  - "Provides secure coding guidelines across multiple languages"
+  - "Addresses compliance requirements (GDPR, HIPAA, etc.)"
+  - "Includes penetration testing and vulnerability assessment guidance"
+---
+
+# Security Standards
+
+## Core Security Principles
+
+### Defense in Depth
+- **Multiple Layers**: Implement security at multiple levels
+- **Fail Securely**: Default to secure state when failures occur
+- **Principle of Least Privilege**: Grant minimum necessary permissions
+- **Zero Trust**: Never trust, always verify
+- **Security by Design**: Build security into the architecture from the start
+
+### Data Protection
+- **Data Classification**: Categorize data by sensitivity level
+- **Encryption at Rest**: Encrypt sensitive data in storage
+- **Encryption in Transit**: Use TLS/SSL for data transmission
+- **Data Minimization**: Collect and store only necessary data
+- **Data Retention**: Implement proper data lifecycle management
+
+## Authentication & Authorization
+
+### Password Security
+```javascript
+// Good: Use bcrypt with appropriate cost factor
+const bcrypt = require('bcrypt');
+const saltRounds = 12;
+
+async function hashPassword(password) {
+    return await bcrypt.hash(password, saltRounds);
+}
+
+async function verifyPassword(password, hash) {
+    return await bcrypt.compare(password, hash);
+}
+
+// Bad: Plain text or weak hashing
+function badHashPassword(password) {
+    return md5(password); // Weak and reversible
+}
+```
+
+### JWT Implementation
+```javascript
+// Good: Secure JWT implementation
+const jwt = require('jsonwebtoken');
+
+function generateToken(user) {
+    const payload = {
+        userId: user.id,
+        email: user.email,
+        role: user.role,
+        iat: Math.floor(Date.now() / 1000),
+        exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) // 24 hours
+    };
+    
+    return jwt.sign(payload, process.env.JWT_SECRET, {
+        algorithm: 'HS256',
+        issuer: 'your-app',
+        audience: 'your-app-users'
+    });
+}
+
+function verifyToken(token) {
+    try {
+        return jwt.verify(token, process.env.JWT_SECRET, {
+            algorithms: ['HS256'],
+            issuer: 'your-app',
+            audience: 'your-app-users'
+        });
+    } catch (error) {
+        throw new Error('Invalid token');
+    }
+}
+```
+
+### Session Management
+```javascript
+// Good: Secure session configuration
+const session = require('express-session');
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    name: 'sessionId', // Don't use default 'connect.sid'
+    cookie: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 1000 * 60 * 60 * 24 // 24 hours
+    },
+    resave: false,
+    saveUninitialized: false,
+    store: new RedisStore({
+        client: redisClient,
+        prefix: 'sess:'
+    })
+}));
+```
+
+## Input Validation & Sanitization
+
+### Input Validation Patterns
+```javascript
+// Good: Comprehensive input validation
+const Joi = require('joi');
+
+const userSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(8).pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/).required(),
+    age: Joi.number().integer().min(13).max(120),
+    role: Joi.string().valid('user', 'admin', 'moderator')
+});
+
+function validateUserInput(userData) {
+    const { error, value } = userSchema.validate(userData, {
+        abortEarly: false,
+        stripUnknown: true
+    });
+    
+    if (error) {
+        throw new ValidationError(error.details.map(d => d.message));
+    }
+    
+    return value;
+}
+```
+
+### SQL Injection Prevention
+```javascript
+// Good: Parameterized queries
+const mysql = require('mysql2/promise');
+
+async function getUserById(userId) {
+    const connection = await mysql.createConnection(config);
+    
+    try {
+        const [rows] = await connection.execute(
+            'SELECT * FROM users WHERE id = ? AND active = ?',
+            [userId, true]
+        );
+        return rows[0];
+    } finally {
+        await connection.end();
+    }
+}
+
+// Bad: String concatenation (vulnerable to SQL injection)
+function badGetUserById(userId) {
+    const query = `SELECT * FROM users WHERE id = ${userId}`;
+    // This is vulnerable to SQL injection
+}
+```
+
+### XSS Prevention
+```javascript
+// Good: Output encoding
+const he = require('he');
+
+function sanitizeOutput(data) {
+    if (typeof data === 'string') {
+        return he.encode(data);
+    }
+    
+    if (typeof data === 'object') {
+        const sanitized = {};
+        for (const [key, value] of Object.entries(data)) {
+            sanitized[key] = sanitizeOutput(value);
+        }
+        return sanitized;
+    }
+    
+    return data;
+}
+
+// Good: Content Security Policy
+app.use((req, res, next) => {
+    res.setHeader('Content-Security-Policy', 
+        "default-src 'self'; " +
+        "script-src 'self' 'unsafe-inline' https://cdn.example.com; " +
+        "style-src 'self' 'unsafe-inline'; " +
+        "img-src 'self' data: https:; " +
+        "font-src 'self' https://fonts.gstatic.com;"
+    );
+    next();
+});
+```
+
+## File Upload Security
+
+### Secure File Upload
+```javascript
+// Good: Secure file upload implementation
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        // Generate random filename to prevent path traversal
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + path.extname(file.originalname));
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    // Whitelist allowed file types
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    
+    if (allowedTypes.includes(file.mimetype)) {
+        cb(null, true);
+    } else {
+        cb(new Error('Invalid file type'), false);
+    }
+};
+
+const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter,
+    limits: {
+        fileSize: 5 * 1024 * 1024, // 5MB limit
+        files: 1
+    }
+});
+```
+
+## API Security
+
+### Rate Limiting
+```javascript
+// Good: Rate limiting implementation
+const rateLimit = require('express-rate-limit');
+
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // limit each IP to 5 requests per windowMs
+    message: 'Too many login attempts, please try again later',
+    standardHeaders: true,
+    legacyHeaders: false,
+    skipSuccessfulRequests: true
+});
+
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    message: 'Too many requests from this IP',
+    standardHeaders: true,
+    legacyHeaders: false
+});
+
+app.use('/auth', authLimiter);
+app.use('/api', apiLimiter);
+```
+
+### CORS Configuration
+```javascript
+// Good: Secure CORS configuration
+const cors = require('cors');
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Allow requests with no origin (mobile apps, etc.)
+        if (!origin) return callback(null, true);
+        
+        const allowedOrigins = [
+            'https://yourdomain.com',
+            'https://www.yourdomain.com',
+            'https://app.yourdomain.com'
+        ];
+        
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    maxAge: 86400 // 24 hours
+};
+
+app.use(cors(corsOptions));
+```
+
+## Environment & Configuration Security
+
+### Secure Configuration Management
+```javascript
+// Good: Environment variable management
+require('dotenv').config();
+
+const config = {
+    database: {
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        name: process.env.DB_NAME,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD
+    },
+    jwt: {
+        secret: process.env.JWT_SECRET,
+        expiresIn: process.env.JWT_EXPIRES_IN || '24h'
+    },
+    server: {
+        port: process.env.PORT || 3000,
+        nodeEnv: process.env.NODE_ENV || 'development'
+    }
+};
+
+// Validate required environment variables
+const requiredEnvVars = [
+    'DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASSWORD',
+    'JWT_SECRET'
+];
+
+requiredEnvVars.forEach(envVar => {
+    if (!process.env[envVar]) {
+        throw new Error(`Missing required environment variable: ${envVar}`);
+    }
+});
+```
+
+### Secure Logging
+```javascript
+// Good: Secure logging implementation
+const winston = require('winston');
+
+// Create custom format to mask sensitive data
+const maskSensitiveData = winston.format((info) => {
+    const sensitiveFields = ['password', 'token', 'secret', 'key', 'ssn', 'credit_card'];
+    
+    if (info.message && typeof info.message === 'object') {
+        const masked = { ...info.message };
+        sensitiveFields.forEach(field => {
+            if (masked[field]) {
+                masked[field] = '***MASKED***';
+            }
+        });
+        info.message = masked;
+    }
+    
+    return info;
+});
+
+const logger = winston.createLogger({
+    level: process.env.LOG_LEVEL || 'info',
+    format: winston.format.combine(
+        maskSensitiveData(),
+        winston.format.timestamp(),
+        winston.format.json()
+    ),
+    transports: [
+        new winston.transports.File({ filename: 'error.log', level: 'error' }),
+        new winston.transports.File({ filename: 'combined.log' })
+    ]
+});
+
+// Don't log sensitive data
+logger.info('User login attempt', {
+    userId: user.id,
+    email: user.email,
+    // Don't log password or token
+    ipAddress: req.ip,
+    userAgent: req.get('User-Agent')
+});
+```
+
+## Language-Specific Security Patterns
+
+### Python Security
+```python
+# Good: Secure password hashing with bcrypt
+import bcrypt
+import secrets
+
+def hash_password(password: str) -> str:
+    salt = bcrypt.gensalt(rounds=12)
+    return bcrypt.hashpw(password.encode('utf-8'), salt).decode('utf-8')
+
+def verify_password(password: str, hashed: str) -> bool:
+    return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
+
+# Good: Secure random token generation
+def generate_secure_token() -> str:
+    return secrets.token_urlsafe(32)
+
+# Good: Input validation with Pydantic
+from pydantic import BaseModel, EmailStr, validator
+from typing import Optional
+
+class UserCreate(BaseModel):
+    email: EmailStr
+    password: str
+    age: Optional[int] = None
+    
+    @validator('password')
+    def validate_password(cls, v):
+        if len(v) < 8:
+            raise ValueError('Password must be at least 8 characters')
+        if not any(c.isupper() for c in v):
+            raise ValueError('Password must contain uppercase letter')
+        if not any(c.islower() for c in v):
+            raise ValueError('Password must contain lowercase letter')
+        if not any(c.isdigit() for c in v):
+            raise ValueError('Password must contain digit')
+        return v
+```
+
+### Java Security
+```java
+// Good: Secure password hashing with BCrypt
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+public class PasswordService {
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+    
+    public static String hashPassword(String password) {
+        return encoder.encode(password);
+    }
+    
+    public static boolean verifyPassword(String password, String hash) {
+        return encoder.matches(password, hash);
+    }
+}
+
+// Good: Input validation with Bean Validation
+import javax.validation.constraints.*;
+
+public class UserCreateRequest {
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
+    private String email;
+    
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, message = "Password must be at least 8 characters")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", 
+             message = "Password must contain uppercase, lowercase, and digit")
+    private String password;
+    
+    @Min(value = 13, message = "Age must be at least 13")
+    @Max(value = 120, message = "Age must be at most 120")
+    private Integer age;
+    
+    // Getters and setters
+}
+```
+
+### C# Security
+```csharp
+// Good: Secure password hashing with BCrypt
+using BCrypt.Net;
+
+public class PasswordService
+{
+    public static string HashPassword(string password)
+    {
+        return BCrypt.HashPassword(password, BCrypt.GenerateSalt(12));
+    }
+    
+    public static bool VerifyPassword(string password, string hash)
+    {
+        return BCrypt.Verify(password, hash);
+    }
+}
+
+// Good: Input validation with Data Annotations
+using System.ComponentModel.DataAnnotations;
+
+public class UserCreateRequest
+{
+    [Required(ErrorMessage = "Email is required")]
+    [EmailAddress(ErrorMessage = "Invalid email format")]
+    public string Email { get; set; }
+    
+    [Required(ErrorMessage = "Password is required")]
+    [MinLength(8, ErrorMessage = "Password must be at least 8 characters")]
+    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$", 
+                      ErrorMessage = "Password must contain uppercase, lowercase, and digit")]
+    public string Password { get; set; }
+    
+    [Range(13, 120, ErrorMessage = "Age must be between 13 and 120")]
+    public int? Age { get; set; }
+}
+```
+
+### Swift Security
+```swift
+// Good: Secure password hashing with CryptoKit
+import CryptoKit
+import Foundation
+
+class SecurityManager {
+    static let shared = SecurityManager()
+    private init() {}
+    
+    func hashPassword(_ password: String) throws -> String {
+        let salt = Data.random(count: 32)
+        let hash = SHA256.hash(data: (password + salt.base64EncodedString()).data(using: .utf8)!)
+        return "\(hash.compactMap { String(format: "%02x", $0) }.joined()):\(salt.base64EncodedString())"
+    }
+    
+    func verifyPassword(_ password: String, against hash: String) -> Bool {
+        let components = hash.split(separator: ":")
+        guard components.count == 2,
+              let saltData = Data(base64Encoded: String(components[1])) else {
+            return false
+        }
+        
+        let testHash = SHA256.hash(data: (password + components[1]).data(using: .utf8)!)
+        let testHashString = testHash.compactMap { String(format: "%02x", $0) }.joined()
+        
+        return testHashString == components[0]
+    }
+    
+    func encryptData(_ data: Data, with key: SymmetricKey) throws -> Data {
+        let sealedBox = try AES.GCM.seal(data, using: key)
+        return sealedBox.combined!
+    }
+    
+    func decryptData(_ data: Data, with key: SymmetricKey) throws -> Data {
+        let sealedBox = try AES.GCM.SealedBox(combined: data)
+        return try AES.GCM.open(sealedBox, using: key)
+    }
+}
+
+// Good: Input validation and sanitization
+struct UserCreateRequest: Codable {
+    let email: String
+    let password: String
+    let name: String
+    
+    init(email: String, password: String, name: String) throws {
+        // Validate email format
+        let emailRegex = try NSRegularExpression(pattern: "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
+        let emailRange = NSRange(location: 0, length: email.utf16.count)
+        guard emailRegex.firstMatch(in: email, range: emailRange) != nil else {
+            throw ValidationError.invalidEmail
+        }
+        
+        // Validate password strength
+        guard password.count >= 8,
+              password.range(of: "[A-Z]", options: .regularExpression) != nil,
+              password.range(of: "[a-z]", options: .regularExpression) != nil,
+              password.range(of: "[0-9]", options: .regularExpression) != nil else {
+            throw ValidationError.weakPassword
+        }
+        
+        // Sanitize inputs
+        self.email = email.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        self.password = password
+        self.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+}
+
+enum ValidationError: Error, LocalizedError {
+    case invalidEmail
+    case weakPassword
+    case invalidInput
+    
+    var errorDescription: String? {
+        switch self {
+        case .invalidEmail:
+            return "Invalid email format"
+        case .weakPassword:
+            return "Password must be at least 8 characters with uppercase, lowercase, and digit"
+        case .invalidInput:
+            return "Invalid input provided"
+        }
+    }
+}
+```
+
+### Kotlin Security
+```kotlin
+// Good: Secure password hashing with BCrypt
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import java.security.SecureRandom
+import javax.crypto.Cipher
+import javax.crypto.KeyGenerator
+import javax.crypto.SecretKey
+import javax.crypto.spec.GCMParameterSpec
+import javax.crypto.spec.SecretKeySpec
+import java.util.*
+
+class SecurityManager {
+    private val passwordEncoder = BCryptPasswordEncoder()
+    private val secureRandom = SecureRandom()
+    
+    fun hashPassword(password: String): String {
+        return passwordEncoder.encode(password)
+    }
+    
+    fun verifyPassword(password: String, encodedPassword: String): Boolean {
+        return passwordEncoder.matches(password, encodedPassword)
+    }
+    
+    fun encryptData(data: ByteArray, key: SecretKey): ByteArray {
+        val cipher = Cipher.getInstance("AES/GCM/NoPadding")
+        val iv = ByteArray(12)
+        secureRandom.nextBytes(iv)
+        
+        val gcmSpec = GCMParameterSpec(128, iv)
+        cipher.init(Cipher.ENCRYPT_MODE, key, gcmSpec)
+        
+        val encryptedData = cipher.doFinal(data)
+        return iv + encryptedData
+    }
+    
+    fun decryptData(encryptedData: ByteArray, key: SecretKey): ByteArray {
+        val cipher = Cipher.getInstance("AES/GCM/NoPadding")
+        val iv = encryptedData.sliceArray(0..11)
+        val data = encryptedData.sliceArray(12 until encryptedData.size)
+        
+        val gcmSpec = GCMParameterSpec(128, iv)
+        cipher.init(Cipher.DECRYPT_MODE, key, gcmSpec)
+        
+        return cipher.doFinal(data)
+    }
+}
+
+// Good: Input validation with data classes
+data class UserCreateRequest(
+    val email: String,
+    val password: String,
+    val name: String
+) {
+    init {
+        require(email.isNotBlank()) { "Email cannot be blank" }
+        require(password.isNotBlank()) { "Password cannot be blank" }
+        require(name.isNotBlank()) { "Name cannot be blank" }
+        
+        // Validate email format
+        val emailRegex = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
+        require(emailRegex.matches(email)) { "Invalid email format" }
+        
+        // Validate password strength
+        require(password.length >= 8) { "Password must be at least 8 characters" }
+        require(password.any { it.isUpperCase() }) { "Password must contain uppercase letter" }
+        require(password.any { it.isLowerCase() }) { "Password must contain lowercase letter" }
+        require(password.any { it.isDigit() }) { "Password must contain digit" }
+        
+        // Validate name
+        require(name.length >= 2) { "Name must be at least 2 characters" }
+        require(name.all { it.isLetterOrDigit() || it.isWhitespace() }) { "Name contains invalid characters" }
+    }
+}
+
+// Good: JWT token validation
+class JwtTokenValidator {
+    fun validateToken(token: String): Boolean {
+        return try {
+            // Implement JWT validation logic
+            // Verify signature, check expiration, validate claims
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+    
+    fun extractClaims(token: String): Map<String, Any> {
+        // Extract and return JWT claims
+        return emptyMap()
+    }
+}
+
+// Good: Role-based access control
+enum class UserRole {
+    USER, ADMIN, MODERATOR
+}
+
+data class User(
+    val id: String,
+    val email: String,
+    val roles: Set<UserRole>
+) {
+    fun hasRole(role: UserRole): Boolean = roles.contains(role)
+    
+    fun hasAnyRole(vararg roles: UserRole): Boolean = roles.any { this.roles.contains(it) }
+}
+
+class AuthorizationService {
+    fun requireRole(user: User, requiredRole: UserRole) {
+        if (!user.hasRole(requiredRole)) {
+            throw SecurityException("Insufficient permissions")
+        }
+    }
+    
+    fun requireAnyRole(user: User, vararg roles: UserRole) {
+        if (!user.hasAnyRole(*roles)) {
+            throw SecurityException("Insufficient permissions")
+        }
+    }
+}
+```
+
+### Electron Security
+```javascript
+// Good: Electron security best practices
+const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require('path');
+
+// Disable node integration in renderer process
+function createWindow() {
+    const mainWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: false,
+            contextIsolation: true,
+            enableRemoteModule: false,
+            preload: path.join(__dirname, 'preload.js')
+        }
+    });
+
+    mainWindow.loadFile('index.html');
+}
+
+// Secure IPC communication
+ipcMain.handle('secure-operation', async (event, data) => {
+    // Validate input data
+    if (!data || typeof data !== 'object') {
+        throw new Error('Invalid input data');
+    }
+
+    // Sanitize data before processing
+    const sanitizedData = sanitizeInput(data);
+    
+    // Perform secure operation
+    return await performSecureOperation(sanitizedData);
+});
+
+// Content Security Policy
+app.on('web-contents-created', (event, contents) => {
+    contents.session.webRequest.onHeadersReceived((details, callback) => {
+        callback({
+            responseHeaders: {
+                ...details.responseHeaders,
+                'Content-Security-Policy': [
+                    "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
+                ]
+            }
+        });
+    });
+});
+
+// Disable dangerous features
+app.on('ready', () => {
+    // Disable navigation
+    app.on('web-contents-created', (event, contents) => {
+        contents.on('will-navigate', (event, navigationUrl) => {
+            event.preventDefault();
+        });
+    });
+});
+```
+
+### Flutter Security
+```dart
+// Good: Flutter security best practices
+import 'package:crypto/crypto.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
+
+class SecurityManager {
+  static const _storage = FlutterSecureStorage();
+  
+  // Secure storage for sensitive data
+  static Future<void> storeSecureData(String key, String value) async {
+    await _storage.write(key: key, value: value);
+  }
+  
+  static Future<String?> getSecureData(String key) async {
+    return await _storage.read(key: key);
+  }
+  
+  // Secure password hashing
+  static String hashPassword(String password) {
+    final bytes = utf8.encode(password);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
+  }
+  
+  // Input validation
+  static bool isValidEmail(String email) {
+    final emailRegex = RegExp(r'^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$');
+    return emailRegex.hasMatch(email);
+  }
+  
+  static bool isValidPassword(String password) {
+    return password.length >= 8 &&
+           password.contains(RegExp(r'[A-Z]')) &&
+           password.contains(RegExp(r'[a-z]')) &&
+           password.contains(RegExp(r'[0-9]'));
+  }
+  
+  // Secure HTTP requests
+  static Future<http.Response> secureGet(String url) async {
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${await getSecureData('auth_token')}',
+      },
+    );
+    
+    if (response.statusCode == 401) {
+      // Handle unauthorized access
+      throw UnauthorizedException();
+    }
+    
+    return response;
+  }
+}
+
+// Secure form validation
+class SecureFormValidator {
+  static String? validateEmail(String? email) {
+    if (email == null || email.isEmpty) {
+      return 'Email is required';
+    }
+    if (!SecurityManager.isValidEmail(email)) {
+      return 'Invalid email format';
+    }
+    return null;
+  }
+  
+  static String? validatePassword(String? password) {
+    if (password == null || password.isEmpty) {
+      return 'Password is required';
+    }
+    if (!SecurityManager.isValidPassword(password)) {
+      return 'Password must be at least 8 characters with uppercase, lowercase, and digit';
+    }
+    return null;
+  }
+}
+```
+
+### .NET MAUI Security
+```csharp
+// Good: .NET MAUI security best practices
+using System.Security.Cryptography;
+using System.Text;
+using Microsoft.Maui.Storage;
+
+public class SecurityManager
+{
+    private readonly IPreferences _preferences;
+    
+    public SecurityManager(IPreferences preferences)
+    {
+        _preferences = preferences;
+    }
+    
+    // Secure storage for sensitive data
+    public async Task StoreSecureDataAsync(string key, string value)
+    {
+        var encryptedValue = await EncryptAsync(value);
+        await SecureStorage.Default.SetAsync(key, encryptedValue);
+    }
+    
+    public async Task<string> GetSecureDataAsync(string key)
+    {
+        var encryptedValue = await SecureStorage.Default.GetAsync(key);
+        if (string.IsNullOrEmpty(encryptedValue))
+            return null;
+            
+        return await DecryptAsync(encryptedValue);
+    }
+    
+    // Secure encryption/decryption
+    private async Task<string> EncryptAsync(string plainText)
+    {
+        using var aes = Aes.Create();
+        aes.Key = GetEncryptionKey();
+        aes.GenerateIV();
+        
+        using var encryptor = aes.CreateEncryptor();
+        using var msEncrypt = new MemoryStream();
+        using var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write);
+        using var swEncrypt = new StreamWriter(csEncrypt);
+        
+        await swEncrypt.WriteAsync(plainText);
+        await swEncrypt.FlushAsync();
+        csEncrypt.FlushFinalBlock();
+        
+        var encrypted = msEncrypt.ToArray();
+        var result = new byte[aes.IV.Length + encrypted.Length];
+        Buffer.BlockCopy(aes.IV, 0, result, 0, aes.IV.Length);
+        Buffer.BlockCopy(encrypted, 0, result, aes.IV.Length, encrypted.Length);
+        
+        return Convert.ToBase64String(result);
+    }
+    
+    private async Task<string> DecryptAsync(string cipherText)
+    {
+        var fullCipher = Convert.FromBase64String(cipherText);
+        
+        using var aes = Aes.Create();
+        aes.Key = GetEncryptionKey();
+        
+        var iv = new byte[aes.IV.Length];
+        var cipher = new byte[fullCipher.Length - iv.Length];
+        
+        Buffer.BlockCopy(fullCipher, 0, iv, 0, iv.Length);
+        Buffer.BlockCopy(fullCipher, iv.Length, cipher, 0, cipher.Length);
+        
+        aes.IV = iv;
+        
+        using var decryptor = aes.CreateDecryptor();
+        using var msDecrypt = new MemoryStream(cipher);
+        using var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read);
+        using var srDecrypt = new StreamReader(csDecrypt);
+        
+        return await srDecrypt.ReadToEndAsync();
+    }
+    
+    private byte[] GetEncryptionKey()
+    {
+        // In production, use a secure key management system
+        // Replace this with your actual secret key from secure configuration
+        var key = "YOUR_SECRET_KEY_HERE";
+        using var sha256 = SHA256.Create();
+        return sha256.ComputeHash(Encoding.UTF8.GetBytes(key));
+    }
+    
+    // Input validation
+    public static bool IsValidEmail(string email)
+    {
+        if (string.IsNullOrWhiteSpace(email))
+            return false;
+            
+        try
+        {
+            var addr = new System.Net.Mail.MailAddress(email);
+            return addr.Address == email;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    
+    public static bool IsValidPassword(string password)
+    {
+        return !string.IsNullOrEmpty(password) &&
+               password.Length >= 8 &&
+               password.Any(char.IsUpper) &&
+               password.Any(char.IsLower) &&
+               password.Any(char.IsDigit);
+    }
+}
+
+// Secure HTTP client
+public class SecureHttpClient
+{
+    private readonly HttpClient _httpClient;
+    private readonly SecurityManager _securityManager;
+    
+    public SecureHttpClient(SecurityManager securityManager)
+    {
+        _securityManager = securityManager;
+        _httpClient = new HttpClient();
+        _httpClient.DefaultRequestHeaders.Add("User-Agent", "YourApp/1.0");
+    }
+    
+    public async Task<string> GetSecureAsync(string url)
+    {
+        var token = await _securityManager.GetSecureDataAsync("auth_token");
+        if (!string.IsNullOrEmpty(token))
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+        }
+        
+        var response = await _httpClient.GetAsync(url);
+        response.EnsureSuccessStatusCode();
+        
+        return await response.Content.ReadAsStringAsync();
+    }
+}
+```
+
+## Security Headers
+
+### HTTP Security Headers
+```javascript
+// Good: Security headers middleware
+const helmet = require('helmet');
+
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            styleSrc: ["'self'", "'unsafe-inline'"],
+            scriptSrc: ["'self'"],
+            imgSrc: ["'self'", "data:", "https:"],
+            connectSrc: ["'self'"],
+            fontSrc: ["'self'", "https://fonts.gstatic.com"],
+            objectSrc: ["'none'"],
+            mediaSrc: ["'self'"],
+            frameSrc: ["'none'"]
+        }
+    },
+    hsts: {
+        maxAge: 31536000,
+        includeSubDomains: true,
+        preload: true
+    }
+}));
+
+// Additional security headers
+app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+    next();
+});
+```
+
+## Vulnerability Prevention
+
+### OWASP Top 10 Mitigation
+
+#### 1. Broken Access Control
+```javascript
+// Good: Role-based access control
+function requireRole(role) {
+    return (req, res, next) => {
+        if (!req.user) {
+            return res.status(401).json({ error: 'Authentication required' });
+        }
+        
+        if (!req.user.roles.includes(role)) {
+            return res.status(403).json({ error: 'Insufficient permissions' });
+        }
+        
+        next();
+    };
+}
+
+// Use middleware
+app.get('/admin/users', requireRole('admin'), (req, res) => {
+    // Only admins can access this endpoint
+});
+```
+
+#### 2. Cryptographic Failures
+```javascript
+// Good: Secure encryption
+const crypto = require('crypto');
+
+function encryptData(data, key) {
+    const iv = crypto.randomBytes(16);
+    const cipher = crypto.createCipher('aes-256-gcm', key);
+    
+    let encrypted = cipher.update(data, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    
+    const authTag = cipher.getAuthTag();
+    
+    return {
+        encrypted,
+        iv: iv.toString('hex'),
+        authTag: authTag.toString('hex')
+    };
+}
+
+function decryptData(encryptedData, key, iv, authTag) {
+    const decipher = crypto.createDecipher('aes-256-gcm', key);
+    decipher.setAuthTag(Buffer.from(authTag, 'hex'));
+    
+    let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+    
+    return decrypted;
+}
+```
+
+#### 3. Injection Prevention
+```javascript
+// Good: Parameterized queries (already shown above)
+// Good: Input validation and sanitization (already shown above)
+
+// Additional: NoSQL injection prevention
+function validateObjectId(id) {
+    const ObjectId = require('mongodb').ObjectId;
+    
+    if (!ObjectId.isValid(id)) {
+        throw new Error('Invalid ID format');
+    }
+    
+    return new ObjectId(id);
+}
+```
+
+## Security Testing
+
+### Penetration Testing Checklist
+- [ ] **Authentication Testing**
+  - [ ] Test password policies
+  - [ ] Test account lockout mechanisms
+  - [ ] Test session management
+  - [ ] Test multi-factor authentication
+
+- [ ] **Authorization Testing**
+  - [ ] Test role-based access control
+  - [ ] Test privilege escalation
+  - [ ] Test horizontal privilege escalation
+  - [ ] Test vertical privilege escalation
+
+- [ ] **Input Validation Testing**
+  - [ ] Test SQL injection vulnerabilities
+  - [ ] Test XSS vulnerabilities
+  - [ ] Test CSRF vulnerabilities
+  - [ ] Test file upload vulnerabilities
+
+- [ ] **Configuration Testing**
+  - [ ] Test default configurations
+  - [ ] Test error handling
+  - [ ] Test security headers
+  - [ ] Test SSL/TLS configuration
+
+### Security Code Review Checklist
+- [ ] **Authentication & Authorization**
+  - [ ] Are passwords properly hashed?
+  - [ ] Are sessions properly managed?
+  - [ ] Are access controls implemented?
+  - [ ] Are tokens properly validated?
+
+- [ ] **Input Validation**
+  - [ ] Is all user input validated?
+  - [ ] Is output properly encoded?
+  - [ ] Are file uploads secured?
+  - [ ] Are database queries parameterized?
+
+- [ ] **Configuration**
+  - [ ] Are secrets properly managed?
+  - [ ] Are security headers set?
+  - [ ] Is HTTPS enforced?
+  - [ ] Are error messages sanitized?
+
+## Compliance & Standards
+
+### GDPR Compliance
+```javascript
+// Good: GDPR-compliant data handling
+class GDPRCompliance {
+    static async processDataRequest(userId, requestType) {
+        switch (requestType) {
+            case 'access':
+                return await this.provideDataAccess(userId);
+            case 'deletion':
+                return await this.deleteUserData(userId);
+            case 'portability':
+                return await this.exportUserData(userId);
+            default:
+                throw new Error('Invalid request type');
+        }
+    }
+    
+    static async deleteUserData(userId) {
+        // Anonymize or delete user data
+        await db.users.updateOne(
+            { _id: userId },
+            { 
+                $set: {
+                    email: null,
+                    name: 'DELETED',
+                    deletedAt: new Date(),
+                    dataRetention: false
+                }
+            }
+        );
+    }
+}
+```
+
+## Best Practices Summary
+
+### Do's
+- ✅ Use strong password hashing (bcrypt, Argon2)
+- ✅ Implement proper input validation
+- ✅ Use parameterized queries
+- ✅ Enable HTTPS everywhere
+- ✅ Implement rate limiting
+- ✅ Use secure session management
+- ✅ Validate file uploads
+- ✅ Implement proper error handling
+- ✅ Use security headers
+- ✅ Regular security audits
+
+### Don'ts
+- ❌ Store passwords in plain text
+- ❌ Trust user input
+- ❌ Use weak encryption
+- ❌ Expose sensitive data in logs
+- ❌ Use default configurations
+- ❌ Skip input validation
+- ❌ Use predictable tokens
+- ❌ Ignore security updates
+- ❌ Log sensitive information
+- ❌ Use deprecated security methods
+description:
+globs:
+alwaysApply: false
+---

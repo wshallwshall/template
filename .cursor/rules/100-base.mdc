@@ -1,0 +1,313 @@
+---
+name: "Base Project Standards"
+description: "Universal project-wide foundation and governance for multi-language development"
+version: "1.0.0"
+author: "Cursor Rules"
+created: "2024-01-01"
+updated: "2024-01-15"
+category: "foundation"
+priority: "critical"
+tags:
+  - "foundation"
+  - "governance"
+  - "multi-language"
+  - "best-practices"
+  - "security"
+  - "testing"
+  - "documentation"
+  - "project-structure"
+  - "development-workflow"
+  - "code-quality"
+  - "error-handling"
+  - "performance"
+  - "monitoring"
+  - "observability"
+
+# Apply Intelligently Settings
+applyIntelligently: true
+alwaysApply: true
+autoApply: true
+
+# Trigger Conditions
+triggers:
+  - "starting new project"
+  - "setting up project structure"
+  - "establishing development standards"
+  - "configuring development environment"
+  - "setting up CI/CD pipeline"
+  - "implementing security practices"
+  - "writing documentation"
+  - "setting up testing framework"
+  - "configuring monitoring and logging"
+  - "establishing code review process"
+  - "defining project architecture"
+  - "setting up version control workflow"
+
+# File Patterns
+filePatterns:
+  - "**/*.md"
+  - "**/README.md"
+  - "**/package.json"
+  - "**/requirements.txt"
+  - "**/pom.xml"
+  - "**/*.csproj"
+  - "**/Cargo.toml"
+  - "**/go.mod"
+  - "**/Gemfile"
+  - "**/composer.json"
+  - "**/pubspec.yaml"
+  - "**/.gitignore"
+  - "**/Dockerfile"
+  - "**/docker-compose.yml"
+  - "**/.env*"
+  - "**/config/**"
+  - "**/docs/**"
+
+# Language Support
+languages:
+  - "javascript"
+  - "typescript"
+  - "python"
+  - "java"
+  - "csharp"
+  - "cpp"
+  - "c"
+  - "go"
+  - "rust"
+  - "php"
+  - "ruby"
+  - "swift"
+  - "kotlin"
+  - "scala"
+  - "dart"
+  - "bash"
+  - "powershell"
+  - "yaml"
+  - "json"
+  - "toml"
+  - "xml"
+
+# Context Keywords
+keywords:
+  - "project-structure"
+  - "development-workflow"
+  - "code-quality"
+  - "documentation"
+  - "security"
+  - "testing"
+  - "performance"
+  - "monitoring"
+  - "observability"
+  - "error-handling"
+  - "configuration"
+  - "environment"
+  - "deployment"
+  - "ci-cd"
+  - "version-control"
+  - "code-review"
+  - "best-practices"
+  - "standards"
+  - "guidelines"
+  - "foundation"
+  - "governance"
+  - "multi-language"
+  - "project-setup"
+  - "development-tools"
+
+# Exclusions
+exclusions:
+  - "node_modules/**"
+  - "vendor/**"
+  - "target/**"
+  - "build/**"
+  - "dist/**"
+  - ".git/**"
+  - "*.log"
+  - "*.tmp"
+
+---
+
+# Base Project Standards
+
+## Project Structure & Organization
+- Follow consistent directory structure across all projects
+- Organize code by feature or domain rather than technical layers
+- Separate configuration from code using environment-specific files
+- Maintain clear separation between source code, tests, and documentation
+- Use meaningful directory and file names that reflect their purpose
+- Keep related files close together (co-location principle)
+
+## Code Quality & Structure
+- Maintain clear documentation and structured code
+- Use atomic feature branches and clear commit messages
+- Encode error handling, secure defaults, and input validation globally
+- Follow language-specific conventions and best practices
+- Use meaningful variable and function names that express intent
+- Keep functions small and focused on single responsibilities
+- Prefer composition over inheritance where appropriate
+- Apply SOLID principles and design patterns appropriately
+
+## Documentation Standards
+- Write self-documenting code with clear naming conventions
+- Include docstrings/comments for public APIs and complex logic
+- Maintain up-to-date README files with setup and usage instructions
+- Document architectural decisions and design patterns used
+- Use consistent formatting for code comments across languages
+- Keep documentation close to the code it describes
+
+## Error Handling & Resilience
+- Implement comprehensive error handling with meaningful error messages
+- Use appropriate exception types and error codes
+- Log errors with sufficient context for debugging
+- Implement graceful degradation where possible
+- Validate all external inputs and handle edge cases
+- Use defensive programming techniques
+
+## Security Practices
+- Never hardcode sensitive information (passwords, API keys, tokens)
+- Use environment variables or secure configuration management
+- Implement proper input validation and sanitization
+- Follow OWASP security guidelines for web applications
+- Use secure defaults and fail-safe mechanisms
+- Apply principle of least privilege
+
+## Testing & Quality Assurance
+- Write unit tests for critical business logic
+- Include integration tests for API endpoints and data flows
+- Use mocking and stubbing for external dependencies
+- Maintain good test coverage (aim for 80%+ on critical paths)
+- Run tests before committing code changes
+- Use test-driven development when appropriate
+
+## Performance & Optimization
+- Profile code to identify bottlenecks before optimizing
+- Use appropriate data structures and algorithms
+- Implement caching strategies where beneficial
+- Consider memory usage and resource management
+- Optimize for readability first, performance second
+- Monitor and measure performance in production
+
+## Language-Specific Guidelines
+
+### Python
+- Follow PEP 8 style guidelines
+- Use type hints for function parameters and return values
+- Prefer list comprehensions and generator expressions
+- Use context managers for resource management
+- Implement `__str__` and `__repr__` methods for custom classes
+
+### JavaScript/TypeScript
+- Use ES6+ features (const/let, arrow functions, destructuring)
+- Implement proper TypeScript types and interfaces
+- Use async/await instead of callbacks where possible
+- Follow ESLint and Prettier configurations
+- Use meaningful variable names and avoid abbreviations
+
+### C++
+- Follow RAII principles for resource management
+- Use smart pointers instead of raw pointers
+- Implement const correctness throughout
+- Use references to avoid unnecessary copying
+- Follow the Rule of Three/Five/Zero for copy semantics
+
+### Java
+- Follow Java naming conventions (camelCase, PascalCase)
+- Use appropriate access modifiers (private, protected, public)
+- Implement equals() and hashCode() consistently
+- Use try-with-resources for resource management
+- Prefer composition over inheritance
+
+### C#
+- Follow C# naming conventions and coding standards
+- Use properties instead of public fields
+- Implement IDisposable for resource cleanup
+- Use LINQ for data manipulation where appropriate
+- Follow async/await patterns consistently
+
+### Dart (Flutter)
+- Follow Dart naming conventions (camelCase for variables, PascalCase for classes)
+- Use strong typing and avoid dynamic types
+- Implement proper widget lifecycle management
+- Use const constructors for immutable widgets
+- Follow Flutter's widget composition patterns
+- Use async/await for asynchronous operations
+- Implement proper state management (Provider, Riverpod, Bloc)
+
+### Cross-Platform Frameworks
+- **Electron**: Use TypeScript for type safety, implement proper IPC patterns
+- **Flutter**: Follow Material Design or Cupertino guidelines, use responsive design
+- **.NET MAUI**: Use XAML for UI, implement MVVM pattern, follow platform-specific guidelines
+
+## Development Workflow
+- Use version control effectively with meaningful commit messages
+- Create feature branches for new development
+- Review code before merging to main branches
+- Keep commits atomic and focused on single changes
+- Use conventional commit message format
+- Implement continuous integration and deployment
+
+## Code Review Standards
+- Review for functionality, security, and maintainability
+- Check for proper error handling and edge cases
+- Ensure documentation is updated with code changes
+- Verify that tests are included for new functionality
+- Look for potential performance issues and security vulnerabilities
+
+## Environment & Configuration
+- Use environment-specific configuration files
+- Never commit sensitive configuration data
+- Use dependency management tools appropriately
+- Maintain consistent development environments
+- Document setup and deployment procedures
+- Use containerization for consistent environments
+
+## Monitoring & Observability
+- Implement structured logging with appropriate log levels
+- Use correlation IDs for request tracing
+- Monitor application performance and error rates
+- Implement health checks for services
+- Use metrics and alerting for production systems
+- Set up proper error tracking and alerting
+
+## Essential Development Tools
+- **Version Control**: Git with proper branching strategies
+- **Code Quality**: Linters, formatters, and static analysis tools
+- **Testing**: Unit testing frameworks and test runners
+- **Documentation**: API documentation generators and README templates
+- **CI/CD**: Automated testing and deployment pipelines
+- **Monitoring**: Application performance monitoring and logging
+- **Security**: Dependency vulnerability scanners and security linters
+
+## Related Rule Files
+
+This base rule works in conjunction with specialized rule files:
+
+- **[110-code-quality.mdc](./110-code-quality.mdc)** - Detailed code quality standards and formatting guidelines
+- **[150-security-standards.mdc](./150-security-standards.mdc)** - Comprehensive security practices and patterns
+- **[200-testing-patterns.mdc](./200-testing-patterns.mdc)** - Testing strategies and best practices
+- **[210-docs-standards.mdc](./210-docs-standards.mdc)** - Documentation standards and templates
+- **[250-performance-guidelines.mdc](./250-performance-guidelines.mdc)** - Performance optimization strategies
+- **[300-api-patterns.mdc](./300-api-patterns.mdc)** - API development patterns and standards
+- **[700-git-workflow.mdc](./700-git-workflow.mdc)** - Git workflow and branching strategies
+
+## Project Templates
+
+Use the documentation templates in `docs/templates/` as starting points for new projects. These templates should be customized for each specific project's requirements and features.
+
+## Getting Started Checklist
+
+For new projects, ensure you have:
+
+- [ ] Project structure and directory layout defined
+- [ ] Development environment setup documented
+- [ ] Code quality tools configured (linters, formatters)
+- [ ] Testing framework and coverage tools set up
+- [ ] CI/CD pipeline configured
+- [ ] Documentation templates customized
+- [ ] Security scanning tools integrated
+- [ ] Monitoring and logging configured
+- [ ] Environment-specific configurations created
+- [ ] Team development workflow established
+
+
+

@@ -1,0 +1,668 @@
+---
+name: "Git Workflow"
+description: "Comprehensive Git workflow standards, branching strategies, commit message conventions, code review processes, and version control best practices"
+version: "1.0.0"
+author: "Cursor Rules"
+created: "2024-01-01"
+updated: "2024-01-01"
+category: "version-control"
+priority: "high"
+tags:
+  - "git"
+  - "version-control"
+  - "branching"
+  - "commits"
+  - "code-review"
+  - "merge"
+  - "rebase"
+  - "workflow"
+  - "ci-cd"
+  - "deployment"
+  - "releases"
+  - "semantic-versioning"
+
+# Apply Intelligently Settings
+applyIntelligently: true
+alwaysApply: false
+autoApply: false
+
+# Trigger Conditions
+triggers:
+  - "creating git commits"
+  - "writing commit messages"
+  - "creating branches"
+  - "merging code"
+  - "reviewing code"
+  - "managing releases"
+  - "setting up git hooks"
+  - "configuring git workflow"
+  - "resolving merge conflicts"
+  - "managing git history"
+  - "deploying code"
+  - "versioning software"
+
+# File Patterns
+filePatterns:
+  - ".gitignore"
+  - ".gitattributes"
+  - ".git/hooks/**/*"
+  - "package.json"
+  - "requirements.txt"
+  - "pom.xml"
+  - "build.gradle"
+  - "*.csproj"
+  - "CMakeLists.txt"
+  - "Makefile"
+  - "Dockerfile"
+  - "docker-compose.yml"
+  - "README.md"
+  - "CHANGELOG.md"
+  - "CONTRIBUTING.md"
+  - "docs/**/*.md"
+  - "scripts/**/*"
+  - "ci/**/*"
+  - ".github/**/*"
+  - ".gitlab-ci.yml"
+  - "Jenkinsfile"
+
+# Language Support
+languages:
+  - "git"
+  - "markdown"
+  - "yaml"
+  - "json"
+  - "bash"
+  - "shell"
+
+# Context Keywords
+keywords:
+  - "git"
+  - "commit"
+  - "branch"
+  - "merge"
+  - "rebase"
+  - "pull-request"
+  - "code-review"
+  - "version-control"
+  - "workflow"
+  - "ci-cd"
+  - "deployment"
+  - "release"
+  - "semantic-versioning"
+  - "conventional-commits"
+  - "gitflow"
+  - "github-flow"
+  - "trunk-based-development"
+  - "feature-branch"
+  - "hotfix"
+  - "release-branch"
+  - "main-branch"
+  - "develop-branch"
+  - "git-hooks"
+  - "pre-commit"
+  - "post-commit"
+  - "merge-conflict"
+  - "cherry-pick"
+  - "stash"
+  - "reset"
+  - "revert"
+
+# Exclusions
+excludePatterns:
+  - "node_modules/**"
+  - "dist/**"
+  - "build/**"
+  - ".git/**"
+  - "*.min.js"
+  - "*.bundle.js"
+  - "vendor/**"
+  - "target/**"
+  - "bin/**"
+  - "obj/**"
+  - "coverage/**"
+
+# Dependencies
+dependencies: []
+
+# Related Rules
+relatedRules:
+  - "100-code-quality"
+  - "200-testing-patterns"
+  - "210-docs-standards"
+
+# Usage Examples
+examples:
+  - "When writing commit messages"
+  - "When creating feature branches"
+  - "When merging pull requests"
+  - "When reviewing code changes"
+  - "When managing releases"
+  - "When resolving merge conflicts"
+  - "When setting up Git hooks"
+  - "When configuring CI/CD pipelines"
+  - "When versioning software releases"
+  - "When managing deployment workflows"
+
+# Notes
+notes:
+  - "This rule provides comprehensive Git workflow standards and best practices"
+  - "Covers branching strategies, commit conventions, and code review processes"
+  - "Includes CI/CD integration and deployment workflows"
+  - "Provides version control best practices and conflict resolution"
+  - "Addresses semantic versioning and release management"
+  - "Includes Git hooks and automation guidance"
+---
+
+# Git Workflow
+
+## Core Git Principles
+
+### Version Control Best Practices
+- **Atomic Commits**: Each commit should represent a single logical change
+- **Clear History**: Maintain a clean, readable Git history
+- **Branch Protection**: Protect main branches from direct commits
+- **Code Review**: Require code review for all changes
+- **Continuous Integration**: Automate testing and quality checks
+
+### Branching Strategies
+- **Feature Branches**: Create branches for new features
+- **Release Branches**: Separate branches for release preparation
+- **Hotfix Branches**: Quick fixes for production issues
+- **Main Branch**: Stable, production-ready code
+- **Develop Branch**: Integration branch for features
+
+## Commit Message Conventions
+
+### Conventional Commits
+```bash
+# Format: <type>[optional scope]: <description>
+
+# Examples:
+feat: add user authentication system
+feat(auth): implement JWT token validation
+fix: resolve memory leak in data processing
+fix(api): handle null response from external service
+docs: update API documentation
+docs(readme): add installation instructions
+style: format code according to style guide
+style(ui): improve button component styling
+refactor: extract common validation logic
+refactor(database): optimize user query performance
+test: add unit tests for user service
+test(integration): add API endpoint tests
+chore: update dependencies
+chore(ci): configure automated testing
+perf: optimize database query performance
+perf(cache): implement Redis caching layer
+ci: add GitHub Actions workflow
+ci(deploy): configure production deployment
+build: update build configuration
+build(docker): optimize Docker image size
+revert: revert to previous commit
+revert: "feat: add user authentication system"
+```
+
+### Commit Message Guidelines
+```bash
+# Good: Clear, descriptive commit message
+feat(auth): implement OAuth2 authentication with Google
+
+- Add Google OAuth2 provider integration
+- Implement JWT token generation and validation
+- Add user session management
+- Include comprehensive error handling
+
+Closes #123
+Related to #456
+
+# Bad: Vague commit message
+fix: stuff
+
+# Good: Specific fix with context
+fix(api): handle timeout errors in external service calls
+
+- Add retry logic with exponential backoff
+- Implement circuit breaker pattern
+- Add proper error logging and monitoring
+- Update API documentation
+
+Fixes #789
+```
+
+### Commit Message Template
+```bash
+# .gitmessage template
+# <type>(<scope>): <subject>
+#
+# <body>
+#
+# <footer>
+
+# Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert
+# Scope: optional, lowercase
+# Subject: imperative mood, no period, max 50 chars
+# Body: optional, explain what and why, wrap at 72 chars
+# Footer: optional, reference issues, breaking changes
+```
+
+## Branching Strategy
+
+### Git Flow
+```bash
+# Main branches
+main          # Production-ready code
+develop       # Integration branch for features
+
+# Supporting branches
+feature/*     # New features
+release/*     # Release preparation
+hotfix/*      # Production fixes
+
+# Branch naming conventions
+feature/user-authentication
+feature/API-123-add-payment-gateway
+release/v1.2.0
+hotfix/critical-security-patch
+```
+
+### GitHub Flow (Simplified)
+```bash
+# Main branch
+main          # Production-ready code
+
+# Feature branches
+feature/*     # New features and fixes
+
+# Branch naming conventions
+feature/add-user-authentication
+feature/fix-login-bug
+feature/update-dependencies
+```
+
+### Branch Management
+```bash
+# Create feature branch
+git checkout main
+git pull origin main
+git checkout -b feature/user-authentication
+
+# Keep feature branch up to date
+git checkout feature/user-authentication
+git rebase main
+
+# Merge feature branch
+git checkout main
+git merge --no-ff feature/user-authentication
+git branch -d feature/user-authentication
+git push origin main
+```
+
+## Code Review Process
+
+### Pull Request Guidelines
+```markdown
+# Pull Request Template
+
+## Description
+Brief description of the changes made.
+
+## Type of Change
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] Documentation update
+
+## Testing
+- [ ] Unit tests pass
+- [ ] Integration tests pass
+- [ ] Manual testing completed
+- [ ] Performance impact assessed
+
+## Checklist
+- [ ] Code follows style guidelines
+- [ ] Self-review completed
+- [ ] Code is documented
+- [ ] No console.log statements left
+- [ ] No TODO comments left
+- [ ] No debugging code left
+
+## Screenshots (if applicable)
+Add screenshots to help explain your changes.
+
+## Related Issues
+Closes #123
+Related to #456
+```
+
+### Review Guidelines
+```markdown
+# Code Review Checklist
+
+## Functionality
+- [ ] Does the code work as intended?
+- [ ] Are edge cases handled?
+- [ ] Is error handling appropriate?
+- [ ] Are inputs validated?
+
+## Code Quality
+- [ ] Is the code readable and maintainable?
+- [ ] Are functions small and focused?
+- [ ] Is there code duplication?
+- [ ] Are naming conventions followed?
+
+## Security
+- [ ] Are there security vulnerabilities?
+- [ ] Is sensitive data handled properly?
+- [ ] Are inputs sanitized?
+
+## Performance
+- [ ] Are there performance issues?
+- [ ] Is memory usage reasonable?
+- [ ] Are algorithms efficient?
+
+## Testing
+- [ ] Are there appropriate tests?
+- [ ] Do tests cover edge cases?
+- [ ] Are tests readable and maintainable?
+
+## Documentation
+- [ ] Is the code documented?
+- [ ] Are API changes documented?
+- [ ] Are breaking changes documented?
+```
+
+## Git Hooks
+
+### Pre-commit Hook
+```bash
+#!/bin/bash
+# .git/hooks/pre-commit
+
+echo "Running pre-commit checks..."
+
+# Run linting
+npm run lint
+if [ $? -ne 0 ]; then
+    echo "Linting failed. Please fix the issues before committing."
+    exit 1
+fi
+
+# Run tests
+npm test
+if [ $? -ne 0 ]; then
+    echo "Tests failed. Please fix the issues before committing."
+    exit 1
+fi
+
+# Check commit message format
+commit_msg_file=$1
+commit_msg=$(cat "$commit_msg_file")
+
+# Conventional commit pattern
+pattern="^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?: .+"
+
+if ! echo "$commit_msg" | grep -qE "$pattern"; then
+    echo "Invalid commit message format."
+    echo "Please use conventional commit format: <type>(<scope>): <description>"
+    echo "Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert"
+    exit 1
+fi
+
+echo "Pre-commit checks passed!"
+```
+
+### Commit-msg Hook
+```bash
+#!/bin/bash
+# .git/hooks/commit-msg
+
+commit_msg_file=$1
+commit_msg=$(cat "$commit_msg_file")
+
+# Check commit message length
+if [ ${#commit_msg} -gt 72 ]; then
+    echo "Commit message is too long. Maximum 72 characters allowed."
+    exit 1
+fi
+
+# Check for common issues
+if echo "$commit_msg" | grep -q "TODO\|FIXME\|HACK"; then
+    echo "Commit message contains TODO, FIXME, or HACK. Please remove before committing."
+    exit 1
+fi
+
+echo "Commit message validation passed!"
+```
+
+### Husky Configuration (Node.js)
+```json
+{
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-push": "npm run test:coverage"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  }
+}
+```
+
+## Merge Strategies
+
+### Merge vs Rebase
+```bash
+# Merge (preserves history)
+git checkout main
+git merge feature/user-authentication
+
+# Rebase (cleaner history)
+git checkout feature/user-authentication
+git rebase main
+git checkout main
+git merge feature/user-authentication
+
+# Squash merge (single commit)
+git checkout main
+git merge --squash feature/user-authentication
+git commit -m "feat: add user authentication system"
+```
+
+### Resolving Merge Conflicts
+```bash
+# When conflicts occur
+git status  # Check conflicted files
+git diff    # View conflicts
+
+# Resolve conflicts manually
+# Edit conflicted files
+# Remove conflict markers
+
+# After resolving
+git add .
+git commit -m "fix: resolve merge conflicts"
+```
+
+## Release Management
+
+### Semantic Versioning
+```bash
+# Version format: MAJOR.MINOR.PATCH
+# MAJOR: Breaking changes
+# MINOR: New features, backward compatible
+# PATCH: Bug fixes, backward compatible
+
+# Examples
+1.0.0    # Initial release
+1.1.0    # New features added
+1.1.1    # Bug fixes
+2.0.0    # Breaking changes
+```
+
+### Release Process
+```bash
+# Create release branch
+git checkout develop
+git checkout -b release/v1.2.0
+
+# Update version numbers
+# Update CHANGELOG.md
+# Update documentation
+
+# Commit changes
+git add .
+git commit -m "chore: prepare release v1.2.0"
+
+# Merge to main
+git checkout main
+git merge --no-ff release/v1.2.0
+git tag -a v1.2.0 -m "Release v1.2.0"
+
+# Merge back to develop
+git checkout develop
+git merge --no-ff release/v1.2.0
+
+# Delete release branch
+git branch -d release/v1.2.0
+```
+
+### Automated Release with GitHub Actions
+```yaml
+# .github/workflows/release.yml
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run tests
+        run: npm test
+        
+      - name: Build
+        run: npm run build
+        
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release:
+            ${{ github.event.head_commit.message }}
+          draft: false
+          prerelease: false
+```
+
+## Git Configuration
+
+### Global Git Configuration
+```bash
+# Set user information
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+
+# Set default editor
+git config --global core.editor "code --wait"
+
+# Set default branch name
+git config --global init.defaultBranch main
+
+# Set line ending handling
+git config --global core.autocrlf input  # Linux/Mac
+git config --global core.autocrlf true   # Windows
+
+# Set merge strategy
+git config --global merge.ff false
+
+# Set pull strategy
+git config --global pull.rebase true
+
+# Set credential helper
+git config --global credential.helper cache
+git config --global credential.helper 'cache --timeout=3600'
+```
+
+### Repository-specific Configuration
+```bash
+# .git/config
+[core]
+    repositoryformatversion = 0
+    filemode = true
+    bare = false
+    logallrefupdates = true
+    ignorecase = true
+    precomposeunicode = true
+
+[remote "origin"]
+    url = https://github.com/username/repository.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+
+[branch "main"]
+    remote = origin
+    merge = refs/heads/main
+
+[branch "develop"]
+    remote = origin
+    merge = refs/heads/develop
+
+[merge]
+    ff = false
+
+[pull]
+    rebase = true
+```
+
+## Best Practices Summary
+
+### Do's
+- ✅ Write clear, descriptive commit messages
+- ✅ Use conventional commit format
+- ✅ Create feature branches for new work
+- ✅ Keep branches up to date with main
+- ✅ Review code before merging
+- ✅ Use meaningful branch names
+- ✅ Tag releases with semantic versions
+- ✅ Write good PR descriptions
+- ✅ Test before committing
+- ✅ Use Git hooks for automation
+
+### Don'ts
+- ❌ Commit directly to main branch
+- ❌ Write vague commit messages
+- ❌ Commit broken code
+- ❌ Leave TODO comments in commits
+- ❌ Force push to shared branches
+- ❌ Merge without review
+- ❌ Ignore merge conflicts
+- ❌ Use generic branch names
+- ❌ Skip testing before commits
+- ❌ Commit large files to Git
+description:
+globs:
+alwaysApply: false
+---

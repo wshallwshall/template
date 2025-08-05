@@ -1,0 +1,3 @@
+defaultModel: claude-3.5-sonnet
+maxContextTokens: 16384
+privacyMode: true

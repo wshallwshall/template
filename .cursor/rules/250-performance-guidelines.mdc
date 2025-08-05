@@ -1,0 +1,1574 @@
+---
+name: "Performance Guidelines"
+description: "Comprehensive performance optimization strategies, profiling techniques, caching patterns, database optimization, and performance best practices across multiple programming languages"
+version: "1.0.0"
+author: "Cursor Rules"
+created: "2024-01-01"
+updated: "2024-01-01"
+category: "performance"
+priority: "high"
+tags:
+  - "performance"
+  - "optimization"
+  - "profiling"
+  - "caching"
+  - "database-optimization"
+  - "memory-management"
+  - "algorithms"
+  - "data-structures"
+  - "scalability"
+  - "monitoring"
+  - "benchmarking"
+  - "load-testing"
+  - "async-processing"
+  - "concurrency"
+
+# Apply Intelligently Settings
+applyIntelligently: true
+alwaysApply: false
+autoApply: false
+
+# Trigger Conditions
+triggers:
+  - "optimizing code performance"
+  - "profiling application performance"
+  - "implementing caching strategies"
+  - "optimizing database queries"
+  - "managing memory usage"
+  - "implementing async processing"
+  - "handling concurrency"
+  - "scaling applications"
+  - "monitoring performance metrics"
+  - "benchmarking code"
+  - "optimizing algorithms"
+  - "improving response times"
+  - "reducing resource usage"
+  - "implementing lazy loading"
+
+# File Patterns
+filePatterns:
+  - "**/*.js"
+  - "**/*.ts"
+  - "**/*.jsx"
+  - "**/*.tsx"
+  - "**/*.py"
+  - "**/*.java"
+  - "**/*.cs"
+  - "**/*.cpp"
+  - "**/*.h"
+  - "**/*.go"
+  - "**/*.rs"
+  - "**/services/**/*"
+  - "**/controllers/**/*"
+  - "**/models/**/*"
+  - "**/utils/**/*"
+  - "**/helpers/**/*"
+  - "**/middleware/**/*"
+  - "**/api/**/*"
+  - "**/routes/**/*"
+  - "**/queries/**/*"
+  - "**/cache/**/*"
+  - "**/performance/**/*"
+
+# Language Support
+languages:
+  - "javascript"
+  - "typescript"
+  - "python"
+  - "java"
+  - "csharp"
+  - "cpp"
+  - "go"
+  - "rust"
+  - "swift"
+  - "kotlin"
+  - "dart"
+
+# Context Keywords
+keywords:
+  - "performance"
+  - "optimization"
+  - "profiling"
+  - "caching"
+  - "memory"
+  - "algorithm"
+  - "data-structure"
+  - "database"
+  - "query"
+  - "index"
+  - "async"
+  - "concurrency"
+  - "threading"
+  - "scalability"
+  - "monitoring"
+  - "benchmark"
+  - "load-testing"
+  - "bottleneck"
+  - "latency"
+  - "throughput"
+  - "response-time"
+  - "resource-usage"
+  - "lazy-loading"
+  - "eager-loading"
+  - "connection-pooling"
+  - "compression"
+  - "minification"
+  - "bundling"
+
+# Exclusions
+excludePatterns:
+  - "node_modules/**"
+  - "dist/**"
+  - "build/**"
+  - ".git/**"
+  - "*.min.js"
+  - "*.bundle.js"
+  - "vendor/**"
+  - "target/**"
+  - "bin/**"
+  - "obj/**"
+  - "test/**"
+  - "tests/**"
+  - "__tests__/**"
+  - "coverage/**"
+
+# Dependencies
+dependencies: []
+
+# Related Rules
+relatedRules:
+  - "100-code-quality"
+  - "200-testing-patterns"
+  - "300-api-patterns"
+
+# Usage Examples
+examples:
+  - "When optimizing slow database queries"
+  - "When implementing caching strategies"
+  - "When profiling application performance"
+  - "When optimizing memory usage"
+  - "When implementing async processing"
+  - "When handling concurrent requests"
+  - "When scaling applications"
+  - "When monitoring performance metrics"
+  - "When benchmarking code changes"
+  - "When optimizing algorithms and data structures"
+
+# Notes
+notes:
+  - "This rule provides comprehensive performance optimization strategies"
+  - "Covers profiling, caching, database optimization, and memory management"
+  - "Includes async processing, concurrency, and scalability patterns"
+  - "Provides performance best practices across multiple languages"
+  - "Addresses monitoring, benchmarking, and load testing"
+  - "Includes algorithm and data structure optimization guidance"
+---
+
+# Performance Guidelines
+
+## Core Performance Principles
+
+### Performance Optimization Hierarchy
+1. **Measure First**: Profile and identify bottlenecks before optimizing
+2. **Algorithm Selection**: Choose appropriate algorithms and data structures
+3. **Caching**: Implement strategic caching at multiple levels
+4. **Database Optimization**: Optimize queries, indexes, and connections
+5. **Code Optimization**: Optimize specific code paths and operations
+6. **Infrastructure**: Scale hardware and infrastructure as needed
+
+### Performance Metrics
+- **Response Time**: Time to complete a request
+- **Throughput**: Number of requests processed per second
+- **Resource Usage**: CPU, memory, disk, and network utilization
+- **Scalability**: How performance changes with load
+- **Efficiency**: Resource usage per request
+
+## Profiling and Measurement
+
+### JavaScript/Node.js Profiling
+```javascript
+// Good: Performance profiling with console.time
+function expensiveOperation() {
+    console.time('expensiveOperation');
+    
+    // Perform expensive operation
+    const result = processLargeDataset();
+    
+    console.timeEnd('expensiveOperation');
+    return result;
+}
+
+// Good: Memory usage monitoring
+function monitorMemoryUsage() {
+    const used = process.memoryUsage();
+    
+    console.log({
+        rss: `${Math.round(used.rss / 1024 / 1024 * 100) / 100} MB`,
+        heapTotal: `${Math.round(used.heapTotal / 1024 / 1024 * 100) / 100} MB`,
+        heapUsed: `${Math.round(used.heapUsed / 1024 / 1024 * 100) / 100} MB`,
+        external: `${Math.round(used.external / 1024 / 1024 * 100) / 100} MB`
+    });
+}
+
+// Good: Performance monitoring middleware
+const performanceMiddleware = (req, res, next) => {
+    const start = process.hrtime.bigint();
+    
+    res.on('finish', () => {
+        const end = process.hrtime.bigint();
+        const duration = Number(end - start) / 1000000; // Convert to milliseconds
+        
+        console.log(`${req.method} ${req.path} - ${duration.toFixed(2)}ms`);
+        
+        // Log slow requests
+        if (duration > 1000) {
+            console.warn(`Slow request detected: ${req.method} ${req.path} took ${duration.toFixed(2)}ms`);
+        }
+    });
+    
+    next();
+};
+```
+
+### Python Profiling
+```python
+# Good: Performance profiling with cProfile
+import cProfile
+import pstats
+import io
+
+def profile_function(func, *args, **kwargs):
+    """Profile a function and return detailed statistics"""
+    profiler = cProfile.Profile()
+    profiler.enable()
+    
+    result = func(*args, **kwargs)
+    
+    profiler.disable()
+    s = io.StringIO()
+    ps = pstats.Stats(profiler, stream=s).sort_stats('cumulative')
+    ps.print_stats(20)  # Print top 20 functions
+    
+    print(s.getvalue())
+    return result
+
+# Good: Memory profiling with memory_profiler
+from memory_profiler import profile
+
+@profile
+def memory_intensive_function():
+    """Function decorated for memory profiling"""
+    data = []
+    for i in range(1000000):
+        data.append(i)
+    return sum(data)
+
+# Good: Performance timing with timeit
+import timeit
+
+def benchmark_function():
+    setup = "from mymodule import my_function"
+    stmt = "my_function()"
+    
+    time = timeit.timeit(stmt, setup, number=1000)
+    print(f"Average time: {time/1000:.6f} seconds")
+```
+
+### Java Profiling
+```java
+// Good: Performance timing with System.nanoTime
+public class PerformanceMonitor {
+    public static <T> T measureExecutionTime(String operationName, Supplier<T> operation) {
+        long startTime = System.nanoTime();
+        
+        try {
+            T result = operation.get();
+            long endTime = System.nanoTime();
+            long duration = (endTime - startTime) / 1_000_000; // Convert to milliseconds
+            
+            System.out.printf("%s took %d ms%n", operationName, duration);
+            return result;
+        } catch (Exception e) {
+            long endTime = System.nanoTime();
+            long duration = (endTime - startTime) / 1_000_000;
+            System.err.printf("%s failed after %d ms%n", operationName, duration);
+            throw e;
+        }
+    }
+    
+    public static void measureExecutionTime(String operationName, Runnable operation) {
+        measureExecutionTime(operationName, () -> {
+            operation.run();
+            return null;
+        });
+    }
+}
+
+// Usage
+PerformanceMonitor.measureExecutionTime("Database Query", () -> {
+    return userRepository.findAll();
+});
+```
+
+## Caching Strategies
+
+### Multi-Level Caching
+```javascript
+// Good: Multi-level caching implementation
+class CacheManager {
+    constructor() {
+        this.memoryCache = new Map();
+        this.redisClient = redis.createClient();
+        this.cacheConfig = {
+            memory: { ttl: 5 * 60 * 1000 }, // 5 minutes
+            redis: { ttl: 30 * 60 * 1000 }  // 30 minutes
+        };
+    }
+    
+    async get(key) {
+        // Level 1: Memory cache
+        if (this.memoryCache.has(key)) {
+            const cached = this.memoryCache.get(key);
+            if (Date.now() < cached.expiry) {
+                return cached.value;
+            }
+            this.memoryCache.delete(key);
+        }
+        
+        // Level 2: Redis cache
+        try {
+            const cached = await this.redisClient.get(key);
+            if (cached) {
+                const parsed = JSON.parse(cached);
+                // Store in memory cache
+                this.memoryCache.set(key, {
+                    value: parsed,
+                    expiry: Date.now() + this.cacheConfig.memory.ttl
+                });
+                return parsed;
+            }
+        } catch (error) {
+            console.warn('Redis cache error:', error);
+        }
+        
+        return null;
+    }
+    
+    async set(key, value, ttl = null) {
+        const expiry = ttl || this.cacheConfig.redis.ttl;
+        
+        // Set in memory cache
+        this.memoryCache.set(key, {
+            value,
+            expiry: Date.now() + this.cacheConfig.memory.ttl
+        });
+        
+        // Set in Redis cache
+        try {
+            await this.redisClient.setex(key, Math.floor(expiry / 1000), JSON.stringify(value));
+        } catch (error) {
+            console.warn('Redis cache error:', error);
+        }
+    }
+    
+    async invalidate(pattern) {
+        // Clear memory cache entries matching pattern
+        for (const key of this.memoryCache.keys()) {
+            if (key.includes(pattern)) {
+                this.memoryCache.delete(key);
+            }
+        }
+        
+        // Clear Redis cache entries matching pattern
+        try {
+            const keys = await this.redisClient.keys(pattern);
+            if (keys.length > 0) {
+                await this.redisClient.del(keys);
+            }
+        } catch (error) {
+            console.warn('Redis cache invalidation error:', error);
+        }
+    }
+}
+```
+
+### Cache-Aside Pattern
+```javascript
+// Good: Cache-aside pattern implementation
+class UserService {
+    constructor(userRepository, cacheManager) {
+        this.userRepository = userRepository;
+        this.cache = cacheManager;
+    }
+    
+    async getUserById(userId) {
+        const cacheKey = `user:${userId}`;
+        
+        // Try to get from cache first
+        let user = await this.cache.get(cacheKey);
+        
+        if (!user) {
+            // Cache miss - get from database
+            user = await this.userRepository.findById(userId);
+            
+            if (user) {
+                // Store in cache for future requests
+                await this.cache.set(cacheKey, user);
+            }
+        }
+        
+        return user;
+    }
+    
+    async updateUser(userId, userData) {
+        // Update in database
+        const updatedUser = await this.userRepository.update(userId, userData);
+        
+        // Invalidate cache
+        await this.cache.invalidate(`user:${userId}`);
+        
+        return updatedUser;
+    }
+}
+```
+
+## Database Optimization
+
+### Query Optimization
+```javascript
+// Good: Optimized database queries
+class OptimizedUserRepository {
+    async getUsersWithPosts(limit = 10, offset = 0) {
+        // Use JOIN instead of N+1 queries
+        const query = `
+            SELECT 
+                u.id, u.name, u.email,
+                p.id as post_id, p.title, p.content, p.created_at
+            FROM users u
+            LEFT JOIN posts p ON u.id = p.user_id
+            WHERE u.active = true
+            ORDER BY u.created_at DESC, p.created_at DESC
+            LIMIT ? OFFSET ?
+        `;
+        
+        const results = await this.db.query(query, [limit, offset]);
+        
+        // Group results by user
+        const usersMap = new Map();
+        results.forEach(row => {
+            if (!usersMap.has(row.id)) {
+                usersMap.set(row.id, {
+                    id: row.id,
+                    name: row.name,
+                    email: row.email,
+                    posts: []
+                });
+            }
+            
+            if (row.post_id) {
+                usersMap.get(row.id).posts.push({
+                    id: row.post_id,
+                    title: row.title,
+                    content: row.content,
+                    createdAt: row.created_at
+                });
+            }
+        });
+        
+        return Array.from(usersMap.values());
+    }
+    
+    async getUsersByIds(userIds) {
+        // Use IN clause for batch retrieval
+        if (userIds.length === 0) return [];
+        
+        const placeholders = userIds.map(() => '?').join(',');
+        const query = `
+            SELECT id, name, email, created_at
+            FROM users
+            WHERE id IN (${placeholders})
+            AND active = true
+        `;
+        
+        return await this.db.query(query, userIds);
+    }
+}
+```
+
+### Indexing Strategy
+```sql
+-- Good: Strategic indexing for common queries
+-- Primary key index (automatically created)
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Composite index for common query patterns
+CREATE INDEX idx_users_active_created ON users(active, created_at DESC);
+CREATE INDEX idx_users_email ON users(email);
+
+-- Partial index for active users only
+CREATE INDEX idx_users_active_email ON users(email) WHERE active = true;
+
+-- Full-text search index
+CREATE FULLTEXT INDEX idx_users_name_search ON users(name);
+```
+
+## Memory Management
+
+### JavaScript Memory Optimization
+```javascript
+// Good: Memory-efficient data processing
+class MemoryEfficientProcessor {
+    // Use generators for large datasets
+    *processLargeDataset(items) {
+        for (const item of items) {
+            yield this.processItem(item);
+        }
+    }
+    
+    // Stream processing for large files
+    async processFileStream(filePath) {
+        const readStream = fs.createReadStream(filePath, { encoding: 'utf8' });
+        const writeStream = fs.createWriteStream(`${filePath}.processed`);
+        
+        return new Promise((resolve, reject) => {
+            readStream
+                .pipe(transformStream)
+                .pipe(writeStream)
+                .on('finish', resolve)
+                .on('error', reject);
+        });
+    }
+    
+    // WeakMap for caching with automatic cleanup
+    constructor() {
+        this.cache = new WeakMap();
+    }
+    
+    processWithCache(key, processor) {
+        if (this.cache.has(key)) {
+            return this.cache.get(key);
+        }
+        
+        const result = processor();
+        this.cache.set(key, result);
+        return result;
+    }
+    
+    // Clear references to help garbage collection
+    cleanup() {
+        this.cache = new WeakMap();
+        if (global.gc) {
+            global.gc();
+        }
+    }
+}
+```
+
+### Python Memory Optimization
+```python
+# Good: Memory-efficient Python patterns
+import gc
+from weakref import WeakValueDictionary
+from itertools import islice
+
+class MemoryEfficientProcessor:
+    def __init__(self):
+        self.cache = WeakValueDictionary()
+    
+    def process_large_dataset(self, items):
+        """Process large datasets using generators"""
+        for item in items:
+            yield self.process_item(item)
+    
+    def process_in_chunks(self, items, chunk_size=1000):
+        """Process items in chunks to control memory usage"""
+        iterator = iter(items)
+        while True:
+            chunk = list(islice(iterator, chunk_size))
+            if not chunk:
+                break
+            
+            for item in chunk:
+                yield self.process_item(item)
+            
+            # Force garbage collection after each chunk
+            gc.collect()
+    
+    def stream_file_processing(self, file_path):
+        """Process large files line by line"""
+        with open(file_path, 'r') as file:
+            for line in file:
+                yield self.process_line(line.strip())
+    
+    def cleanup(self):
+        """Clean up references and force garbage collection"""
+        self.cache.clear()
+        gc.collect()
+```
+
+## Async Processing and Concurrency
+
+### JavaScript Async Patterns
+```javascript
+// Good: Async processing with proper concurrency control
+class AsyncProcessor {
+    constructor(maxConcurrency = 5) {
+        this.maxConcurrency = maxConcurrency;
+        this.semaphore = new Semaphore(maxConcurrency);
+    }
+    
+    async processBatch(items, processor) {
+        const promises = items.map(item => 
+            this.semaphore.acquire().then(async (release) => {
+                try {
+                    return await processor(item);
+                } finally {
+                    release();
+                }
+            })
+        );
+        
+        return Promise.all(promises);
+    }
+    
+    async processWithRetry(operation, maxRetries = 3, delay = 1000) {
+        for (let attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                return await operation();
+            } catch (error) {
+                if (attempt === maxRetries) {
+                    throw error;
+                }
+                
+                await new Promise(resolve => 
+                    setTimeout(resolve, delay * attempt)
+                );
+            }
+        }
+    }
+    
+    async processWithTimeout(operation, timeout = 5000) {
+        return Promise.race([
+            operation(),
+            new Promise((_, reject) => 
+                setTimeout(() => reject(new Error('Operation timeout')), timeout)
+            )
+        ]);
+    }
+}
+
+// Semaphore implementation for concurrency control
+class Semaphore {
+    constructor(max) {
+        this.max = max;
+        this.current = 0;
+        this.queue = [];
+    }
+    
+    async acquire() {
+        return new Promise(resolve => {
+            if (this.current < this.max) {
+                this.current++;
+                resolve(() => this.release());
+            } else {
+                this.queue.push(resolve);
+            }
+        });
+    }
+    
+    release() {
+        this.current--;
+        if (this.queue.length > 0) {
+            this.current++;
+            const resolve = this.queue.shift();
+            resolve(() => this.release());
+        }
+    }
+}
+```
+
+### Python Async Patterns
+```python
+# Good: Async processing with asyncio
+import asyncio
+import aiohttp
+from asyncio import Semaphore
+from typing import List, Callable, Any
+
+class AsyncProcessor:
+    def __init__(self, max_concurrency: int = 5):
+        self.max_concurrency = max_concurrency
+        self.semaphore = Semaphore(max_concurrency)
+    
+    async def process_batch(self, items: List[Any], processor: Callable) -> List[Any]:
+        """Process items concurrently with controlled concurrency"""
+        async def process_with_semaphore(item):
+            async with self.semaphore:
+                return await processor(item)
+        
+        tasks = [process_with_semaphore(item) for item in items]
+        return await asyncio.gather(*tasks)
+    
+    async def process_with_retry(self, operation: Callable, max_retries: int = 3, delay: float = 1.0):
+        """Execute operation with retry logic"""
+        for attempt in range(1, max_retries + 1):
+            try:
+                return await operation()
+            except Exception as e:
+                if attempt == max_retries:
+                    raise e
+                
+                await asyncio.sleep(delay * attempt)
+    
+    async def process_with_timeout(self, operation: Callable, timeout: float = 5.0):
+        """Execute operation with timeout"""
+        try:
+            return await asyncio.wait_for(operation(), timeout=timeout)
+        except asyncio.TimeoutError:
+            raise TimeoutError("Operation timed out")
+    
+    async def batch_api_calls(self, urls: List[str]) -> List[dict]:
+        """Make concurrent API calls with rate limiting"""
+        async def fetch_url(session, url):
+            async with self.semaphore:
+                async with session.get(url) as response:
+                    return await response.json()
+        
+        async with aiohttp.ClientSession() as session:
+            tasks = [fetch_url(session, url) for url in urls]
+            return await asyncio.gather(*tasks)
+```
+
+### Swift Performance Patterns
+```swift
+// Good: Swift performance optimization patterns
+import Foundation
+import Combine
+
+class PerformanceOptimizer {
+    // Use lazy loading for expensive operations
+    lazy var expensiveComputation: String = {
+        // Expensive computation that runs only when accessed
+        return performExpensiveOperation()
+    }()
+    
+    // Use weak references to avoid retain cycles
+    weak var delegate: PerformanceDelegate?
+    
+    // Use value types (structs) for better performance
+    struct User: Codable {
+        let id: String
+        let name: String
+        let email: String
+    }
+    
+    // Efficient array operations
+    func findDuplicates<T: Hashable>(in items: [T]) -> Set<T> {
+        var seen = Set<T>()
+        var duplicates = Set<T>()
+        
+        for item in items {
+            if seen.contains(item) {
+                duplicates.insert(item)
+            } else {
+                seen.insert(item)
+            }
+        }
+        
+        return duplicates
+    }
+    
+    // Use DispatchQueue for concurrent operations
+    func performConcurrentWork() {
+        let queue = DispatchQueue(label: "com.app.concurrent", attributes: .concurrent)
+        let group = DispatchGroup()
+        
+        for i in 0..<10 {
+            group.enter()
+            queue.async {
+                // Perform work
+                self.performWork(i)
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: .main) {
+            print("All work completed")
+        }
+    }
+    
+    // Use Combine for reactive programming
+    func setupDataPipeline() -> AnyCancellable {
+        return dataPublisher
+            .filter { $0.isValid }
+            .map { $0.processedValue }
+            .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
+            .sink { value in
+                self.updateUI(with: value)
+            }
+    }
+    
+    // Memory-efficient image processing
+    func processImage(_ image: UIImage) -> UIImage? {
+        guard let cgImage = image.cgImage else { return nil }
+        
+        let width = cgImage.width
+        let height = cgImage.height
+        let bytesPerRow = width * 4
+        
+        guard let context = CGContext(
+            data: nil,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: bytesPerRow,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else { return nil }
+        
+        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
+        
+        guard let processedCGImage = context.makeImage() else { return nil }
+        return UIImage(cgImage: processedCGImage)
+    }
+    
+    // Efficient string operations
+    func efficientStringConcatenation(_ strings: [String]) -> String {
+        return strings.joined(separator: "")
+    }
+    
+    // Use autoreleasepool for memory management
+    func processLargeDataset(_ data: [Data]) {
+        autoreleasepool {
+            for item in data {
+                // Process item
+                processItem(item)
+            }
+        }
+    }
+}
+
+// Performance monitoring
+class PerformanceMonitor {
+    private var metrics: [String: [TimeInterval]] = [:]
+    
+    func measureExecutionTime<T>(_ operation: String, block: () throws -> T) rethrows -> T {
+        let start = CFAbsoluteTimeGetCurrent()
+        let result = try block()
+        let end = CFAbsoluteTimeGetCurrent()
+        
+        let duration = end - start
+        if metrics[operation] == nil {
+            metrics[operation] = []
+        }
+        metrics[operation]?.append(duration)
+        
+        print("\(operation) took \(duration * 1000)ms")
+        return result
+    }
+    
+    func getAverageTime(for operation: String) -> TimeInterval? {
+        guard let times = metrics[operation], !times.isEmpty else { return nil }
+        return times.reduce(0, +) / Double(times.count)
+    }
+}
+```
+
+### Kotlin Performance Patterns
+```kotlin
+// Good: Kotlin performance optimization patterns
+import kotlinx.coroutines.*
+import kotlin.system.measureTimeMillis
+
+class PerformanceOptimizer {
+    // Use lazy initialization for expensive operations
+    val expensiveComputation: String by lazy {
+        performExpensiveOperation()
+    }
+    
+    // Use data classes for better performance
+    data class User(
+        val id: String,
+        val name: String,
+        val email: String
+    )
+    
+    // Efficient collection operations
+    fun findDuplicates(items: List<String>): Set<String> {
+        val seen = mutableSetOf<String>()
+        val duplicates = mutableSetOf<String>()
+        
+        for (item in items) {
+            if (seen.contains(item)) {
+                duplicates.add(item)
+            } else {
+                seen.add(item)
+            }
+        }
+        
+        return duplicates
+    }
+    
+    // Use sequences for lazy evaluation
+    fun processLargeDataset(data: List<Int>): List<Int> {
+        return data.asSequence()
+            .filter { it > 0 }
+            .map { it * 2 }
+            .take(1000)
+            .toList()
+    }
+    
+    // Coroutines for asynchronous operations
+    suspend fun performConcurrentWork() = coroutineScope {
+        val jobs = List(10) { index ->
+            async {
+                performWork(index)
+            }
+        }
+        
+        jobs.awaitAll()
+    }
+    
+    // Use flow for reactive streams
+    fun setupDataPipeline() = flow {
+        emitAll(dataSource)
+    }
+    .filter { it.isValid }
+    .map { it.processedValue }
+    .flowOn(Dispatchers.IO)
+    .onEach { value ->
+        updateUI(value)
+    }
+    
+    // Memory-efficient operations
+    fun processLargeList(items: List<String>): List<String> {
+        return items.asSequence()
+            .filter { it.isNotBlank() }
+            .map { it.trim() }
+            .distinct()
+            .toList()
+    }
+    
+    // Efficient string operations
+    fun efficientStringConcatenation(strings: List<String>): String {
+        return strings.joinToString("")
+    }
+    
+    // Use inline functions for better performance
+    inline fun measureTime(operation: String, block: () -> Unit) {
+        val time = measureTimeMillis {
+            block()
+        }
+        println("$operation took ${time}ms")
+    }
+    
+    // Use object for singleton pattern
+    object PerformanceMonitor {
+        private val metrics = mutableMapOf<String, MutableList<Long>>()
+        
+        fun recordTime(operation: String, timeMs: Long) {
+            metrics.getOrPut(operation) { mutableListOf() }.add(timeMs)
+        }
+        
+        fun getAverageTime(operation: String): Double? {
+            val times = metrics[operation] ?: return null
+            return if (times.isNotEmpty()) times.average() else null
+        }
+    }
+    
+    // Use sealed classes for better performance
+    sealed class Result<out T> {
+        data class Success<T>(val data: T) : Result<T>()
+        data class Error(val message: String) : Result<Nothing>()
+    }
+    
+    // Efficient data processing with coroutines
+    suspend fun processDataInBatches(
+        data: List<String>,
+        batchSize: Int = 100
+    ): List<String> = coroutineScope {
+        data.chunked(batchSize)
+            .map { batch ->
+                async(Dispatchers.IO) {
+                    processBatch(batch)
+                }
+            }
+            .awaitAll()
+            .flatten()
+    }
+    
+    // Use memory-efficient data structures
+    fun createEfficientMap(): Map<String, Int> {
+        return buildMap {
+            put("key1", 1)
+            put("key2", 2)
+            put("key3", 3)
+        }
+    }
+}
+
+// Performance monitoring with coroutines
+class CoroutinePerformanceMonitor {
+    suspend fun measureCoroutineTime<T>(
+        operation: String,
+        block: suspend () -> T
+    ): T {
+        val start = System.currentTimeMillis()
+        val result = block()
+        val end = System.currentTimeMillis()
+        
+        val duration = end - start
+        println("$operation took ${duration}ms")
+        
+        return result
+    }
+}
+```
+
+## Algorithm and Data Structure Optimization
+
+### Efficient Algorithms
+```javascript
+// Good: Algorithm optimization examples
+class AlgorithmOptimizer {
+    // Use Set for O(1) lookups instead of Array.includes()
+    findDuplicates(items) {
+        const seen = new Set();
+        const duplicates = new Set();
+        
+        for (const item of items) {
+            if (seen.has(item)) {
+                duplicates.add(item);
+            } else {
+                seen.add(item);
+            }
+        }
+        
+        return Array.from(duplicates);
+    }
+    
+    // Use Map for O(1) key-value lookups
+    groupBy(items, keySelector) {
+        const groups = new Map();
+        
+        for (const item of items) {
+            const key = keySelector(item);
+            if (!groups.has(key)) {
+                groups.set(key, []);
+            }
+            groups.get(key).push(item);
+        }
+        
+        return Object.fromEntries(groups);
+    }
+    
+    // Efficient sorting with custom comparator
+    sortByMultipleCriteria(items, criteria) {
+        return items.sort((a, b) => {
+            for (const { key, order = 'asc' } of criteria) {
+                const aVal = a[key];
+                const bVal = b[key];
+                
+                if (aVal < bVal) return order === 'asc' ? -1 : 1;
+                if (aVal > bVal) return order === 'asc' ? 1 : -1;
+            }
+            return 0;
+        });
+    }
+    
+    // Binary search for sorted arrays
+    binarySearch(sortedArray, target) {
+        let left = 0;
+        let right = sortedArray.length - 1;
+        
+        while (left <= right) {
+            const mid = Math.floor((left + right) / 2);
+            const midVal = sortedArray[mid];
+            
+            if (midVal === target) return mid;
+            if (midVal < target) left = mid + 1;
+            else right = mid - 1;
+        }
+        
+        return -1;
+    }
+}
+```
+
+## Performance Monitoring
+
+### Application Performance Monitoring
+```javascript
+// Good: Performance monitoring implementation
+class PerformanceMonitor {
+    constructor() {
+        this.metrics = {
+            responseTimes: [],
+            errorRates: [],
+            throughput: []
+        };
+        this.startTime = Date.now();
+    }
+    
+    recordResponseTime(method, path, duration) {
+        this.metrics.responseTimes.push({
+            method,
+            path,
+            duration,
+            timestamp: Date.now()
+        });
+        
+        // Keep only last 1000 measurements
+        if (this.metrics.responseTimes.length > 1000) {
+            this.metrics.responseTimes.shift();
+        }
+    }
+    
+    recordError(method, path, error) {
+        this.metrics.errorRates.push({
+            method,
+            path,
+            error: error.message,
+            timestamp: Date.now()
+        });
+    }
+    
+    getAverageResponseTime(path = null) {
+        const times = path 
+            ? this.metrics.responseTimes.filter(m => m.path === path)
+            : this.metrics.responseTimes;
+        
+        if (times.length === 0) return 0;
+        
+        const sum = times.reduce((acc, m) => acc + m.duration, 0);
+        return sum / times.length;
+    }
+    
+    getErrorRate(path = null) {
+        const errors = path
+            ? this.metrics.errorRates.filter(m => m.path === path)
+            : this.metrics.errorRates;
+        
+        const totalRequests = this.metrics.responseTimes.length;
+        return totalRequests > 0 ? errors.length / totalRequests : 0;
+    }
+    
+    generateReport() {
+        const uptime = Date.now() - this.startTime;
+        
+        return {
+            uptime: Math.floor(uptime / 1000),
+            averageResponseTime: this.getAverageResponseTime(),
+            errorRate: this.getErrorRate(),
+            totalRequests: this.metrics.responseTimes.length,
+            totalErrors: this.metrics.errorRates.length
+        };
+    }
+}
+```
+
+### Electron Performance Patterns
+```javascript
+// Good: Electron performance optimization
+const { app, BrowserWindow, ipcMain } = require('electron');
+
+class ElectronPerformanceOptimizer {
+    constructor() {
+        this.windows = new Map();
+        this.metrics = new Map();
+    }
+    
+    // Optimize window creation
+    createOptimizedWindow(options = {}) {
+        const defaultOptions = {
+            width: 800,
+            height: 600,
+            show: false, // Don't show until ready
+            webPreferences: {
+                nodeIntegration: false,
+                contextIsolation: true,
+                enableRemoteModule: false,
+                backgroundThrottling: false, // Prevent throttling when app is in background
+            }
+        };
+        
+        const window = new BrowserWindow({ ...defaultOptions, ...options });
+        
+        // Show window when ready to prevent visual flash
+        window.once('ready-to-show', () => {
+            window.show();
+        });
+        
+        // Optimize memory usage
+        window.on('closed', () => {
+            this.windows.delete(window.id);
+        });
+        
+        this.windows.set(window.id, window);
+        return window;
+    }
+    
+    // Optimize IPC communication
+    setupOptimizedIPC() {
+        // Use invoke/handle for better performance than send/on
+        ipcMain.handle('optimized-operation', async (event, data) => {
+            const startTime = performance.now();
+            
+            try {
+                const result = await this.performOperation(data);
+                const duration = performance.now() - startTime;
+                
+                this.recordMetric('ipc-operation', duration);
+                return result;
+            } catch (error) {
+                this.recordError('ipc-operation', error);
+                throw error;
+            }
+        });
+    }
+    
+    // Memory management
+    optimizeMemoryUsage() {
+        // Clear unused windows
+        setInterval(() => {
+            this.windows.forEach((window, id) => {
+                if (window.isDestroyed()) {
+                    this.windows.delete(id);
+                }
+            });
+        }, 30000); // Check every 30 seconds
+        
+        // Monitor memory usage
+        setInterval(() => {
+            const memoryInfo = process.getProcessMemoryInfo();
+            if (memoryInfo.privateBytes > 500 * 1024 * 1024) { // 500MB
+                console.warn('High memory usage detected');
+                this.cleanupMemory();
+            }
+        }, 60000); // Check every minute
+    }
+    
+    // Performance monitoring
+    recordMetric(operation, duration) {
+        if (!this.metrics.has(operation)) {
+            this.metrics.set(operation, []);
+        }
+        
+        const metrics = this.metrics.get(operation);
+        metrics.push(duration);
+        
+        // Keep only last 100 measurements
+        if (metrics.length > 100) {
+            metrics.shift();
+        }
+    }
+    
+    getAverageDuration(operation) {
+        const metrics = this.metrics.get(operation) || [];
+        if (metrics.length === 0) return 0;
+        
+        const sum = metrics.reduce((acc, duration) => acc + duration, 0);
+        return sum / metrics.length;
+    }
+}
+```
+
+### Flutter Performance Patterns
+```dart
+// Good: Flutter performance optimization
+import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+
+class FlutterPerformanceOptimizer {
+  // Optimize widget rebuilds
+  static Widget buildOptimizedWidget({
+    required Widget child,
+    required String key,
+  }) {
+    return RepaintBoundary(
+      key: ValueKey(key),
+      child: child,
+    );
+  }
+  
+  // Use const constructors for immutable widgets
+  static const Widget optimizedContainer = Container(
+    padding: EdgeInsets.all(16.0),
+    child: Text('Optimized Widget'),
+  );
+  
+  // Optimize list performance
+  static Widget buildOptimizedListView(List<String> items) {
+    return ListView.builder(
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          key: ValueKey(items[index]), // Stable keys for better performance
+          title: Text(items[index]),
+        );
+      },
+    );
+  }
+  
+  // Optimize image loading
+  static Widget buildOptimizedImage(String imageUrl) {
+    return Image.network(
+      imageUrl,
+      cacheWidth: 300, // Limit cache size
+      cacheHeight: 300,
+      frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+        if (wasSynchronouslyLoaded) return child;
+        return AnimatedOpacity(
+          opacity: frame == null ? 0 : 1,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+          child: child,
+        );
+      },
+    );
+  }
+  
+  // Optimize animations
+  static Widget buildOptimizedAnimation({
+    required Widget child,
+    required AnimationController controller,
+  }) {
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context, child) {
+        return Transform.scale(
+          scale: controller.value,
+          child: child,
+        );
+      },
+      child: child,
+    );
+  }
+}
+
+// Performance monitoring
+class PerformanceMonitor {
+  static final Map<String, List<Duration>> _metrics = {};
+  
+  static void recordOperation(String operation, Duration duration) {
+    _metrics.putIfAbsent(operation, () => []);
+    _metrics[operation]!.add(duration);
+    
+    // Keep only last 100 measurements
+    if (_metrics[operation]!.length > 100) {
+      _metrics[operation]!.removeAt(0);
+    }
+  }
+  
+  static Duration getAverageDuration(String operation) {
+    final metrics = _metrics[operation];
+    if (metrics == null || metrics.isEmpty) {
+      return Duration.zero;
+    }
+    
+    final totalMicroseconds = metrics
+        .map((duration) => duration.inMicroseconds)
+        .reduce((a, b) => a + b);
+    
+    return Duration(microseconds: totalMicroseconds ~/ metrics.length);
+  }
+  
+  static void logPerformanceReport() {
+    _metrics.forEach((operation, durations) {
+      final average = getAverageDuration(operation);
+      debugPrint('$operation: ${average.inMilliseconds}ms average');
+    });
+  }
+}
+
+// Optimized state management
+class OptimizedStateManager extends ChangeNotifier {
+  final Map<String, dynamic> _cache = {};
+  
+  void updateValue(String key, dynamic value) {
+    if (_cache[key] != value) {
+      _cache[key] = value;
+      notifyListeners();
+    }
+  }
+  
+  T? getValue<T>(String key) {
+    return _cache[key] as T?;
+  }
+}
+```
+
+### .NET MAUI Performance Patterns
+```csharp
+// Good: .NET MAUI performance optimization
+using Microsoft.Maui.Controls;
+using System.Diagnostics;
+
+public class MauiPerformanceOptimizer
+{
+    // Optimize page loading
+    public static async Task<Page> CreateOptimizedPageAsync<T>() where T : Page, new()
+    {
+        var page = new T();
+        
+        // Use background thread for heavy initialization
+        await Task.Run(() =>
+        {
+            // Perform heavy initialization here
+            InitializePageData();
+        });
+        
+        return page;
+    }
+    
+    // Optimize list performance
+    public static CollectionView CreateOptimizedCollectionView<T>(IEnumerable<T> items)
+    {
+        return new CollectionView
+        {
+            ItemsSource = items,
+            ItemTemplate = new DataTemplate(() =>
+            {
+                var label = new Label();
+                label.SetBinding(Label.TextProperty, "Name");
+                return label;
+            }),
+            // Enable virtualization for better performance
+            ItemsLayout = new LinearItemsLayout(ItemsLayoutOrientation.Vertical)
+            {
+                ItemSpacing = 5
+            }
+        };
+    }
+    
+    // Optimize image loading
+    public static Image CreateOptimizedImage(string imageUrl)
+    {
+        return new Image
+        {
+            Source = ImageSource.FromUri(new Uri(imageUrl)),
+            Aspect = Aspect.AspectFit,
+            // Enable caching
+            IsOpaque = true
+        };
+    }
+    
+    // Optimize animations
+    public static async Task AnimateOptimizedAsync(VisualElement element, Animation animation)
+    {
+        var stopwatch = Stopwatch.StartNew();
+        
+        await element.Animate(animation);
+        
+        stopwatch.Stop();
+        PerformanceMonitor.RecordOperation("animation", stopwatch.Elapsed);
+    }
+    
+    private static void InitializePageData()
+    {
+        // Simulate heavy initialization
+        Thread.Sleep(100);
+    }
+}
+
+// Performance monitoring
+public static class PerformanceMonitor
+{
+    private static readonly Dictionary<string, List<TimeSpan>> _metrics = new();
+    
+    public static void RecordOperation(string operation, TimeSpan duration)
+    {
+        if (!_metrics.ContainsKey(operation))
+        {
+            _metrics[operation] = new List<TimeSpan>();
+        }
+        
+        _metrics[operation].Add(duration);
+        
+        // Keep only last 100 measurements
+        if (_metrics[operation].Count > 100)
+        {
+            _metrics[operation].RemoveAt(0);
+        }
+    }
+    
+    public static TimeSpan GetAverageDuration(string operation)
+    {
+        if (!_metrics.ContainsKey(operation) || _metrics[operation].Count == 0)
+        {
+            return TimeSpan.Zero;
+        }
+        
+        var totalTicks = _metrics[operation].Sum(d => d.Ticks);
+        var averageTicks = totalTicks / _metrics[operation].Count;
+        
+        return TimeSpan.FromTicks(averageTicks);
+    }
+    
+    public static void LogPerformanceReport()
+    {
+        foreach (var kvp in _metrics)
+        {
+            var average = GetAverageDuration(kvp.Key);
+            Debug.WriteLine($"{kvp.Key}: {average.TotalMilliseconds:F2}ms average");
+        }
+    }
+}
+
+// Optimized data binding
+public class OptimizedViewModel : ObservableObject
+{
+    private readonly Dictionary<string, object> _cache = new();
+    
+    public void SetValue<T>(string propertyName, T value)
+    {
+        if (!EqualityComparer<T>.Default.Equals((T)_cache.GetValueOrDefault(propertyName), value))
+        {
+            _cache[propertyName] = value;
+            OnPropertyChanged(propertyName);
+        }
+    }
+    
+    public T GetValue<T>(string propertyName, T defaultValue = default)
+    {
+        return (T)_cache.GetValueOrDefault(propertyName, defaultValue);
+    }
+}
+```
+
+## Best Practices Summary
+
+### Do's
+- ✅ Profile before optimizing
+- ✅ Use appropriate data structures
+- ✅ Implement strategic caching
+- ✅ Optimize database queries
+- ✅ Use async processing for I/O operations
+- ✅ Monitor performance metrics
+- ✅ Implement proper error handling
+- ✅ Use connection pooling
+- ✅ Implement rate limiting
+- ✅ Optimize algorithms and algorithms
+
+### Don'ts
+- ❌ Optimize without measuring
+- ❌ Use inefficient data structures
+- ❌ Ignore caching opportunities
+- ❌ Write N+1 queries
+- ❌ Block on I/O operations
+- ❌ Ignore memory leaks
+- ❌ Use synchronous operations unnecessarily
+- ❌ Over-optimize prematurely
+- ❌ Ignore performance monitoring
+- ❌ Use inefficient algorithms
+description:
+globs:
+alwaysApply: false
+---

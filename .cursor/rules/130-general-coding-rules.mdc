@@ -1,0 +1,239 @@
+---
+name: "General Coding Rules"
+description: "Core coding principles and behavioral guidelines for AI-assisted development across all programming languages and file types"
+version: "1.0.0"
+author: "Cursor Rules"
+created: "2024-01-01"
+updated: "2024-01-15"
+category: "coding-standards"
+priority: "high"
+tags:
+  - "coding-principles"
+  - "ai-assistance"
+  - "development-workflow"
+  - "code-quality"
+  - "best-practices"
+  - "behavioral-guidelines"
+  - "multi-language"
+  - "consistency"
+
+# Apply Intelligently Settings
+applyIntelligently: true
+alwaysApply: true
+autoApply: true
+
+# Trigger Conditions
+triggers:
+  - "writing new code"
+  - "modifying existing code"
+  - "code review"
+  - "refactoring"
+  - "debugging"
+  - "implementing features"
+  - "fixing bugs"
+  - "optimizing code"
+  - "adding tests"
+  - "documenting code"
+
+# File Patterns
+filePatterns:
+  - "**/*.js"
+  - "**/*.ts"
+  - "**/*.jsx"
+  - "**/*.tsx"
+  - "**/*.py"
+  - "**/*.java"
+  - "**/*.cs"
+  - "**/*.cpp"
+  - "**/*.h"
+  - "**/*.hpp"
+  - "**/*.c"
+  - "**/*.go"
+  - "**/*.rs"
+  - "**/*.php"
+  - "**/*.rb"
+  - "**/*.swift"
+  - "**/*.kt"
+  - "**/*.scala"
+  - "**/*.sh"
+  - "**/*.ps1"
+  - "**/*.yaml"
+  - "**/*.yml"
+  - "**/*.json"
+  - "**/*.xml"
+  - "**/*.toml"
+  - "**/*.ini"
+  - "**/*.conf"
+  - "**/*.config"
+
+# Language Support
+languages:
+  - "javascript"
+  - "typescript"
+  - "python"
+  - "java"
+  - "csharp"
+  - "cpp"
+  - "c"
+  - "go"
+  - "rust"
+  - "php"
+  - "ruby"
+  - "swift"
+  - "kotlin"
+  - "scala"
+  - "bash"
+  - "powershell"
+  - "yaml"
+  - "json"
+  - "xml"
+  - "toml"
+
+# Context Keywords
+keywords:
+  - "coding-principles"
+  - "ai-assistance"
+  - "development-workflow"
+  - "code-quality"
+  - "best-practices"
+  - "behavioral-guidelines"
+  - "consistency"
+  - "maintainability"
+  - "readability"
+  - "security"
+  - "performance"
+  - "testing"
+  - "error-handling"
+  - "documentation"
+
+# Exclusions
+exclusions:
+  - "**/node_modules/**"
+  - "**/vendor/**"
+  - "**/dist/**"
+  - "**/build/**"
+  - "**/.git/**"
+  - "**/coverage/**"
+  - "**/*.min.*"
+  - "**/*.bundle.*"
+
+---
+
+# General Coding Rules
+
+## AI Assistant Behavior Guidelines
+
+### Information Accuracy & Verification
+- Always verify information before presenting it to users
+- Do not make assumptions or speculate without clear evidence
+- When uncertain about implementation details, ask for clarification rather than guessing
+- Provide accurate file references and links to real files, not generated context
+
+### Change Management & Implementation
+- Make changes file by file, allowing users to review each modification
+- Never remove unrelated code or functionalities without explicit permission
+- Preserve existing code structures and patterns unless specifically requested to change them
+- Don't suggest updates to files when no actual modifications are needed
+- Implement only what's explicitly requested - avoid inventing additional changes
+
+### Communication & Feedback
+- Never use apologies in code comments, documentation, or responses
+- Avoid giving feedback about understanding in code comments or documentation
+- Don't ask for confirmation of information already provided in context
+- Don't ask users to verify implementations that are visible in the provided context
+- Focus on actionable guidance rather than meta-commentary
+
+### Code Presentation & Review
+- Don't show or discuss current implementation unless specifically requested
+- Avoid suggesting whitespace changes unless they're part of a larger functional change
+- When presenting code changes, focus on the functional modifications
+- Provide clear, concise explanations for suggested changes
+
+## Code Quality Principles
+
+### Naming & Readability
+- Use descriptive, explicit variable and function names over short, ambiguous ones
+- Choose names that clearly express intent and purpose
+- Avoid abbreviations unless they're widely understood in the domain
+- Follow language-specific naming conventions consistently
+
+### Code Style & Consistency
+- Adhere to the existing coding style and patterns in the project
+- Maintain consistency with established conventions
+- Follow language-specific best practices and style guides
+- Respect existing indentation, spacing, and formatting patterns
+
+### Performance & Optimization
+- Consider and prioritize code performance where applicable
+- Profile before optimizing - don't optimize prematurely
+- Use appropriate data structures and algorithms for the task
+- Consider memory usage and resource management
+
+### Security & Safety
+- Always consider security implications when modifying or suggesting code changes
+- Validate inputs and handle edge cases appropriately
+- Use secure defaults and fail-safe mechanisms
+- Follow security best practices for the specific language and framework
+
+## Development Best Practices
+
+### Error Handling & Resilience
+- Implement robust error handling and logging where necessary
+- Handle potential edge cases and error conditions
+- Use appropriate exception types and error codes
+- Implement graceful degradation where possible
+
+### Testing & Quality Assurance
+- Suggest or include appropriate unit tests for new or modified code
+- Consider integration tests for complex interactions
+- Include assertions to validate assumptions and catch errors early
+- Ensure test coverage for critical business logic
+
+### Modularity & Maintainability
+- Encourage modular design principles to improve code maintainability and reusability
+- Keep functions and classes focused on single responsibilities
+- Prefer composition over inheritance where appropriate
+- Design for extensibility and future modifications
+
+### Configuration & Constants
+- Replace hardcoded values with named constants to improve code clarity and maintainability
+- Use configuration files for environment-specific settings
+- Centralize configuration management
+- Use environment variables for sensitive information
+
+## Technical Implementation
+
+### Compatibility & Dependencies
+- Ensure suggested changes are compatible with the project's specified language or framework versions
+- Consider backward compatibility when making changes
+- Verify dependency compatibility and version constraints
+- Test changes in the target environment when possible
+
+### Documentation & Comments
+- Write self-documenting code with clear naming and structure
+- Include comments for complex logic or business rules
+- Document public APIs and interfaces
+- Keep documentation close to the code it describes
+
+### Code Organization
+- Organize code logically by feature or domain
+- Keep related functionality together
+- Separate concerns appropriately
+- Use consistent file and directory naming conventions
+
+## Integration with Other Rules
+
+This rule file works in conjunction with specialized rule files:
+- **[100-base.mdc](./100-base.mdc)** - Foundation project standards
+- **[110-code-quality.mdc](./110-code-quality.mdc)** - Detailed code quality standards
+- **[150-security-standards.mdc](./150-security-standards.mdc)** - Security practices
+- **[200-testing-patterns.mdc](./200-testing-patterns.mdc)** - Testing strategies
+- **[250-performance-guidelines.mdc](./250-performance-guidelines.mdc)** - Performance optimization
+- **[300-api-patterns.mdc](./300-api-patterns.mdc)** - API development patterns
+
+## Usage Guidelines
+
+- Apply these rules consistently across all programming languages and file types
+- Use in combination with language-specific and domain-specific rule files
+- Prioritize these general principles when making coding decisions
+- Adapt specific implementations based on project context and requirements

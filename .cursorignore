@@ -1,0 +1,16 @@
+# Exclude secrets, credentials, builds, and large assets from Cursor's AI index
+.env
+.env.*
+secrets/
+*.pem
+*.key
+*.crt
+node_modules/
+*.zip
+*.bin
+build/
+dist/
+*.sql
+*.csv
+tests/fixtures/*
+docs/large_reference_manual.pdf

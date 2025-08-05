@@ -1,0 +1,1261 @@
+---
+name: "Documentation Standards"
+description: "Comprehensive documentation standards for markdown files, READMEs, API docs, and code comments across multiple programming languages"
+version: "1.0.0"
+author: "Cursor Rules"
+created: "2024-01-01"
+updated: "2024-01-01"
+category: "documentation"
+priority: "high"
+tags:
+  - "documentation"
+  - "markdown"
+  - "api-docs"
+  - "code-comments"
+  - "readme"
+  - "templates"
+  - "standards"
+  - "best-practices"
+
+# Apply Intelligently Settings
+applyIntelligently: true
+alwaysApply: false
+autoApply: false
+
+# Trigger Conditions
+triggers:
+  - "creating markdown files"
+  - "editing README.md"
+  - "writing API documentation"
+  - "adding code comments"
+  - "documenting functions"
+  - "documenting classes"
+  - "writing component documentation"
+  - "creating project documentation"
+  - "updating documentation"
+  - "writing technical documentation"
+
+# File Patterns
+filePatterns:
+  - "*.md"
+  - "*.mdx"
+  - "README.md"
+  - "CHANGELOG.md"
+  - "API.md"
+  - "CONTRIBUTING.md"
+  - "docs/**/*.md"
+  - "**/*.js"
+  - "**/*.ts"
+  - "**/*.jsx"
+  - "**/*.tsx"
+  - "**/*.py"
+  - "**/*.cpp"
+  - "**/*.h"
+  - "**/*.java"
+  - "**/*.cs"
+
+# Language Support
+languages:
+  - "markdown"
+  - "javascript"
+  - "typescript"
+  - "python"
+  - "cpp"
+  - "java"
+  - "csharp"
+  - "go"
+  - "rust"
+  - "swift"
+  - "kotlin"
+  - "jsx"
+  - "tsx"
+
+# Context Keywords
+keywords:
+  - "documentation"
+  - "docs"
+  - "readme"
+  - "api"
+  - "comments"
+  - "docstring"
+  - "jsdoc"
+  - "javadoc"
+  - "doxygen"
+  - "markdown"
+  - "template"
+  - "guide"
+  - "standard"
+  - "format"
+  - "structure"
+
+# Exclusions
+excludePatterns:
+  - "node_modules/**"
+  - "dist/**"
+  - "build/**"
+  - ".git/**"
+  - "*.min.js"
+  - "*.bundle.js"
+
+# Dependencies
+dependencies: []
+
+# Related Rules
+relatedRules:
+  - "300-api-patterns"
+  - "code-quality"
+  - "security-standards"
+
+# Usage Examples
+examples:
+  - "When writing a new README.md file"
+  - "When documenting API endpoints"
+  - "When adding JSDoc comments to functions"
+  - "When creating component documentation"
+  - "When writing Python docstrings"
+  - "When documenting C++ classes"
+
+# Notes
+notes:
+  - "This rule provides comprehensive documentation standards for multiple languages"
+  - "Includes templates and examples for common documentation scenarios"
+  - "Covers security best practices for documentation"
+  - "Provides accessibility guidelines for documentation"
+  - "Includes version control and maintenance practices"
+---
+# Documentation Standards
+
+## 📝 Markdown Structure
+
+### Heading Hierarchy
+- Use proper heading hierarchy (H1 → H2 → H3, no consecutive jumps)
+- H1 (#) for page titles only
+- H2 (##) for major sections
+- H3 (###) for subsections
+- H4 (####) for detailed topics
+- Maximum depth: H4 (####)
+
+### Content Organization
+- Start with a brief overview/description
+- Use bullet points for lists of features/benefits
+- Include code examples with proper language annotation
+- End with "See Also" or "Related" sections when relevant
+
+### Code Blocks
+```markdown
+# Always specify language
+```javascript
+const example = "with proper syntax highlighting";
+```
+
+# For terminal commands
+```bash
+npm install package-name
+```
+
+# For configuration files
+```json
+{
+  "key": "value"
+}
+```
+```
+
+## 🔧 Code Documentation
+
+### Function Documentation
+
+#### JavaScript/TypeScript
+```javascript
+/**
+ * Calculates the sum of two numbers
+ * @param {number} a - First number
+ * @param {number} b - Second number
+ * @returns {number} Sum of a and b
+ * @example
+ * add(2, 3) // returns 5
+ */
+function add(a, b) {
+  return a + b;
+}
+```
+
+#### Python
+```python
+def add(a: float, b: float) -> float:
+    """
+    Calculates the sum of two numbers.
+    
+    Args:
+        a (float): First number
+        b (float): Second number
+        
+    Returns:
+        float: Sum of a and b
+        
+    Example:
+        >>> add(2, 3)
+        5.0
+    """
+    return a + b
+```
+
+#### C++
+```cpp
+/**
+ * Calculates the sum of two numbers
+ * @param a First number
+ * @param b Second number
+ * @return Sum of a and b
+ * @example
+ * int result = add(2, 3); // result = 5
+ */
+int add(int a, int b) {
+    return a + b;
+}
+```
+
+#### Java
+```java
+/**
+ * Calculates the sum of two numbers
+ * @param a First number
+ * @param b Second number
+ * @return Sum of a and b
+ * @example
+ * int result = add(2, 3); // result = 5
+ */
+public static int add(int a, int b) {
+    return a + b;
+}
+```
+
+#### C#
+```csharp
+/// <summary>
+/// Calculates the sum of two numbers
+/// </summary>
+/// <param name="a">First number</param>
+/// <param name="b">Second number</param>
+/// <returns>Sum of a and b</returns>
+/// <example>
+/// int result = Add(2, 3); // result = 5
+/// </example>
+public static int Add(int a, int b)
+{
+    return a + b;
+}
+```
+
+### Class Documentation
+
+#### JavaScript/TypeScript
+```javascript
+/**
+ * Represents a user in the system
+ * @class User
+ * @param {string} name - User's full name
+ * @param {string} email - User's email address
+ */
+class User {
+  constructor(name, email) {
+    this.name = name;
+    this.email = email;
+  }
+}
+```
+
+#### Python
+```python
+class User:
+    """
+    Represents a user in the system.
+    
+    Args:
+        name (str): User's full name
+        email (str): User's email address
+    """
+    
+    def __init__(self, name: str, email: str):
+        self.name = name
+        self.email = email
+```
+
+#### C++
+```cpp
+/**
+ * Represents a user in the system
+ */
+class User {
+private:
+    std::string name;
+    std::string email;
+    
+public:
+    /**
+     * Constructor for User class
+     * @param name User's full name
+     * @param email User's email address
+     */
+    User(const std::string& name, const std::string& email);
+};
+```
+
+#### Java
+```java
+/**
+ * Represents a user in the system
+ */
+public class User {
+    private String name;
+    private String email;
+    
+    /**
+     * Constructor for User class
+     * @param name User's full name
+     * @param email User's email address
+     */
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+}
+```
+
+#### C#
+```csharp
+/// <summary>
+/// Represents a user in the system
+/// </summary>
+public class User
+{
+    private string name;
+    private string email;
+    
+    /// <summary>
+    /// Constructor for User class
+    /// </summary>
+    /// <param name="name">User's full name</param>
+    /// <param name="email">User's email address</param>
+    public User(string name, string email)
+    {
+        this.name = name;
+        this.email = email;
+    }
+}
+```
+
+### Component Documentation (Frontend Frameworks)
+```jsx
+/**
+ * UserProfile component displays user information
+ * @component
+ * @param {Object} props
+ * @param {string} props.name - User's name
+ * @param {string} props.avatar - URL to user's avatar
+ * @param {Function} props.onEdit - Callback when edit button is clicked
+ */
+function UserProfile({ name, avatar, onEdit }) {
+  // Component implementation
+}
+```
+
+## 📚 API Documentation
+
+### Endpoint Documentation
+```markdown
+## GET /api/users/{id}
+
+Retrieves a specific user by ID.
+
+### Parameters
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| id | string | Yes | User's unique identifier |
+
+### Response
+```json
+{
+  "id": "user123",
+  "name": "John Doe",
+  "email": "john@example.com",
+  "createdAt": "2024-01-01T00:00:00Z"
+}
+```
+
+### Error Responses
+- `404 Not Found` - User not found
+- `500 Internal Server Error` - Server error
+```
+
+### Request/Response Examples
+```markdown
+### Example Request
+```bash
+curl -X GET "https://api.example.com/users/user123" \
+  -H "Authorization: Bearer token123"
+```
+
+### Example Response
+```json
+{
+  "success": true,
+  "data": {
+    "id": "user123",
+    "name": "John Doe"
+  }
+}
+```
+```
+
+## 🎯 Best Practices
+
+### General Guidelines
+- **Be concise but complete** - Include all necessary information without fluff
+- **Use active voice** - "The function returns..." not "The function is returned by..."
+- **Include examples** - Every concept should have a practical example
+- **Update docs with code changes** - Documentation should reflect current implementation
+
+### Security Considerations
+- ❌ Never include API keys, passwords, or sensitive data
+- ❌ Don't expose internal system details
+- ✅ Use placeholder values like `YOUR_API_KEY` or `example.com`
+- ✅ Include security requirements and authentication methods
+
+### Accessibility
+- Use descriptive link text (not "click here")
+- Include alt text for images
+- Use proper heading structure for screen readers
+- Ensure sufficient color contrast in code examples
+
+### Version Control
+- Include version numbers in API documentation
+- Document breaking changes prominently
+- Maintain changelog with clear descriptions
+- Use semantic versioning references
+
+## 📋 Templates
+
+### README.md Template
+```markdown
+# Project Name
+
+Brief description of what this project does.
+
+## Features
+
+- Feature 1
+- Feature 2
+- Feature 3
+
+## Prerequisites
+
+- Language runtime (Python 3.8+, Node.js 16+, Java 11+, etc.)
+- Build tools (if applicable)
+- Database (if applicable)
+
+## Installation
+
+### Python
+```bash
+pip install -r requirements.txt
+```
+
+### JavaScript/Node.js
+```bash
+npm install
+```
+
+### Java
+```bash
+./gradlew build
+```
+
+### C++
+```bash
+mkdir build && cd build
+cmake .. && make
+```
+
+## Usage
+
+### Python
+```python
+from project_name import main_function
+
+result = main_function('example')
+```
+
+### JavaScript
+```javascript
+import { mainFunction } from 'project-name';
+
+const result = mainFunction('example');
+```
+
+### Java
+```java
+import com.example.ProjectName;
+
+String result = ProjectName.mainFunction("example");
+```
+
+## API Reference
+
+See [API Documentation](./docs/api.md)
+
+## Contributing
+
+See [Contributing Guidelines](./CONTRIBUTING.md)
+
+## License
+
+MIT License - see [LICENSE](./LICENSE) file
+```
+
+### Component Documentation Template
+```markdown
+## ComponentName
+
+Brief description of the component's purpose.
+
+### Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| prop1 | string | - | Yes | Description of prop1 |
+| prop2 | number | 0 | No | Description of prop2 |
+
+### Events
+
+| Event | Payload | Description |
+|-------|---------|-------------|
+| change | value: string | Emitted when value changes |
+
+### Examples
+
+#### Basic Usage
+```jsx
+<ComponentName prop1="value" />
+```
+
+#### With Event Handler
+```jsx
+<ComponentName 
+  prop1="value" 
+  onChange={(value) => console.log(value)} 
+/>
+```
+```
+
+## 🚀 Quick Reference
+
+### Common Patterns
+- **Configuration**: Use JSON/YAML examples with environment-specific settings
+- **CLI Commands**: Include flags, options, and usage examples
+- **Error Handling**: Show try/catch patterns, exception handling, and error codes
+- **Async Operations**: Include Promise/async examples, threading, and concurrency
+- **Testing**: Show unit test examples with setup, teardown, and assertions
+- **Build Systems**: Document build commands, dependencies, and deployment steps
+- **Database Operations**: Include connection examples, queries, and transaction handling
+
+### Language-Specific Notes
+- **JavaScript/TypeScript**: Use JSDoc comments with `@param`, `@returns`, `@example`
+- **Python**: Use docstrings with type hints, follow PEP 257 conventions
+- **C++**: Use Doxygen-style comments with `@param`, `@return`, `@brief`
+- **Java**: Use Javadoc comments with `@param`, `@return`, `@throws`
+- **C#**: Use XML documentation comments with `<summary>`, `<param>`, `<returns>`
+- **React/Vue**: Document props, events, lifecycle methods, and component interfaces
+- **CSS**: Include browser compatibility notes and vendor prefixes
+
+### File Naming
+- `README.md` - Project overview
+- `CHANGELOG.md` - Version history
+- `API.md` - API documentation
+- `CONTRIBUTING.md` - Contribution guidelines
+- `docs/` - Additional documentation
+
+### Language-Specific File Extensions
+- **Python**: `.py`, `.pyi` (type stubs), `requirements.txt`, `setup.py`, `pyproject.toml`
+- **JavaScript/TypeScript**: `.js`, `.ts`, `.jsx`, `.tsx`, `package.json`, `tsconfig.json`
+- **C++**: `.cpp`, `.h`, `.hpp`, `CMakeLists.txt`, `Makefile`
+- **Java**: `.java`, `pom.xml`, `build.gradle`, `gradle.properties`
+- **C#**: `.cs`, `.csproj`, `.sln`, `packages.config`
+# Documentation Standards
+
+## 📝 Markdown Structure
+
+### Heading Hierarchy
+- Use proper heading hierarchy (H1 → H2 → H3, no consecutive jumps)
+- H1 (#) for page titles only
+- H2 (##) for major sections
+- H3 (###) for subsections
+- H4 (####) for detailed topics
+- Maximum depth: H4 (####)
+
+### Content Organization
+- Start with a brief overview/description
+- Use bullet points for lists of features/benefits
+- Include code examples with proper language annotation
+- End with "See Also" or "Related" sections when relevant
+
+### Code Blocks
+```markdown
+# Always specify language
+```javascript
+const example = "with proper syntax highlighting";
+```
+
+# For terminal commands
+```bash
+npm install package-name
+```
+
+# For configuration files
+```json
+{
+  "key": "value"
+}
+```
+```
+
+## 🔧 Code Documentation
+
+### Function Documentation
+
+#### JavaScript/TypeScript
+```javascript
+/**
+ * Calculates the sum of two numbers
+ * @param {number} a - First number
+ * @param {number} b - Second number
+ * @returns {number} Sum of a and b
+ * @example
+ * add(2, 3) // returns 5
+ */
+function add(a, b) {
+  return a + b;
+}
+```
+
+#### Python
+```python
+def add(a: float, b: float) -> float:
+    """
+    Calculates the sum of two numbers.
+    
+    Args:
+        a (float): First number
+        b (float): Second number
+        
+    Returns:
+        float: Sum of a and b
+        
+    Example:
+        >>> add(2, 3)
+        5.0
+    """
+    return a + b
+```
+
+#### C++
+```cpp
+/**
+ * Calculates the sum of two numbers
+ * @param a First number
+ * @param b Second number
+ * @return Sum of a and b
+ * @example
+ * int result = add(2, 3); // result = 5
+ */
+int add(int a, int b) {
+    return a + b;
+}
+```
+
+#### Java
+```java
+/**
+ * Calculates the sum of two numbers
+ * @param a First number
+ * @param b Second number
+ * @return Sum of a and b
+ * @example
+ * int result = add(2, 3); // result = 5
+ */
+public static int add(int a, int b) {
+    return a + b;
+}
+```
+
+#### C#
+```csharp
+/// <summary>
+/// Calculates the sum of two numbers
+/// </summary>
+/// <param name="a">First number</param>
+/// <param name="b">Second number</param>
+/// <returns>Sum of a and b</returns>
+/// <example>
+/// int result = Add(2, 3); // result = 5
+/// </example>
+public static int Add(int a, int b)
+{
+    return a + b;
+}
+```
+
+#### Go
+```go
+// Add calculates the sum of two numbers
+// a: First number
+// b: Second number
+// Returns: Sum of a and b
+// Example:
+//   result := Add(2, 3) // result = 5
+func Add(a, b int) int {
+    return a + b
+}
+```
+
+#### Rust
+```rust
+/// Calculates the sum of two numbers
+/// 
+/// # Arguments
+/// 
+/// * `a` - First number
+/// * `b` - Second number
+/// 
+/// # Returns
+/// 
+/// Sum of a and b
+/// 
+/// # Examples
+/// 
+/// ```
+/// let result = add(2, 3); // result = 5
+/// ```
+pub fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
+```
+
+#### Swift
+```swift
+/// Calculates the sum of two numbers
+/// - Parameters:
+///   - a: First number
+///   - b: Second number
+/// - Returns: Sum of a and b
+/// - Example:
+///   ```swift
+///   let result = add(2, 3) // result = 5
+///   ```
+func add(_ a: Double, _ b: Double) -> Double {
+    return a + b
+}
+```
+
+#### Kotlin
+```kotlin
+/**
+ * Calculates the sum of two numbers
+ * @param a First number
+ * @param b Second number
+ * @return Sum of a and b
+ * @example
+ * val result = add(2, 3) // result = 5
+ */
+fun add(a: Int, b: Int): Int {
+    return a + b
+}
+```
+
+### Class Documentation
+
+#### JavaScript/TypeScript
+```javascript
+/**
+ * Represents a user in the system
+ * @class User
+ * @param {string} name - User's full name
+ * @param {string} email - User's email address
+ */
+class User {
+  constructor(name, email) {
+    this.name = name;
+    this.email = email;
+  }
+}
+```
+
+#### Python
+```python
+class User:
+    """
+    Represents a user in the system.
+    
+    Args:
+        name (str): User's full name
+        email (str): User's email address
+    """
+    
+    def __init__(self, name: str, email: str):
+        self.name = name
+        self.email = email
+```
+
+#### C++
+```cpp
+/**
+ * Represents a user in the system
+ */
+class User {
+private:
+    std::string name;
+    std::string email;
+    
+public:
+    /**
+     * Constructor for User class
+     * @param name User's full name
+     * @param email User's email address
+     */
+    User(const std::string& name, const std::string& email);
+};
+```
+
+#### Java
+```java
+/**
+ * Represents a user in the system
+ */
+public class User {
+    private String name;
+    private String email;
+    
+    /**
+     * Constructor for User class
+     * @param name User's full name
+     * @param email User's email address
+     */
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+}
+```
+
+#### C#
+```csharp
+/// <summary>
+/// Represents a user in the system
+/// </summary>
+public class User
+{
+    private string name;
+    private string email;
+    
+    /// <summary>
+    /// Constructor for User class
+    /// </summary>
+    /// <param name="name">User's full name</param>
+    /// <param name="email">User's email address</param>
+    public User(string name, string email)
+    {
+        this.name = name;
+        this.email = email;
+    }
+}
+```
+
+#### Go
+```go
+// User represents a user in the system
+type User struct {
+    Name  string `json:"name"`
+    Email string `json:"email"`
+}
+
+// NewUser creates a new User instance
+// name: User's full name
+// email: User's email address
+// Returns: New User instance
+func NewUser(name, email string) *User {
+    return &User{
+        Name:  name,
+        Email: email,
+    }
+}
+```
+
+#### Rust
+```rust
+/// Represents a user in the system
+pub struct User {
+    /// User's full name
+    pub name: String,
+    /// User's email address
+    pub email: String,
+}
+
+impl User {
+    /// Creates a new User instance
+    /// 
+    /// # Arguments
+    /// 
+    /// * `name` - User's full name
+    /// * `email` - User's email address
+    /// 
+    /// # Returns
+    /// 
+    /// New User instance
+    pub fn new(name: String, email: String) -> Self {
+        User { name, email }
+    }
+}
+```
+
+#### Swift
+```swift
+/// Represents a user in the system
+struct User {
+    /// User's full name
+    let name: String
+    /// User's email address
+    let email: String
+    
+    /// Creates a new User instance
+    /// - Parameters:
+    ///   - name: User's full name
+    ///   - email: User's email address
+    init(name: String, email: String) {
+        self.name = name
+        self.email = email
+    }
+}
+```
+
+#### Kotlin
+```kotlin
+/**
+ * Represents a user in the system
+ */
+data class User(
+    /** User's full name */
+    val name: String,
+    /** User's email address */
+    val email: String
+) {
+    /**
+     * Creates a new User instance
+     * @param name User's full name
+     * @param email User's email address
+     */
+    constructor(name: String, email: String) : this(name, email)
+}
+```
+
+### Component Documentation (Frontend Frameworks)
+```jsx
+/**
+ * UserProfile component displays user information
+ * @component
+ * @param {Object} props
+ * @param {string} props.name - User's name
+ * @param {string} props.avatar - URL to user's avatar
+ * @param {Function} props.onEdit - Callback when edit button is clicked
+ */
+function UserProfile({ name, avatar, onEdit }) {
+  // Component implementation
+}
+```
+
+## 📚 API Documentation
+
+### Endpoint Documentation
+```markdown
+## GET /api/users/{id}
+
+Retrieves a specific user by ID.
+
+### Parameters
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| id | string | Yes | User's unique identifier |
+
+### Response
+```json
+{
+  "id": "user123",
+  "name": "John Doe",
+  "email": "john@example.com",
+  "createdAt": "2024-01-01T00:00:00Z"
+}
+```
+
+### Error Responses
+- `404 Not Found` - User not found
+- `500 Internal Server Error` - Server error
+```
+
+### Request/Response Examples
+```markdown
+### Example Request
+```bash
+curl -X GET "https://api.example.com/users/user123" \
+  -H "Authorization: Bearer token123"
+```
+
+### Example Response
+```json
+{
+  "success": true,
+  "data": {
+    "id": "user123",
+    "name": "John Doe"
+  }
+}
+```
+```
+
+## 🎯 Best Practices
+
+### General Guidelines
+- **Be concise but complete** - Include all necessary information without fluff
+- **Use active voice** - "The function returns..." not "The function is returned by..."
+- **Include examples** - Every concept should have a practical example
+- **Update docs with code changes** - Documentation should reflect current implementation
+
+### Security Considerations
+- ❌ Never include API keys, passwords, or sensitive data
+- ❌ Don't expose internal system details
+- ✅ Use placeholder values like `YOUR_API_KEY` or `example.com`
+- ✅ Include security requirements and authentication methods
+
+### Accessibility
+- Use descriptive link text (not "click here")
+- Include alt text for images
+- Use proper heading structure for screen readers
+- Ensure sufficient color contrast in code examples
+
+### Version Control
+- Include version numbers in API documentation
+- Document breaking changes prominently
+- Maintain changelog with clear descriptions
+- Use semantic versioning references
+
+## 📋 Templates
+
+### README.md Template
+```markdown
+# Project Name
+
+Brief description of what this project does.
+
+## Features
+
+- Feature 1
+- Feature 2
+- Feature 3
+
+## Prerequisites
+
+- Language runtime (Python 3.8+, Node.js 16+, Java 11+, etc.)
+- Build tools (if applicable)
+- Database (if applicable)
+
+## Installation
+
+### Python
+```bash
+pip install -r requirements.txt
+```
+
+### JavaScript/Node.js
+```bash
+npm install
+```
+
+### Java
+```bash
+./gradlew build
+```
+
+### C++
+```bash
+mkdir build && cd build
+cmake .. && make
+```
+
+## Usage
+
+### Python
+```python
+from project_name import main_function
+
+result = main_function('example')
+```
+
+### JavaScript
+```javascript
+import { mainFunction } from 'project-name';
+
+const result = mainFunction('example');
+```
+
+### Java
+```java
+import com.example.ProjectName;
+
+String result = ProjectName.mainFunction("example");
+```
+
+### Swift
+```swift
+import ProjectName
+
+let result = ProjectName.mainFunction("example")
+```
+
+### Kotlin
+```kotlin
+import com.example.ProjectName
+
+val result = ProjectName.mainFunction("example")
+```
+
+### Go
+```go
+import "github.com/example/project-name"
+
+result := projectname.MainFunction("example")
+```
+
+### Rust
+```rust
+use project_name;
+
+let result = project_name::main_function("example");
+```
+
+### Dart (Flutter)
+```dart
+import 'package:your_app/main.dart';
+
+final result = YourApp.mainFunction('example');
+```
+
+### Electron
+```javascript
+const { app } = require('electron');
+const { mainFunction } = require('./main');
+
+const result = mainFunction('example');
+```
+
+### .NET MAUI
+```csharp
+using YourApp;
+
+var result = YourApp.MainFunction("example");
+```
+
+## API Reference
+
+See [API Documentation](./docs/api.md)
+
+## Contributing
+
+See [Contributing Guidelines](./CONTRIBUTING.md)
+
+## License
+
+MIT License - see [LICENSE](./LICENSE) file
+```
+
+### Component Documentation Template
+```markdown
+## ComponentName
+
+Brief description of the component's purpose.
+
+### Props
+
+| Prop | Type | Default | Required | Description |
+|------|------|---------|----------|-------------|
+| prop1 | string | - | Yes | Description of prop1 |
+| prop2 | number | 0 | No | Description of prop2 |
+
+### Events
+
+| Event | Payload | Description |
+|-------|---------|-------------|
+| change | value: string | Emitted when value changes |
+
+### Examples
+
+#### Basic Usage
+```jsx
+<ComponentName prop1="value" />
+```
+
+#### With Event Handler
+```jsx
+<ComponentName 
+  prop1="value" 
+  onChange={(value) => console.log(value)} 
+/>
+```
+```
+
+## 🚀 Quick Reference
+
+### Common Patterns
+- **Configuration**: Use JSON/YAML examples with environment-specific settings
+- **CLI Commands**: Include flags, options, and usage examples
+- **Error Handling**: Show try/catch patterns, exception handling, and error codes
+- **Async Operations**: Include Promise/async examples, threading, and concurrency
+- **Testing**: Show unit test examples with setup, teardown, and assertions
+- **Build Systems**: Document build commands, dependencies, and deployment steps
+- **Database Operations**: Include connection examples, queries, and transaction handling
+
+### Language-Specific Notes
+- **JavaScript/TypeScript**: Use JSDoc comments with `@param`, `@returns`, `@example`
+- **Python**: Use docstrings with type hints, follow PEP 257 conventions
+- **C++**: Use Doxygen-style comments with `@param`, `@return`, `@brief`
+- **Java**: Use Javadoc comments with `@param`, `@return`, `@throws`
+- **C#**: Use XML documentation comments with `<summary>`, `<param>`, `<returns>`
+- **Go**: Use godoc comments with `// Package`, `// Function`, and `// Example`
+- **Rust**: Use rustdoc comments with `///` and `//!` for documentation
+- **Swift**: Use Swift documentation comments with `///` and `/**` for detailed docs
+- **Kotlin**: Use KDoc comments with `/**` and `@param`, `@return`, `@throws`
+- **Dart**: Use Dart documentation comments with `///` and `/**` for detailed docs
+- **Electron**: Document IPC patterns, security considerations, and main/renderer process separation
+- **Flutter**: Document widget lifecycle, state management, and platform-specific considerations
+- **.NET MAUI**: Document XAML patterns, MVVM implementation, and cross-platform considerations
+- **React/Vue**: Document props, events, lifecycle methods, and component interfaces
+- **CSS**: Include browser compatibility notes and vendor prefixes
+
+### File Naming
+- `README.md` - Project overview
+- `CHANGELOG.md` - Version history
+- `API.md` - API documentation
+- `CONTRIBUTING.md` - Contribution guidelines
+- `docs/` - Additional documentation
+
+### Language-Specific File Extensions
+- **Python**: `.py`, `.pyi` (type stubs), `requirements.txt`, `setup.py`, `pyproject.toml`
+- **JavaScript/TypeScript**: `.js`, `.ts`, `.jsx`, `.tsx`, `package.json`, `tsconfig.json`
+- **C++**: `.cpp`, `.h`, `.hpp`, `CMakeLists.txt`, `Makefile`
+- **Java**: `.java`, `pom.xml`, `build.gradle`, `gradle.properties`
+- **C#**: `.cs`, `.csproj`, `.sln`, `packages.config`
+- **Go**: `.go`, `go.mod`, `go.sum`, `Gopkg.toml`
+- **Rust**: `.rs`, `Cargo.toml`, `Cargo.lock`
+- **Swift**: `.swift`, `Package.swift`, `Info.plist`
+- **Kotlin**: `.kt`, `.kts`, `build.gradle.kts`, `gradle.properties`
+- **Dart**: `.dart`, `pubspec.yaml`, `pubspec.lock`
+- **Electron**: `main.js`, `preload.js`, `package.json`, `electron-builder.json`
+- **Flutter**: `.dart`, `pubspec.yaml`, `android/`, `ios/`, `web/`
+- **.NET MAUI**: `.cs`, `.xaml`, `.csproj`, `MauiProgram.cs`, `Platforms/`

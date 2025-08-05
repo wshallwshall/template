@@ -1,0 +1,22 @@
+# General
+__pycache__/
+.DS_Store
+
+# Python virtual env
+.venv/
+env/
+
+# Node
+node_modules/
+
+# Builds
+build/
+dist/
+
+# Secrets
+.env
+.env.*
+secrets/
+
+# Documentation templates
+docs/templates/

@@ -1,0 +1,1532 @@
+---
+name: "API Development Patterns"
+description: "API development, REST endpoint creation, error handling implementation, response schema design, HTTP status code usage, authentication setup, security implementation, API documentation, testing API endpoints, performance optimization, cross-language API patterns, OpenAPI/Swagger documentation, rate limiting, CORS configuration, input validation, exception handling, middleware development, global error handlers, response wrappers, API versioning"
+version: "1.0.0"
+author: "Cursor Rules"
+created: "2024-01-01"
+updated: "2024-01-01"
+category: "api-development"
+priority: "high"
+tags:
+  - "api"
+  - "rest"
+  - "endpoints"
+  - "error-handling"
+  - "authentication"
+  - "security"
+  - "http-status-codes"
+  - "response-schemas"
+  - "middleware"
+  - "validation"
+  - "rate-limiting"
+  - "cors"
+  - "openapi"
+  - "swagger"
+  - "testing"
+  - "performance"
+  - "versioning"
+
+# Apply Intelligently Settings
+applyIntelligently: true
+alwaysApply: false
+autoApply: false
+
+# Trigger Conditions
+triggers:
+  - "creating REST API endpoints"
+  - "implementing error handling"
+  - "designing response schemas"
+  - "setting up authentication"
+  - "configuring security measures"
+  - "writing API documentation"
+  - "implementing middleware"
+  - "adding input validation"
+  - "setting up rate limiting"
+  - "configuring CORS"
+  - "creating OpenAPI/Swagger docs"
+  - "writing API tests"
+  - "optimizing API performance"
+  - "implementing API versioning"
+  - "handling HTTP status codes"
+  - "creating response wrappers"
+  - "setting up global error handlers"
+
+# File Patterns
+filePatterns:
+  - "**/routes/**/*.js"
+  - "**/routes/**/*.ts"
+  - "**/controllers/**/*.js"
+  - "**/controllers/**/*.ts"
+  - "**/controllers/**/*.py"
+  - "**/controllers/**/*.java"
+  - "**/controllers/**/*.cs"
+  - "**/controllers/**/*.cpp"
+  - "**/api/**/*.js"
+  - "**/api/**/*.ts"
+  - "**/api/**/*.py"
+  - "**/api/**/*.java"
+  - "**/api/**/*.cs"
+  - "**/api/**/*.cpp"
+  - "**/endpoints/**/*.js"
+  - "**/endpoints/**/*.ts"
+  - "**/endpoints/**/*.py"
+  - "**/middleware/**/*.js"
+  - "**/middleware/**/*.ts"
+  - "**/middleware/**/*.py"
+  - "**/middleware/**/*.java"
+  - "**/middleware/**/*.cs"
+  - "**/middleware/**/*.cpp"
+  - "**/handlers/**/*.js"
+  - "**/handlers/**/*.ts"
+  - "**/handlers/**/*.py"
+  - "**/handlers/**/*.java"
+  - "**/handlers/**/*.cs"
+  - "**/handlers/**/*.cpp"
+  - "**/services/**/*.js"
+  - "**/services/**/*.ts"
+  - "**/services/**/*.py"
+  - "**/services/**/*.java"
+  - "**/services/**/*.cs"
+  - "**/services/**/*.cpp"
+  - "app.py"
+  - "main.py"
+  - "server.py"
+  - "app.js"
+  - "server.js"
+  - "index.js"
+  - "main.js"
+  - "Application.java"
+  - "Main.java"
+  - "Program.cs"
+  - "Startup.cs"
+  - "main.cpp"
+  - "server.cpp"
+  - "openapi.yaml"
+  - "openapi.yml"
+  - "swagger.yaml"
+  - "swagger.yml"
+  - "api.yaml"
+  - "api.yml"
+
+# Language Support
+languages:
+  - "javascript"
+  - "typescript"
+  - "python"
+  - "java"
+  - "csharp"
+  - "cpp"
+  - "go"
+  - "rust"
+  - "swift"
+  - "kotlin"
+  - "dart"
+  - "yaml"
+  - "json"
+
+# Context Keywords
+keywords:
+  - "api"
+  - "rest"
+  - "endpoint"
+  - "route"
+  - "controller"
+  - "middleware"
+  - "handler"
+  - "service"
+  - "authentication"
+  - "authorization"
+  - "jwt"
+  - "oauth"
+  - "api-key"
+  - "rate-limit"
+  - "cors"
+  - "validation"
+  - "error-handling"
+  - "exception"
+  - "http-status"
+  - "response"
+  - "request"
+  - "openapi"
+  - "swagger"
+  - "documentation"
+  - "testing"
+  - "performance"
+  - "security"
+  - "versioning"
+  - "pagination"
+  - "caching"
+  - "compression"
+  - "async"
+  - "promise"
+  - "await"
+  - "callback"
+
+# Exclusions
+excludePatterns:
+  - "node_modules/**"
+  - "dist/**"
+  - "build/**"
+  - ".git/**"
+  - "*.min.js"
+  - "*.bundle.js"
+  - "*.test.js"
+  - "*.spec.js"
+  - "*.test.ts"
+  - "*.spec.ts"
+  - "test/**"
+  - "tests/**"
+  - "__tests__/**"
+  - "coverage/**"
+
+# Dependencies
+dependencies: []
+
+# Related Rules
+relatedRules:
+  - "210-docs-standards"
+  - "security-standards"
+  - "testing-patterns"
+  - "performance-guidelines"
+
+# Usage Examples
+examples:
+  - "When creating a new REST API endpoint"
+  - "When implementing error handling middleware"
+  - "When designing API response schemas"
+  - "When setting up authentication and authorization"
+  - "When configuring security measures"
+  - "When writing OpenAPI/Swagger documentation"
+  - "When implementing input validation"
+  - "When setting up rate limiting"
+  - "When configuring CORS policies"
+  - "When creating API tests"
+  - "When optimizing API performance"
+  - "When implementing API versioning"
+
+# Notes
+notes:
+  - "This rule provides comprehensive API development patterns across multiple languages"
+  - "Includes security best practices and authentication patterns"
+  - "Covers error handling, validation, and response schemas"
+  - "Provides performance optimization guidelines"
+  - "Includes testing patterns and documentation standards"
+  - "Supports OpenAPI/Swagger documentation generation"
+  - "Covers rate limiting, CORS, and other security measures"
+---
+# API Guidelines
+
+## Core Principles
+- Expose only essential endpoints and apply versioning
+- Use proper HTTP error codes and response schemas
+- Never reveal secrets in configs or error messages
+- Implement consistent error handling across all endpoints
+- Use semantic versioning for API versions (v1, v2, etc.)
+
+## HTTP Status Codes
+- `200 OK` - Successful GET, PUT, PATCH requests
+- `201 Created` - Successful POST requests
+- `204 No Content` - Successful DELETE requests
+- `400 Bad Request` - Invalid request data or parameters
+- `401 Unauthorized` - Missing or invalid authentication
+- `403 Forbidden` - Valid auth but insufficient permissions
+- `404 Not Found` - Resource doesn't exist
+- `409 Conflict` - Resource conflicts (duplicate, constraint violation)
+- `422 Unprocessable Entity` - Valid syntax but semantic errors
+- `429 Too Many Requests` - Rate limiting
+- `500 Internal Server Error` - Server-side errors
+- `503 Service Unavailable` - Service temporarily unavailable
+
+## Response Schema Patterns
+
+### Success Response
+```json
+{
+  "success": true,
+  "data": { /* actual response data */ },
+  "meta": {
+    "timestamp": "2024-01-01T00:00:00Z",
+    "version": "v1"
+  }
+}
+```
+
+### Error Response
+```json
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid input parameters",
+    "details": [ /* validation errors */ ]
+  },
+  "meta": {
+    "timestamp": "2024-01-01T00:00:00Z",
+    "requestId": "req_123456"
+  }
+}
+```
+
+## Language-Specific Patterns
+
+### Python (Flask/FastAPI)
+```python
+# Error handling decorator
+def handle_api_errors(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        try:
+            return f(*args, **kwargs)
+        except ValidationError as e:
+            return jsonify({
+                "success": False,
+                "error": {"code": "VALIDATION_ERROR", "message": str(e)}
+            }), 422
+        except Exception as e:
+            logger.error(f"API Error: {str(e)}")
+            return jsonify({
+                "success": False,
+                "error": {"code": "INTERNAL_ERROR", "message": "Internal server error"}
+            }), 500
+    return wrapper
+
+# Response wrapper
+def api_response(data=None, status_code=200, meta=None):
+    response = {
+        "success": True,
+        "data": data,
+        "meta": meta or {"timestamp": datetime.utcnow().isoformat()}
+    }
+    return jsonify(response), status_code
+```
+
+### JavaScript/Node.js (Express)
+```javascript
+// Error handling middleware
+const errorHandler = (err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const errorResponse = {
+    success: false,
+    error: {
+      code: err.code || 'INTERNAL_ERROR',
+      message: err.message || 'Internal server error'
+    },
+    meta: {
+      timestamp: new Date().toISOString(),
+      requestId: req.id
+    }
+  };
+  
+  res.status(statusCode).json(errorResponse);
+};
+
+// Response wrapper
+const apiResponse = (res, data = null, statusCode = 200, meta = {}) => {
+  const response = {
+    success: true,
+    data,
+    meta: {
+      timestamp: new Date().toISOString(),
+      ...meta
+    }
+  };
+  return res.status(statusCode).json(response);
+};
+```
+
+### Java (Spring Boot)
+```java
+// Global exception handler
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<ApiResponse<Void>> handleValidation(ValidationException ex) {
+        ApiError error = new ApiError("VALIDATION_ERROR", ex.getMessage());
+        return ResponseEntity.status(422)
+            .body(ApiResponse.error(error));
+    }
+    
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponse<Void>> handleGeneric(Exception ex) {
+        logger.error("API Error", ex);
+        ApiError error = new ApiError("INTERNAL_ERROR", "Internal server error");
+        return ResponseEntity.status(500)
+            .body(ApiResponse.error(error));
+    }
+}
+
+// Response wrapper
+public class ApiResponse<T> {
+    private boolean success;
+    private T data;
+    private ApiError error;
+    private Map<String, Object> meta;
+    
+    public static <T> ApiResponse<T> success(T data) {
+        ApiResponse<T> response = new ApiResponse<>();
+        response.success = true;
+        response.data = data;
+        response.meta = Map.of("timestamp", Instant.now().toString());
+        return response;
+    }
+}
+```
+
+### C# (.NET)
+```csharp
+// Global exception filter
+public class ApiExceptionFilter : IExceptionFilter
+{
+    public void OnException(ExceptionContext context)
+    {
+        var response = new ApiResponse<object>
+        {
+            Success = false,
+            Error = new ApiError
+            {
+                Code = "INTERNAL_ERROR",
+                Message = "Internal server error"
+            },
+            Meta = new Dictionary<string, object>
+            {
+                ["timestamp"] = DateTime.UtcNow.ToString("O")
+            }
+        };
+        
+        context.Result = new JsonResult(response) { StatusCode = 500 };
+    }
+}
+
+// Response wrapper
+public class ApiResponse<T>
+{
+    public bool Success { get; set; }
+    public T Data { get; set; }
+    public ApiError Error { get; set; }
+    public Dictionary<string, object> Meta { get; set; }
+    
+    public static ApiResponse<T> Success(T data)
+    {
+        return new ApiResponse<T>
+        {
+            Success = true,
+            Data = data,
+            Meta = new Dictionary<string, object>
+            {
+                ["timestamp"] = DateTime.UtcNow.ToString("O")
+            }
+        };
+    }
+}
+```
+
+### C++ (REST API)
+```cpp
+// Error response structure
+struct ApiError {
+    std::string code;
+    std::string message;
+    std::vector<std::string> details;
+};
+
+struct ApiResponse<T> {
+    bool success;
+    T data;
+    ApiError error;
+    std::map<std::string, std::string> meta;
+    
+    static ApiResponse<T> Success(const T& data) {
+        ApiResponse<T> response;
+        response.success = true;
+        response.data = data;
+        response.meta["timestamp"] = GetCurrentTimestamp();
+        return response;
+    }
+    
+    static ApiResponse<T> Error(const std::string& code, const std::string& message) {
+        ApiResponse<T> response;
+        response.success = false;
+        response.error.code = code;
+        response.error.message = message;
+        response.meta["timestamp"] = GetCurrentTimestamp();
+        return response;
+    }
+};
+```
+
+## Security Guidelines
+- Always validate and sanitize input data
+- Use HTTPS for all API communications
+- Implement proper authentication (JWT, OAuth, API keys)
+- Rate limit endpoints to prevent abuse
+- Log security events but never log sensitive data
+- Use environment variables for configuration
+- Implement CORS policies appropriately
+
+## Documentation Standards
+- Use OpenAPI/Swagger for API documentation
+- Include request/response examples
+- Document all error codes and messages
+- Provide authentication requirements
+- Include rate limiting information
+- Maintain changelog for breaking changes
+
+## Testing Patterns
+- Unit test all endpoint logic
+- Integration test API flows
+- Test error scenarios and edge cases
+- Mock external dependencies
+- Test rate limiting and security measures
+- Validate response schemas
+
+## Performance Guidelines
+- Implement pagination for large datasets
+- Use caching where appropriate
+- Optimize database queries
+- Implement request/response compression
+- Monitor API performance metrics
+- Use async processing for long-running operations
+# API Guidelines
+
+## Core Principles
+- Expose only essential endpoints and apply versioning
+- Use proper HTTP error codes and response schemas
+- Never reveal secrets in configs or error messages
+- Implement consistent error handling across all endpoints
+- Use semantic versioning for API versions (v1, v2, etc.)
+
+## HTTP Status Codes
+- `200 OK` - Successful GET, PUT, PATCH requests
+- `201 Created` - Successful POST requests
+- `204 No Content` - Successful DELETE requests
+- `400 Bad Request` - Invalid request data or parameters
+- `401 Unauthorized` - Missing or invalid authentication
+- `403 Forbidden` - Valid auth but insufficient permissions
+- `404 Not Found` - Resource doesn't exist
+- `409 Conflict` - Resource conflicts (duplicate, constraint violation)
+- `422 Unprocessable Entity` - Valid syntax but semantic errors
+- `429 Too Many Requests` - Rate limiting
+- `500 Internal Server Error` - Server-side errors
+- `503 Service Unavailable` - Service temporarily unavailable
+
+## Response Schema Patterns
+
+### Success Response
+```json
+{
+  "success": true,
+  "data": { /* actual response data */ },
+  "meta": {
+    "timestamp": "2024-01-01T00:00:00Z",
+    "version": "v1"
+  }
+}
+```
+
+### Error Response
+```json
+{
+  "success": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid input parameters",
+    "details": [ /* validation errors */ ]
+  },
+  "meta": {
+    "timestamp": "2024-01-01T00:00:00Z",
+    "requestId": "req_123456"
+  }
+}
+```
+
+## Language-Specific Patterns
+
+### Python (Flask/FastAPI)
+```python
+# Error handling decorator
+def handle_api_errors(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        try:
+            return f(*args, **kwargs)
+        except ValidationError as e:
+            return jsonify({
+                "success": False,
+                "error": {"code": "VALIDATION_ERROR", "message": str(e)}
+            }), 422
+        except Exception as e:
+            logger.error(f"API Error: {str(e)}")
+            return jsonify({
+                "success": False,
+                "error": {"code": "INTERNAL_ERROR", "message": "Internal server error"}
+            }), 500
+    return wrapper
+
+# Response wrapper
+def api_response(data=None, status_code=200, meta=None):
+    response = {
+        "success": True,
+        "data": data,
+        "meta": meta or {"timestamp": datetime.utcnow().isoformat()}
+    }
+    return jsonify(response), status_code
+```
+
+### JavaScript/Node.js (Express)
+```javascript
+// Error handling middleware
+const errorHandler = (err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const errorResponse = {
+    success: false,
+    error: {
+      code: err.code || 'INTERNAL_ERROR',
+      message: err.message || 'Internal server error'
+    },
+    meta: {
+      timestamp: new Date().toISOString(),
+      requestId: req.id
+    }
+  };
+  
+  res.status(statusCode).json(errorResponse);
+};
+
+// Response wrapper
+const apiResponse = (res, data = null, statusCode = 200, meta = {}) => {
+  const response = {
+    success: true,
+    data,
+    meta: {
+      timestamp: new Date().toISOString(),
+      ...meta
+    }
+  };
+  return res.status(statusCode).json(response);
+};
+```
+
+### Java (Spring Boot)
+```java
+// Global exception handler
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<ApiResponse<Void>> handleValidation(ValidationException ex) {
+        ApiError error = new ApiError("VALIDATION_ERROR", ex.getMessage());
+        return ResponseEntity.status(422)
+            .body(ApiResponse.error(error));
+    }
+    
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponse<Void>> handleGeneric(Exception ex) {
+        logger.error("API Error", ex);
+        ApiError error = new ApiError("INTERNAL_ERROR", "Internal server error");
+        return ResponseEntity.status(500)
+            .body(ApiResponse.error(error));
+    }
+}
+
+// Response wrapper
+public class ApiResponse<T> {
+    private boolean success;
+    private T data;
+    private ApiError error;
+    private Map<String, Object> meta;
+    
+    public static <T> ApiResponse<T> success(T data) {
+        ApiResponse<T> response = new ApiResponse<>();
+        response.success = true;
+        response.data = data;
+        response.meta = Map.of("timestamp", Instant.now().toString());
+        return response;
+    }
+}
+```
+
+### C# (.NET)
+```csharp
+// Global exception filter
+public class ApiExceptionFilter : IExceptionFilter
+{
+    public void OnException(ExceptionContext context)
+    {
+        var response = new ApiResponse<object>
+        {
+            Success = false,
+            Error = new ApiError
+            {
+                Code = "INTERNAL_ERROR",
+                Message = "Internal server error"
+            },
+            Meta = new Dictionary<string, object>
+            {
+                ["timestamp"] = DateTime.UtcNow.ToString("O")
+            }
+        };
+        
+        context.Result = new JsonResult(response) { StatusCode = 500 };
+    }
+}
+
+// Response wrapper
+public class ApiResponse<T>
+{
+    public bool Success { get; set; }
+    public T Data { get; set; }
+    public ApiError Error { get; set; }
+    public Dictionary<string, object> Meta { get; set; }
+    
+    public static ApiResponse<T> Success(T data)
+    {
+        return new ApiResponse<T>
+        {
+            Success = true,
+            Data = data,
+            Meta = new Dictionary<string, object>
+            {
+                ["timestamp"] = DateTime.UtcNow.ToString("O")
+            }
+        };
+    }
+}
+```
+
+### C++ (REST API)
+```cpp
+// Error response structure
+struct ApiError {
+    std::string code;
+    std::string message;
+    std::vector<std::string> details;
+};
+
+struct ApiResponse<T> {
+    bool success;
+    T data;
+    ApiError error;
+    std::map<std::string, std::string> meta;
+    
+    static ApiResponse<T> Success(const T& data) {
+        ApiResponse<T> response;
+        response.success = true;
+        response.data = data;
+        response.meta["timestamp"] = GetCurrentTimestamp();
+        return response;
+    }
+    
+    static ApiResponse<T> Error(const std::string& code, const std::string& message) {
+        ApiResponse<T> response;
+        response.success = false;
+        response.error.code = code;
+        response.error.message = message;
+        response.meta["timestamp"] = GetCurrentTimestamp();
+        return response;
+    }
+};
+```
+
+### Swift (Vapor/FastAPI)
+```swift
+// Good: Swift API with Vapor framework
+import Vapor
+import Fluent
+
+struct UserController: RouteCollection {
+    func boot(routes: RoutesBuilder) throws {
+        let users = routes.grouped("api", "users")
+        users.get(use: index)
+        users.post(use: create)
+        users.group(":userID") { user in
+            user.get(use: show)
+            user.put(use: update)
+            user.delete(use: delete)
+        }
+    }
+    
+    // GET /api/users
+    func index(req: Request) async throws -> [User] {
+        return try await User.query(on: req.db).all()
+    }
+    
+    // POST /api/users
+    func create(req: Request) async throws -> User {
+        let user = try req.content.decode(User.self)
+        try await user.save(on: req.db)
+        return user
+    }
+    
+    // GET /api/users/:id
+    func show(req: Request) async throws -> User {
+        guard let user = try await User.find(req.parameters.get("userID"), on: req.db) else {
+            throw Abort(.notFound, reason: "User not found")
+        }
+        return user
+    }
+    
+    // PUT /api/users/:id
+    func update(req: Request) async throws -> User {
+        guard let user = try await User.find(req.parameters.get("userID"), on: req.db) else {
+            throw Abort(.notFound, reason: "User not found")
+        }
+        
+        let updatedUser = try req.content.decode(User.self)
+        user.name = updatedUser.name
+        user.email = updatedUser.email
+        try await user.save(on: req.db)
+        return user
+    }
+    
+    // DELETE /api/users/:id
+    func delete(req: Request) async throws -> HTTPStatus {
+        guard let user = try await User.find(req.parameters.get("userID"), on: req.db) else {
+            throw Abort(.notFound, reason: "User not found")
+        }
+        try await user.delete(on: req.db)
+        return .noContent
+    }
+}
+
+// Error handling middleware
+struct ErrorMiddleware: Middleware {
+    func respond(to request: Request, chainingTo next: Responder) -> EventLoopFuture<Response> {
+        return next.respond(to: request).flatMapError { error in
+            let status: HTTPStatus
+            let message: String
+            
+            switch error {
+            case let abort as Abort:
+                status = abort.status
+                message = abort.reason ?? "Unknown error"
+            default:
+                status = .internalServerError
+                message = "Internal server error"
+            }
+            
+            let errorResponse = ErrorResponse(
+                error: true,
+                message: message,
+                code: status.code
+            )
+            
+            return request.eventLoop.makeSucceededFuture(
+                Response(status: status, body: .init(data: try! JSONEncoder().encode(errorResponse)))
+            )
+        }
+    }
+}
+
+// Response models
+struct ErrorResponse: Codable {
+    let error: Bool
+    let message: String
+    let code: Int
+}
+
+struct ApiResponse<T: Codable>: Codable {
+    let success: Bool
+    let data: T?
+    let error: ErrorResponse?
+    let meta: [String: String]
+    
+    static func success(_ data: T) -> ApiResponse<T> {
+        return ApiResponse(
+            success: true,
+            data: data,
+            error: nil,
+            meta: ["timestamp": ISO8601DateFormatter().string(from: Date())]
+        )
+    }
+    
+    static func error(_ error: ErrorResponse) -> ApiResponse<T> {
+        return ApiResponse(
+            success: false,
+            data: nil,
+            error: error,
+            meta: ["timestamp": ISO8601DateFormatter().string(from: Date())]
+        )
+    }
+}
+```
+
+### Kotlin (Spring Boot)
+```kotlin
+// Good: Kotlin API with Spring Boot
+import org.springframework.web.bind.annotation.*
+import org.springframework.http.ResponseEntity
+import org.springframework.http.HttpStatus
+import javax.validation.Valid
+import javax.validation.constraints.*
+
+@RestController
+@RequestMapping("/api/users")
+class UserController(
+    private val userService: UserService
+) {
+    
+    @GetMapping
+    suspend fun getAllUsers(): ResponseEntity<ApiResponse<List<User>>> {
+        return try {
+            val users = userService.getAllUsers()
+            ResponseEntity.ok(ApiResponse.success(users))
+        } catch (e: Exception) {
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.error("INTERNAL_ERROR", "Failed to retrieve users"))
+        }
+    }
+    
+    @GetMapping("/{id}")
+    suspend fun getUserById(@PathVariable id: String): ResponseEntity<ApiResponse<User>> {
+        return try {
+            val user = userService.getUserById(id)
+            ResponseEntity.ok(ApiResponse.success(user))
+        } catch (e: UserNotFoundException) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiResponse.error("USER_NOT_FOUND", "User not found"))
+        } catch (e: Exception) {
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.error("INTERNAL_ERROR", "Failed to retrieve user"))
+        }
+    }
+    
+    @PostMapping
+    suspend fun createUser(@Valid @RequestBody request: CreateUserRequest): ResponseEntity<ApiResponse<User>> {
+        return try {
+            val user = userService.createUser(request)
+            ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.success(user))
+        } catch (e: ValidationException) {
+            ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error("VALIDATION_ERROR", e.message ?: "Invalid input"))
+        } catch (e: Exception) {
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.error("INTERNAL_ERROR", "Failed to create user"))
+        }
+    }
+    
+    @PutMapping("/{id}")
+    suspend fun updateUser(
+        @PathVariable id: String,
+        @Valid @RequestBody request: UpdateUserRequest
+    ): ResponseEntity<ApiResponse<User>> {
+        return try {
+            val user = userService.updateUser(id, request)
+            ResponseEntity.ok(ApiResponse.success(user))
+        } catch (e: UserNotFoundException) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiResponse.error("USER_NOT_FOUND", "User not found"))
+        } catch (e: ValidationException) {
+            ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error("VALIDATION_ERROR", e.message ?: "Invalid input"))
+        } catch (e: Exception) {
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.error("INTERNAL_ERROR", "Failed to update user"))
+        }
+    }
+    
+    @DeleteMapping("/{id}")
+    suspend fun deleteUser(@PathVariable id: String): ResponseEntity<ApiResponse<Unit>> {
+        return try {
+            userService.deleteUser(id)
+            ResponseEntity.status(HttpStatus.NO_CONTENT)
+                .body(ApiResponse.success(Unit))
+        } catch (e: UserNotFoundException) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ApiResponse.error("USER_NOT_FOUND", "User not found"))
+        } catch (e: Exception) {
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.error("INTERNAL_ERROR", "Failed to delete user"))
+        }
+    }
+}
+
+// Request/Response models
+data class CreateUserRequest(
+    @field:NotBlank(message = "Name is required")
+    val name: String,
+    
+    @field:NotBlank(message = "Email is required")
+    @field:Email(message = "Invalid email format")
+    val email: String,
+    
+    @field:NotBlank(message = "Password is required")
+    @field:Size(min = 8, message = "Password must be at least 8 characters")
+    val password: String
+)
+
+data class UpdateUserRequest(
+    @field:NotBlank(message = "Name is required")
+    val name: String,
+    
+    @field:NotBlank(message = "Email is required")
+    @field:Email(message = "Invalid email format")
+    val email: String
+)
+
+data class ApiResponse<T>(
+    val success: Boolean,
+    val data: T? = null,
+    val error: ErrorResponse? = null,
+    val meta: Map<String, String> = mapOf("timestamp" to java.time.Instant.now().toString())
+) {
+    companion object {
+        fun <T> success(data: T): ApiResponse<T> = ApiResponse(success = true, data = data)
+        fun <T> error(code: String, message: String): ApiResponse<T> = 
+            ApiResponse(success = false, error = ErrorResponse(code, message))
+    }
+}
+
+data class ErrorResponse(
+    val code: String,
+    val message: String
+)
+
+// Global exception handler
+@ControllerAdvice
+class GlobalExceptionHandler {
+    
+    @ExceptionHandler(ValidationException::class)
+    fun handleValidationException(ex: ValidationException): ResponseEntity<ApiResponse<Unit>> {
+        return ResponseEntity.badRequest()
+            .body(ApiResponse.error("VALIDATION_ERROR", ex.message ?: "Validation failed"))
+    }
+    
+    @ExceptionHandler(UserNotFoundException::class)
+    fun handleUserNotFoundException(ex: UserNotFoundException): ResponseEntity<ApiResponse<Unit>> {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(ApiResponse.error("USER_NOT_FOUND", "User not found"))
+    }
+    
+    @ExceptionHandler(Exception::class)
+    fun handleGenericException(ex: Exception): ResponseEntity<ApiResponse<Unit>> {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(ApiResponse.error("INTERNAL_ERROR", "An unexpected error occurred"))
+    }
+}
+```
+
+### Electron API Patterns
+```javascript
+// Good: Electron API with IPC communication
+const { ipcMain, ipcRenderer } = require('electron');
+
+// Main process API handlers
+class ElectronApiHandler {
+    constructor() {
+        this.setupIpcHandlers();
+    }
+    
+    setupIpcHandlers() {
+        // User management API
+        ipcMain.handle('api:users:get', async (event, userId) => {
+            try {
+                const user = await this.getUser(userId);
+                return { success: true, data: user };
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        });
+        
+        ipcMain.handle('api:users:create', async (event, userData) => {
+            try {
+                const user = await this.createUser(userData);
+                return { success: true, data: user };
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        });
+        
+        ipcMain.handle('api:users:update', async (event, { userId, userData }) => {
+            try {
+                const user = await this.updateUser(userId, userData);
+                return { success: true, data: user };
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        });
+        
+        ipcMain.handle('api:users:delete', async (event, userId) => {
+            try {
+                await this.deleteUser(userId);
+                return { success: true };
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        });
+    }
+    
+    async getUser(userId) {
+        // Implementation for getting user
+        if (!userId) {
+            throw new Error('User ID is required');
+        }
+        
+        // Simulate API call
+        return { id: userId, name: 'John Doe', email: 'john@example.com' };
+    }
+    
+    async createUser(userData) {
+        // Implementation for creating user
+        if (!userData.name || !userData.email) {
+            throw new Error('Name and email are required');
+        }
+        
+        // Simulate API call
+        return { id: 'new-id', ...userData };
+    }
+    
+    async updateUser(userId, userData) {
+        // Implementation for updating user
+        if (!userId) {
+            throw new Error('User ID is required');
+        }
+        
+        // Simulate API call
+        return { id: userId, ...userData };
+    }
+    
+    async deleteUser(userId) {
+        // Implementation for deleting user
+        if (!userId) {
+            throw new Error('User ID is required');
+        }
+        
+        // Simulate API call
+        return true;
+    }
+}
+
+// Renderer process API client
+class ElectronApiClient {
+    async getUser(userId) {
+        const response = await ipcRenderer.invoke('api:users:get', userId);
+        if (!response.success) {
+            throw new Error(response.error);
+        }
+        return response.data;
+    }
+    
+    async createUser(userData) {
+        const response = await ipcRenderer.invoke('api:users:create', userData);
+        if (!response.success) {
+            throw new Error(response.error);
+        }
+        return response.data;
+    }
+    
+    async updateUser(userId, userData) {
+        const response = await ipcRenderer.invoke('api:users:update', { userId, userData });
+        if (!response.success) {
+            throw new Error(response.error);
+        }
+        return response.data;
+    }
+    
+    async deleteUser(userId) {
+        const response = await ipcRenderer.invoke('api:users:delete', userId);
+        if (!response.success) {
+            throw new Error(response.error);
+        }
+        return response.data;
+    }
+}
+```
+
+### Flutter API Patterns
+```dart
+// Good: Flutter API with HTTP client
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+class FlutterApiClient {
+  static const String baseUrl = 'https://api.example.com';
+  static const Map<String, String> headers = {
+    'Content-Type': 'application/json',
+  };
+  
+  final http.Client _client = http.Client();
+  
+  // User management API
+  Future<User> getUser(String userId) async {
+    try {
+      final response = await _client.get(
+        Uri.parse('$baseUrl/users/$userId'),
+        headers: await _getAuthHeaders(),
+      );
+      
+      if (response.statusCode == 200) {
+        return User.fromJson(jsonDecode(response.body));
+      } else if (response.statusCode == 404) {
+        throw UserNotFoundException('User not found');
+      } else {
+        throw ApiException('Failed to get user: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw ApiException('Network error: $e');
+    }
+  }
+  
+  Future<User> createUser(CreateUserRequest request) async {
+    try {
+      final response = await _client.post(
+        Uri.parse('$baseUrl/users'),
+        headers: await _getAuthHeaders(),
+        body: jsonEncode(request.toJson()),
+      );
+      
+      if (response.statusCode == 201) {
+        return User.fromJson(jsonDecode(response.body));
+      } else if (response.statusCode == 400) {
+        final error = jsonDecode(response.body);
+        throw ValidationException(error['message']);
+      } else {
+        throw ApiException('Failed to create user: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw ApiException('Network error: $e');
+    }
+  }
+  
+  Future<User> updateUser(String userId, UpdateUserRequest request) async {
+    try {
+      final response = await _client.put(
+        Uri.parse('$baseUrl/users/$userId'),
+        headers: await _getAuthHeaders(),
+        body: jsonEncode(request.toJson()),
+      );
+      
+      if (response.statusCode == 200) {
+        return User.fromJson(jsonDecode(response.body));
+      } else if (response.statusCode == 404) {
+        throw UserNotFoundException('User not found');
+      } else {
+        throw ApiException('Failed to update user: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw ApiException('Network error: $e');
+    }
+  }
+  
+  Future<void> deleteUser(String userId) async {
+    try {
+      final response = await _client.delete(
+        Uri.parse('$baseUrl/users/$userId'),
+        headers: await _getAuthHeaders(),
+      );
+      
+      if (response.statusCode == 204) {
+        return;
+      } else if (response.statusCode == 404) {
+        throw UserNotFoundException('User not found');
+      } else {
+        throw ApiException('Failed to delete user: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw ApiException('Network error: $e');
+    }
+  }
+  
+  Future<Map<String, String>> _getAuthHeaders() async {
+    final token = await SecureStorage.getToken();
+    return {
+      ...headers,
+      if (token != null) 'Authorization': 'Bearer $token',
+    };
+  }
+  
+  void dispose() {
+    _client.close();
+  }
+}
+
+// Data models
+class User {
+  final String id;
+  final String name;
+  final String email;
+  
+  User({required this.id, required this.name, required this.email});
+  
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+    );
+  }
+  
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+    };
+  }
+}
+
+class CreateUserRequest {
+  final String name;
+  final String email;
+  final String password;
+  
+  CreateUserRequest({
+    required this.name,
+    required this.email,
+    required this.password,
+  });
+  
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'email': email,
+      'password': password,
+    };
+  }
+}
+
+class UpdateUserRequest {
+  final String name;
+  final String email;
+  
+  UpdateUserRequest({
+    required this.name,
+    required this.email,
+  });
+  
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'email': email,
+    };
+  }
+}
+
+// Exception classes
+class ApiException implements Exception {
+  final String message;
+  ApiException(this.message);
+}
+
+class UserNotFoundException implements Exception {
+  final String message;
+  UserNotFoundException(this.message);
+}
+
+class ValidationException implements Exception {
+  final String message;
+  ValidationException(this.message);
+}
+```
+
+### .NET MAUI API Patterns
+```csharp
+// Good: .NET MAUI API with HttpClient
+using System.Net.Http.Json;
+using System.Text.Json;
+
+public class MauiApiClient
+{
+    private readonly HttpClient _httpClient;
+    private readonly string _baseUrl = "https://api.example.com";
+    
+    public MauiApiClient()
+    {
+        _httpClient = new HttpClient();
+        _httpClient.DefaultRequestHeaders.Add("User-Agent", "YourApp/1.0");
+    }
+    
+    // User management API
+    public async Task<User> GetUserAsync(string userId)
+    {
+        try
+        {
+            var response = await _httpClient.GetAsync($"{_baseUrl}/users/{userId}");
+            
+            if (response.IsSuccessStatusCode)
+            {
+                var user = await response.Content.ReadFromJsonAsync<User>();
+                return user;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                throw new UserNotFoundException("User not found");
+            }
+            else
+            {
+                throw new ApiException($"Failed to get user: {response.StatusCode}");
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new ApiException($"Network error: {ex.Message}");
+        }
+    }
+    
+    public async Task<User> CreateUserAsync(CreateUserRequest request)
+    {
+        try
+        {
+            var response = await _httpClient.PostAsJsonAsync($"{_baseUrl}/users", request);
+            
+            if (response.IsSuccessStatusCode)
+            {
+                var user = await response.Content.ReadFromJsonAsync<User>();
+                return user;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var error = await response.Content.ReadFromJsonAsync<ErrorResponse>();
+                throw new ValidationException(error?.Message ?? "Validation failed");
+            }
+            else
+            {
+                throw new ApiException($"Failed to create user: {response.StatusCode}");
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new ApiException($"Network error: {ex.Message}");
+        }
+    }
+    
+    public async Task<User> UpdateUserAsync(string userId, UpdateUserRequest request)
+    {
+        try
+        {
+            var response = await _httpClient.PutAsJsonAsync($"{_baseUrl}/users/{userId}", request);
+            
+            if (response.IsSuccessStatusCode)
+            {
+                var user = await response.Content.ReadFromJsonAsync<User>();
+                return user;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                throw new UserNotFoundException("User not found");
+            }
+            else
+            {
+                throw new ApiException($"Failed to update user: {response.StatusCode}");
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new ApiException($"Network error: {ex.Message}");
+        }
+    }
+    
+    public async Task DeleteUserAsync(string userId)
+    {
+        try
+        {
+            var response = await _httpClient.DeleteAsync($"{_baseUrl}/users/{userId}");
+            
+            if (response.IsSuccessStatusCode)
+            {
+                return;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                throw new UserNotFoundException("User not found");
+            }
+            else
+            {
+                throw new ApiException($"Failed to delete user: {response.StatusCode}");
+            }
+        }
+        catch (Exception ex)
+        {
+            throw new ApiException($"Network error: {ex.Message}");
+        }
+    }
+    
+    public void SetAuthToken(string token)
+    {
+        _httpClient.DefaultRequestHeaders.Authorization = 
+            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+    }
+    
+    public void Dispose()
+    {
+        _httpClient?.Dispose();
+    }
+}
+
+// Data models
+public class User
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+}
+
+public class CreateUserRequest
+{
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public string Password { get; set; }
+}
+
+public class UpdateUserRequest
+{
+    public string Name { get; set; }
+    public string Email { get; set; }
+}
+
+public class ErrorResponse
+{
+    public string Message { get; set; }
+    public string Code { get; set; }
+}
+
+// Exception classes
+public class ApiException : Exception
+{
+    public ApiException(string message) : base(message) { }
+}
+
+public class UserNotFoundException : Exception
+{
+    public UserNotFoundException(string message) : base(message) { }
+}
+
+public class ValidationException : Exception
+{
+    public ValidationException(string message) : base(message) { }
+}
+```
+
+## Security Guidelines
+- Always validate and sanitize input data
+- Use HTTPS for all API communications
+- Implement proper authentication (JWT, OAuth, API keys)
+- Rate limit endpoints to prevent abuse
+- Log security events but never log sensitive data
+- Use environment variables for configuration
+- Implement CORS policies appropriately
+
+## Documentation Standards
+- Use OpenAPI/Swagger for API documentation
+- Include request/response examples
+- Document all error codes and messages
+- Provide authentication requirements
+- Include rate limiting information
+- Maintain changelog for breaking changes
+
+## Testing Patterns
+- Unit test all endpoint logic
+- Integration test API flows
+- Test error scenarios and edge cases
+- Mock external dependencies
+- Test rate limiting and security measures
+- Validate response schemas
+
+## Performance Guidelines
+- Implement pagination for large datasets
+- Use caching where appropriate
+- Optimize database queries
+- Implement request/response compression
+- Monitor API performance metrics
+- Use async processing for long-running operations

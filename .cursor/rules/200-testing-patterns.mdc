@@ -1,0 +1,1928 @@
+---
+name: "Testing Patterns"
+description: "Comprehensive testing strategies, unit testing, integration testing, test-driven development, mocking patterns, and testing best practices across multiple programming languages"
+version: "1.0.0"
+author: "Cursor Rules"
+created: "2024-01-01"
+updated: "2024-01-01"
+category: "testing"
+priority: "high"
+tags:
+  - "testing"
+  - "unit-tests"
+  - "integration-tests"
+  - "tdd"
+  - "bdd"
+  - "mocking"
+  - "stubbing"
+  - "test-coverage"
+  - "test-frameworks"
+  - "assertions"
+  - "fixtures"
+  - "test-data"
+  - "automated-testing"
+  - "ci-cd"
+
+# Apply Intelligently Settings
+applyIntelligently: true
+alwaysApply: false
+autoApply: false
+
+# Trigger Conditions
+triggers:
+  - "writing unit tests"
+  - "writing integration tests"
+  - "implementing test-driven development"
+  - "creating test fixtures"
+  - "setting up test frameworks"
+  - "writing test cases"
+  - "implementing mocking"
+  - "setting up test coverage"
+  - "writing test documentation"
+  - "creating test data"
+  - "setting up CI/CD testing"
+  - "debugging failing tests"
+  - "refactoring test code"
+  - "optimizing test performance"
+
+# File Patterns
+filePatterns:
+  - "**/*.test.js"
+  - "**/*.test.ts"
+  - "**/*.spec.js"
+  - "**/*.spec.ts"
+  - "**/*_test.py"
+  - "**/*Test.java"
+  - "**/*Tests.cs"
+  - "**/*_test.go"
+  - "**/*.test.rs"
+  - "**/tests/**/*"
+  - "**/test/**/*"
+  - "**/__tests__/**/*"
+  - "**/spec/**/*"
+  - "**/test_*/**/*"
+  - "**/*Test*/**/*"
+  - "**/test-*/**/*"
+  - "**/__test__/**/*"
+  - "**/test-files/**/*"
+  - "**/test-data/**/*"
+  - "**/fixtures/**/*"
+  - "**/mocks/**/*"
+  - "**/stubs/**/*"
+
+# Language Support
+languages:
+  - "javascript"
+  - "typescript"
+  - "python"
+  - "java"
+  - "csharp"
+  - "cpp"
+  - "go"
+  - "rust"
+  - "swift"
+  - "kotlin"
+  - "dart"
+
+# Context Keywords
+keywords:
+  - "testing"
+  - "unit-test"
+  - "integration-test"
+  - "test-driven"
+  - "tdd"
+  - "bdd"
+  - "mocking"
+  - "stubbing"
+  - "test-coverage"
+  - "assertion"
+  - "fixture"
+  - "test-data"
+  - "test-framework"
+  - "jest"
+  - "mocha"
+  - "pytest"
+  - "junit"
+  - "nunit"
+  - "xunit"
+  - "gtest"
+  - "go-test"
+  - "cargo-test"
+  - "phpunit"
+  - "rspec"
+  - "test-case"
+  - "test-suite"
+  - "test-runner"
+  - "automated-testing"
+  - "ci-cd"
+  - "continuous-integration"
+  - "test-automation"
+
+# Exclusions
+excludePatterns:
+  - "node_modules/**"
+  - "dist/**"
+  - "build/**"
+  - ".git/**"
+  - "*.min.js"
+  - "*.bundle.js"
+  - "vendor/**"
+  - "target/**"
+  - "bin/**"
+  - "obj/**"
+  - "coverage/**"
+  - "*.coverage"
+  - "*.lcov"
+
+# Dependencies
+dependencies: []
+
+# Related Rules
+relatedRules:
+  - "100-code-quality"
+  - "210-docs-standards"
+  - "300-api-patterns"
+
+# Usage Examples
+examples:
+  - "When writing unit tests for functions"
+  - "When creating integration tests for APIs"
+  - "When implementing test-driven development"
+  - "When setting up test frameworks"
+  - "When creating test fixtures and data"
+  - "When implementing mocking and stubbing"
+  - "When setting up test coverage reporting"
+  - "When writing test documentation"
+  - "When debugging failing tests"
+  - "When optimizing test performance"
+
+# Notes
+notes:
+  - "This rule provides comprehensive testing strategies and patterns"
+  - "Covers unit testing, integration testing, and test-driven development"
+  - "Includes mocking, stubbing, and test data management patterns"
+  - "Provides testing best practices across multiple languages"
+  - "Addresses test coverage, CI/CD integration, and test automation"
+  - "Includes debugging and performance optimization for tests"
+---
+
+# Testing Patterns
+
+## Core Testing Principles
+
+### Testing Pyramid
+- **Unit Tests (70%)**: Fast, isolated tests for individual functions/classes
+- **Integration Tests (20%)**: Tests for component interactions
+- **End-to-End Tests (10%)**: Full system tests through UI/API
+
+### Test-Driven Development (TDD)
+- **Red**: Write failing test first
+- **Green**: Write minimal code to pass test
+- **Refactor**: Improve code while keeping tests green
+
+### Testing Best Practices
+- **Fast**: Tests should run quickly
+- **Independent**: Tests should not depend on each other
+- **Repeatable**: Tests should produce same results every time
+- **Self-Validating**: Tests should have clear pass/fail criteria
+- **Timely**: Write tests before or with the code
+
+## Unit Testing Patterns
+
+### JavaScript/TypeScript (Jest)
+```javascript
+// Good: Comprehensive unit test
+describe('UserService', () => {
+    let userService;
+    let mockUserRepository;
+    
+    beforeEach(() => {
+        mockUserRepository = {
+            findById: jest.fn(),
+            create: jest.fn(),
+            update: jest.fn(),
+            delete: jest.fn()
+        };
+        userService = new UserService(mockUserRepository);
+    });
+    
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+    
+    describe('getUserById', () => {
+        it('should return user when user exists', async () => {
+            // Arrange
+            const userId = '123';
+            const expectedUser = { id: userId, name: 'John Doe', email: 'john@example.com' };
+            mockUserRepository.findById.mockResolvedValue(expectedUser);
+            
+            // Act
+            const result = await userService.getUserById(userId);
+            
+            // Assert
+            expect(result).toEqual(expectedUser);
+            expect(mockUserRepository.findById).toHaveBeenCalledWith(userId);
+            expect(mockUserRepository.findById).toHaveBeenCalledTimes(1);
+        });
+        
+        it('should throw error when user not found', async () => {
+            // Arrange
+            const userId = '999';
+            mockUserRepository.findById.mockResolvedValue(null);
+            
+            // Act & Assert
+            await expect(userService.getUserById(userId))
+                .rejects
+                .toThrow('User not found');
+        });
+        
+        it('should throw error when invalid user ID provided', async () => {
+            // Arrange
+            const invalidUserId = '';
+            
+            // Act & Assert
+            await expect(userService.getUserById(invalidUserId))
+                .rejects
+                .toThrow('Invalid user ID');
+        });
+    });
+    
+    describe('createUser', () => {
+        it('should create user with valid data', async () => {
+            // Arrange
+            const userData = { name: 'Jane Doe', email: 'jane@example.com' };
+            const createdUser = { id: '456', ...userData };
+            mockUserRepository.create.mockResolvedValue(createdUser);
+            
+            // Act
+            const result = await userService.createUser(userData);
+            
+            // Assert
+            expect(result).toEqual(createdUser);
+            expect(mockUserRepository.create).toHaveBeenCalledWith(userData);
+        });
+        
+        it('should validate email format', async () => {
+            // Arrange
+            const invalidUserData = { name: 'Jane', email: 'invalid-email' };
+            
+            // Act & Assert
+            await expect(userService.createUser(invalidUserData))
+                .rejects
+                .toThrow('Invalid email format');
+        });
+    });
+});
+```
+
+### Python (pytest)
+```python
+# Good: Comprehensive unit test with pytest
+import pytest
+from unittest.mock import Mock, patch
+from user_service import UserService
+from exceptions import UserNotFoundError, ValidationError
+
+class TestUserService:
+    @pytest.fixture
+    def mock_user_repository(self):
+        return Mock()
+    
+    @pytest.fixture
+    def user_service(self, mock_user_repository):
+        return UserService(mock_user_repository)
+    
+    class TestGetUserById:
+        async def test_should_return_user_when_user_exists(self, user_service, mock_user_repository):
+            # Arrange
+            user_id = "123"
+            expected_user = {"id": user_id, "name": "John Doe", "email": "john@example.com"}
+            mock_user_repository.find_by_id.return_value = expected_user
+            
+            # Act
+            result = await user_service.get_user_by_id(user_id)
+            
+            # Assert
+            assert result == expected_user
+            mock_user_repository.find_by_id.assert_called_once_with(user_id)
+        
+        async def test_should_throw_error_when_user_not_found(self, user_service, mock_user_repository):
+            # Arrange
+            user_id = "999"
+            mock_user_repository.find_by_id.return_value = None
+            
+            # Act & Assert
+            with pytest.raises(UserNotFoundError, match="User not found"):
+                await user_service.get_user_by_id(user_id)
+        
+        async def test_should_throw_error_when_invalid_user_id(self, user_service):
+            # Arrange
+            invalid_user_id = ""
+            
+            # Act & Assert
+            with pytest.raises(ValidationError, match="Invalid user ID"):
+                await user_service.get_user_by_id(invalid_user_id)
+    
+    class TestCreateUser:
+        async def test_should_create_user_with_valid_data(self, user_service, mock_user_repository):
+            # Arrange
+            user_data = {"name": "Jane Doe", "email": "jane@example.com"}
+            created_user = {"id": "456", **user_data}
+            mock_user_repository.create.return_value = created_user
+            
+            # Act
+            result = await user_service.create_user(user_data)
+            
+            # Assert
+            assert result == created_user
+            mock_user_repository.create.assert_called_once_with(user_data)
+        
+        async def test_should_validate_email_format(self, user_service):
+            # Arrange
+            invalid_user_data = {"name": "Jane", "email": "invalid-email"}
+            
+            # Act & Assert
+            with pytest.raises(ValidationError, match="Invalid email format"):
+                await user_service.create_user(invalid_user_data)
+```
+
+### Java (JUnit 5)
+```java
+// Good: Comprehensive unit test with JUnit 5
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(MockitoExtension.class)
+class UserServiceTest {
+    
+    @Mock
+    private UserRepository mockUserRepository;
+    
+    private UserService userService;
+    
+    @BeforeEach
+    void setUp() {
+        userService = new UserService(mockUserRepository);
+    }
+    
+    @Nested
+    class GetUserById {
+        
+        @Test
+        @DisplayName("Should return user when user exists")
+        void shouldReturnUserWhenUserExists() {
+            // Arrange
+            String userId = "123";
+            User expectedUser = new User(userId, "John Doe", "john@example.com");
+            when(mockUserRepository.findById(userId)).thenReturn(Optional.of(expectedUser));
+            
+            // Act
+            User result = userService.getUserById(userId);
+            
+            // Assert
+            assertEquals(expectedUser, result);
+            verify(mockUserRepository, times(1)).findById(userId);
+        }
+        
+        @Test
+        @DisplayName("Should throw exception when user not found")
+        void shouldThrowExceptionWhenUserNotFound() {
+            // Arrange
+            String userId = "999";
+            when(mockUserRepository.findById(userId)).thenReturn(Optional.empty());
+            
+            // Act & Assert
+            UserNotFoundException exception = assertThrows(
+                UserNotFoundException.class,
+                () -> userService.getUserById(userId)
+            );
+            assertEquals("User not found", exception.getMessage());
+        }
+        
+        @Test
+        @DisplayName("Should throw exception when invalid user ID provided")
+        void shouldThrowExceptionWhenInvalidUserId() {
+            // Arrange
+            String invalidUserId = "";
+            
+            // Act & Assert
+            ValidationException exception = assertThrows(
+                ValidationException.class,
+                () -> userService.getUserById(invalidUserId)
+            );
+            assertEquals("Invalid user ID", exception.getMessage());
+        }
+    }
+    
+    @Nested
+    class CreateUser {
+        
+        @Test
+        @DisplayName("Should create user with valid data")
+        void shouldCreateUserWithValidData() {
+            // Arrange
+            UserCreateRequest userData = new UserCreateRequest("Jane Doe", "jane@example.com");
+            User createdUser = new User("456", userData.getName(), userData.getEmail());
+            when(mockUserRepository.create(userData)).thenReturn(createdUser);
+            
+            // Act
+            User result = userService.createUser(userData);
+            
+            // Assert
+            assertEquals(createdUser, result);
+            verify(mockUserRepository, times(1)).create(userData);
+        }
+        
+        @Test
+        @DisplayName("Should validate email format")
+        void shouldValidateEmailFormat() {
+            // Arrange
+            UserCreateRequest invalidUserData = new UserCreateRequest("Jane", "invalid-email");
+            
+            // Act & Assert
+            ValidationException exception = assertThrows(
+                ValidationException.class,
+                () -> userService.createUser(invalidUserData)
+            );
+            assertEquals("Invalid email format", exception.getMessage());
+        }
+    }
+}
+```
+
+### C# (NUnit/xUnit)
+```csharp
+// Good: Comprehensive unit test with NUnit
+using NUnit.Framework;
+using Moq;
+using System;
+using System.Threading.Tasks;
+
+[TestFixture]
+public class UserServiceTests
+{
+    private Mock<IUserRepository> _mockUserRepository;
+    private UserService _userService;
+    
+    [SetUp]
+    public void Setup()
+    {
+        _mockUserRepository = new Mock<IUserRepository>();
+        _userService = new UserService(_mockUserRepository.Object);
+    }
+    
+    [TestFixture]
+    public class GetUserById : UserServiceTests
+    {
+        [Test]
+        public async Task ShouldReturnUser_WhenUserExists()
+        {
+            // Arrange
+            var userId = "123";
+            var expectedUser = new User { Id = userId, Name = "John Doe", Email = "john@example.com" };
+            _mockUserRepository.Setup(x => x.FindByIdAsync(userId))
+                .ReturnsAsync(expectedUser);
+            
+            // Act
+            var result = await _userService.GetUserByIdAsync(userId);
+            
+            // Assert
+            Assert.That(result, Is.EqualTo(expectedUser));
+            _mockUserRepository.Verify(x => x.FindByIdAsync(userId), Times.Once);
+        }
+        
+        [Test]
+        public async Task ShouldThrowUserNotFoundException_WhenUserNotFound()
+        {
+            // Arrange
+            var userId = "999";
+            _mockUserRepository.Setup(x => x.FindByIdAsync(userId))
+                .ReturnsAsync((User)null);
+            
+            // Act & Assert
+            var exception = Assert.ThrowsAsync<UserNotFoundException>(
+                async () => await _userService.GetUserByIdAsync(userId)
+            );
+            Assert.That(exception.Message, Is.EqualTo("User not found"));
+        }
+        
+        [Test]
+        public async Task ShouldThrowValidationException_WhenInvalidUserId()
+        {
+            // Arrange
+            var invalidUserId = "";
+            
+            // Act & Assert
+            var exception = Assert.ThrowsAsync<ValidationException>(
+                async () => await _userService.GetUserByIdAsync(invalidUserId)
+            );
+            Assert.That(exception.Message, Is.EqualTo("Invalid user ID"));
+        }
+    }
+    
+    [TestFixture]
+    public class CreateUser : UserServiceTests
+    {
+        [Test]
+        public async Task ShouldCreateUser_WithValidData()
+        {
+            // Arrange
+            var userData = new UserCreateRequest { Name = "Jane Doe", Email = "jane@example.com" };
+            var createdUser = new User { Id = "456", Name = userData.Name, Email = userData.Email };
+            _mockUserRepository.Setup(x => x.CreateAsync(userData))
+                .ReturnsAsync(createdUser);
+            
+            // Act
+            var result = await _userService.CreateUserAsync(userData);
+            
+            // Assert
+            Assert.That(result, Is.EqualTo(createdUser));
+            _mockUserRepository.Verify(x => x.CreateAsync(userData), Times.Once);
+        }
+        
+        [Test]
+        public async Task ShouldThrowValidationException_WhenInvalidEmail()
+        {
+            // Arrange
+            var invalidUserData = new UserCreateRequest { Name = "Jane", Email = "invalid-email" };
+            
+            // Act & Assert
+            var exception = Assert.ThrowsAsync<ValidationException>(
+                async () => await _userService.CreateUserAsync(invalidUserData)
+            );
+            Assert.That(exception.Message, Is.EqualTo("Invalid email format"));
+        }
+    }
+}
+```
+
+### Go (testing package)
+```go
+// Good: Comprehensive unit test with Go testing package
+package userservice
+
+import (
+    "testing"
+    "github.com/stretchr/testify/assert"
+    "github.com/stretchr/testify/mock"
+)
+
+type MockUserRepository struct {
+    mock.Mock
+}
+
+func (m *MockUserRepository) FindByID(id string) (*User, error) {
+    args := m.Called(id)
+    if args.Get(0) == nil {
+        return nil, args.Error(1)
+    }
+    return args.Get(0).(*User), args.Error(1)
+}
+
+func (m *MockUserRepository) Create(user *User) (*User, error) {
+    args := m.Called(user)
+    if args.Get(0) == nil {
+        return nil, args.Error(1)
+    }
+    return args.Get(0).(*User), args.Error(1)
+}
+
+func TestUserService_GetUserByID(t *testing.T) {
+    // Arrange
+    mockRepo := new(MockUserRepository)
+    userService := NewUserService(mockRepo)
+    
+    t.Run("should return user when user exists", func(t *testing.T) {
+        // Arrange
+        userID := "123"
+        expectedUser := &User{ID: userID, Name: "John Doe", Email: "john@example.com"}
+        mockRepo.On("FindByID", userID).Return(expectedUser, nil)
+        
+        // Act
+        result, err := userService.GetUserByID(userID)
+        
+        // Assert
+        assert.NoError(t, err)
+        assert.Equal(t, expectedUser, result)
+        mockRepo.AssertExpectations(t)
+    })
+    
+    t.Run("should return error when user not found", func(t *testing.T) {
+        // Arrange
+        userID := "999"
+        mockRepo.On("FindByID", userID).Return(nil, ErrUserNotFound)
+        
+        // Act
+        result, err := userService.GetUserByID(userID)
+        
+        // Assert
+        assert.Error(t, err)
+        assert.Nil(t, result)
+        assert.Equal(t, ErrUserNotFound, err)
+        mockRepo.AssertExpectations(t)
+    })
+    
+    t.Run("should return error when invalid user ID", func(t *testing.T) {
+        // Arrange
+        invalidUserID := ""
+        
+        // Act
+        result, err := userService.GetUserByID(invalidUserID)
+        
+        // Assert
+        assert.Error(t, err)
+        assert.Nil(t, result)
+        assert.Equal(t, ErrInvalidUserID, err)
+    })
+}
+
+func TestUserService_CreateUser(t *testing.T) {
+    // Arrange
+    mockRepo := new(MockUserRepository)
+    userService := NewUserService(mockRepo)
+    
+    t.Run("should create user with valid data", func(t *testing.T) {
+        // Arrange
+        userData := &User{Name: "Jane Doe", Email: "jane@example.com"}
+        createdUser := &User{ID: "456", Name: userData.Name, Email: userData.Email}
+        mockRepo.On("Create", userData).Return(createdUser, nil)
+        
+        // Act
+        result, err := userService.CreateUser(userData)
+        
+        // Assert
+        assert.NoError(t, err)
+        assert.Equal(t, createdUser, result)
+        mockRepo.AssertExpectations(t)
+    })
+    
+    t.Run("should validate email format", func(t *testing.T) {
+        // Arrange
+        invalidUserData := &User{Name: "Jane", Email: "invalid-email"}
+        
+        // Act
+        result, err := userService.CreateUser(invalidUserData)
+        
+        // Assert
+        assert.Error(t, err)
+        assert.Nil(t, result)
+        assert.Equal(t, ErrInvalidEmail, err)
+    })
+}
+```
+
+### Rust (cargo test)
+```rust
+// Good: Comprehensive unit test with Rust testing
+use std::error::Error;
+use mockall::predicate::*;
+use mockall::*;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    
+    mock! {
+        UserRepository {}
+        
+        impl UserRepository {
+            fn find_by_id(&self, id: &str) -> Result<Option<User>, Box<dyn Error>>;
+            fn create(&self, user: &User) -> Result<User, Box<dyn Error>>;
+        }
+    }
+    
+    #[tokio::test]
+    async fn test_get_user_by_id_success() {
+        // Arrange
+        let mut mock_repo = MockUserRepository::new();
+        let user_id = "123";
+        let expected_user = User {
+            id: user_id.to_string(),
+            name: "John Doe".to_string(),
+            email: "john@example.com".to_string(),
+        };
+        
+        mock_repo
+            .expect_find_by_id()
+            .with(eq(user_id))
+            .times(1)
+            .returning(move |_| Ok(Some(expected_user.clone())));
+        
+        let user_service = UserService::new(Box::new(mock_repo));
+        
+        // Act
+        let result = user_service.get_user_by_id(user_id).await;
+        
+        // Assert
+        assert!(result.is_ok());
+        let user = result.unwrap();
+        assert_eq!(user.id, user_id);
+        assert_eq!(user.name, "John Doe");
+        assert_eq!(user.email, "john@example.com");
+    }
+    
+    #[tokio::test]
+    async fn test_get_user_by_id_not_found() {
+        // Arrange
+        let mut mock_repo = MockUserRepository::new();
+        let user_id = "999";
+        
+        mock_repo
+            .expect_find_by_id()
+            .with(eq(user_id))
+            .times(1)
+            .returning(|_| Ok(None));
+        
+        let user_service = UserService::new(Box::new(mock_repo));
+        
+        // Act
+        let result = user_service.get_user_by_id(user_id).await;
+        
+        // Assert
+        assert!(result.is_err());
+        let error = result.unwrap_err();
+        assert!(matches!(error, UserServiceError::UserNotFound));
+    }
+    
+    #[tokio::test]
+    async fn test_create_user_success() {
+        // Arrange
+        let mut mock_repo = MockUserRepository::new();
+        let user_data = User {
+            id: String::new(),
+            name: "Jane Doe".to_string(),
+            email: "jane@example.com".to_string(),
+        };
+        let created_user = User {
+            id: "456".to_string(),
+            name: user_data.name.clone(),
+            email: user_data.email.clone(),
+        };
+        
+        mock_repo
+            .expect_create()
+            .with(eq(user_data.clone()))
+            .times(1)
+            .returning(move |_| Ok(created_user.clone()));
+        
+        let user_service = UserService::new(Box::new(mock_repo));
+        
+        // Act
+        let result = user_service.create_user(&user_data).await;
+        
+        // Assert
+        assert!(result.is_ok());
+        let user = result.unwrap();
+        assert_eq!(user.id, "456");
+        assert_eq!(user.name, "Jane Doe");
+        assert_eq!(user.email, "jane@example.com");
+    }
+    
+    #[tokio::test]
+    async fn test_create_user_invalid_email() {
+        // Arrange
+        let user_data = User {
+            id: String::new(),
+            name: "Jane".to_string(),
+            email: "invalid-email".to_string(),
+        };
+        
+        let user_service = UserService::new(Box::new(MockUserRepository::new()));
+        
+        // Act
+        let result = user_service.create_user(&user_data).await;
+        
+        // Assert
+        assert!(result.is_err());
+        let error = result.unwrap_err();
+        assert!(matches!(error, UserServiceError::InvalidEmail));
+    }
+}
+```
+
+### Swift (XCTest)
+```swift
+// Good: Comprehensive unit test with Swift XCTest
+import XCTest
+@testable import UserService
+
+class UserServiceTests: XCTestCase {
+    var userService: UserService!
+    var mockUserRepository: MockUserRepository!
+    
+    override func setUp() {
+        super.setUp()
+        mockUserRepository = MockUserRepository()
+        userService = UserService(userRepository: mockUserRepository)
+    }
+    
+    override func tearDown() {
+        userService = nil
+        mockUserRepository = nil
+        super.tearDown()
+    }
+    
+    func testGetUserById_WhenUserExists_ShouldReturnUser() async throws {
+        // Arrange
+        let userId = "123"
+        let expectedUser = User(
+            id: userId,
+            name: "John Doe",
+            email: "john@example.com"
+        )
+        mockUserRepository.findByIdResult = .success(expectedUser)
+        
+        // Act
+        let result = try await userService.getUserById(userId)
+        
+        // Assert
+        XCTAssertEqual(result, expectedUser)
+        XCTAssertEqual(mockUserRepository.findByIdCallCount, 1)
+        XCTAssertEqual(mockUserRepository.findByIdUserId, userId)
+    }
+    
+    func testGetUserById_WhenUserNotFound_ShouldThrowError() async {
+        // Arrange
+        let userId = "999"
+        mockUserRepository.findByIdResult = .failure(UserServiceError.userNotFound)
+        
+        // Act & Assert
+        do {
+            _ = try await userService.getUserById(userId)
+            XCTFail("Expected error to be thrown")
+        } catch {
+            XCTAssertEqual(error as? UserServiceError, .userNotFound)
+        }
+    }
+    
+    func testGetUserById_WhenInvalidUserId_ShouldThrowError() async {
+        // Arrange
+        let invalidUserId = ""
+        
+        // Act & Assert
+        do {
+            _ = try await userService.getUserById(invalidUserId)
+            XCTFail("Expected error to be thrown")
+        } catch {
+            XCTAssertEqual(error as? UserServiceError, .invalidUserId)
+        }
+    }
+    
+    func testCreateUser_WithValidData_ShouldCreateUser() async throws {
+        // Arrange
+        let userData = UserCreateRequest(
+            name: "Jane Doe",
+            email: "jane@example.com"
+        )
+        let createdUser = User(
+            id: "456",
+            name: userData.name,
+            email: userData.email
+        )
+        mockUserRepository.createResult = .success(createdUser)
+        
+        // Act
+        let result = try await userService.createUser(userData)
+        
+        // Assert
+        XCTAssertEqual(result, createdUser)
+        XCTAssertEqual(mockUserRepository.createCallCount, 1)
+        XCTAssertEqual(mockUserRepository.createUserData, userData)
+    }
+    
+    func testCreateUser_WithInvalidEmail_ShouldThrowError() async {
+        // Arrange
+        let invalidUserData = UserCreateRequest(
+            name: "Jane",
+            email: "invalid-email"
+        )
+        
+        // Act & Assert
+        do {
+            _ = try await userService.createUser(invalidUserData)
+            XCTFail("Expected error to be thrown")
+        } catch {
+            XCTAssertEqual(error as? UserServiceError, .invalidEmail)
+        }
+    }
+}
+
+// Mock implementation
+class MockUserRepository: UserRepositoryProtocol {
+    var findByIdResult: Result<User, Error> = .failure(UserServiceError.userNotFound)
+    var findByIdCallCount = 0
+    var findByIdUserId: String?
+    
+    var createResult: Result<User, Error> = .failure(UserServiceError.userNotFound)
+    var createCallCount = 0
+    var createUserData: UserCreateRequest?
+    
+    func findById(_ id: String) async throws -> User {
+        findByIdCallCount += 1
+        findByIdUserId = id
+        return try findByIdResult.get()
+    }
+    
+    func create(_ userData: UserCreateRequest) async throws -> User {
+        createCallCount += 1
+        createUserData = userData
+        return try createResult.get()
+    }
+}
+```
+
+### Kotlin (JUnit 5)
+```kotlin
+// Good: Comprehensive unit test with Kotlin and JUnit 5
+import org.junit.jupiter.api.*
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.Mock
+import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.kotlin.*
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+
+@ExtendWith(MockitoExtension::class)
+class UserServiceTest {
+    
+    @Mock
+    private lateinit var mockUserRepository: UserRepository
+    
+    private lateinit var userService: UserService
+    
+    @BeforeEach
+    fun setUp() {
+        userService = UserService(mockUserRepository)
+    }
+    
+    @Nested
+    @DisplayName("getUserById")
+    inner class GetUserById {
+        
+        @Test
+        @DisplayName("should return user when user exists")
+        fun `should return user when user exists`() = runTest {
+            // Arrange
+            val userId = "123"
+            val expectedUser = User(
+                id = userId,
+                name = "John Doe",
+                email = "john@example.com"
+            )
+            whenever(mockUserRepository.findById(userId)).thenReturn(expectedUser)
+            
+            // Act
+            val result = userService.getUserById(userId)
+            
+            // Assert
+            assertEquals(expectedUser, result)
+            verify(mockUserRepository, times(1)).findById(userId)
+        }
+        
+        @Test
+        @DisplayName("should throw error when user not found")
+        fun `should throw error when user not found`() = runTest {
+            // Arrange
+            val userId = "999"
+            whenever(mockUserRepository.findById(userId)).thenReturn(null)
+            
+            // Act & Assert
+            val exception = assertFailsWith<UserNotFoundException> {
+                userService.getUserById(userId)
+            }
+            assertEquals("User not found", exception.message)
+        }
+        
+        @Test
+        @DisplayName("should throw error when invalid user ID")
+        fun `should throw error when invalid user ID`() = runTest {
+            // Arrange
+            val invalidUserId = ""
+            
+            // Act & Assert
+            val exception = assertFailsWith<ValidationException> {
+                userService.getUserById(invalidUserId)
+            }
+            assertEquals("Invalid user ID", exception.message)
+        }
+    }
+    
+    @Nested
+    @DisplayName("createUser")
+    inner class CreateUser {
+        
+        @Test
+        @DisplayName("should create user with valid data")
+        fun `should create user with valid data`() = runTest {
+            // Arrange
+            val userData = UserCreateRequest(
+                name = "Jane Doe",
+                email = "jane@example.com"
+            )
+            val createdUser = User(
+                id = "456",
+                name = userData.name,
+                email = userData.email
+            )
+            whenever(mockUserRepository.create(userData)).thenReturn(createdUser)
+            
+            // Act
+            val result = userService.createUser(userData)
+            
+            // Assert
+            assertEquals(createdUser, result)
+            verify(mockUserRepository, times(1)).create(userData)
+        }
+        
+        @Test
+        @DisplayName("should validate email format")
+        fun `should validate email format`() = runTest {
+            // Arrange
+            val invalidUserData = UserCreateRequest(
+                name = "Jane",
+                email = "invalid-email"
+            )
+            
+            // Act & Assert
+            val exception = assertFailsWith<ValidationException> {
+                userService.createUser(invalidUserData)
+            }
+            assertEquals("Invalid email format", exception.message)
+        }
+    }
+}
+```
+
+## Integration Testing Patterns
+
+### API Integration Tests
+```javascript
+// Good: API integration test with supertest
+const request = require('supertest');
+const app = require('../app');
+const { setupTestDatabase, teardownTestDatabase } = require('./test-utils');
+
+describe('User API Integration Tests', () => {
+    beforeAll(async () => {
+        await setupTestDatabase();
+    });
+    
+    afterAll(async () => {
+        await teardownTestDatabase();
+    });
+    
+    beforeEach(async () => {
+        // Clean up test data before each test
+        await clearTestData();
+    });
+    
+    describe('POST /api/users', () => {
+        it('should create user successfully', async () => {
+            // Arrange
+            const userData = {
+                name: 'John Doe',
+                email: 'john@example.com',
+                password: 'SecurePass123!'
+            };
+            
+            // Act
+            const response = await request(app)
+                .post('/api/users')
+                .send(userData)
+                .expect(201);
+            
+            // Assert
+            expect(response.body).toMatchObject({
+                success: true,
+                data: {
+                    name: userData.name,
+                    email: userData.email
+                }
+            });
+            expect(response.body.data.id).toBeDefined();
+            expect(response.body.data.password).toBeUndefined(); // Password should not be returned
+        });
+        
+        it('should return validation error for invalid email', async () => {
+            // Arrange
+            const invalidUserData = {
+                name: 'John Doe',
+                email: 'invalid-email',
+                password: 'SecurePass123!'
+            };
+            
+            // Act
+            const response = await request(app)
+                .post('/api/users')
+                .send(invalidUserData)
+                .expect(422);
+            
+            // Assert
+            expect(response.body).toMatchObject({
+                success: false,
+                error: {
+                    code: 'VALIDATION_ERROR',
+                    message: 'Invalid input parameters'
+                }
+            });
+            expect(response.body.error.details).toContainEqual(
+                expect.objectContaining({
+                    field: 'email',
+                    message: 'Invalid email format'
+                })
+            );
+        });
+        
+        it('should return error for duplicate email', async () => {
+            // Arrange
+            const userData = {
+                name: 'John Doe',
+                email: 'john@example.com',
+                password: 'SecurePass123!'
+            };
+            
+            // Create first user
+            await request(app)
+                .post('/api/users')
+                .send(userData)
+                .expect(201);
+            
+            // Act - Try to create user with same email
+            const response = await request(app)
+                .post('/api/users')
+                .send(userData)
+                .expect(409);
+            
+            // Assert
+            expect(response.body).toMatchObject({
+                success: false,
+                error: {
+                    code: 'DUPLICATE_EMAIL',
+                    message: 'Email already exists'
+                }
+            });
+        });
+    });
+    
+    describe('GET /api/users/:id', () => {
+        it('should return user when user exists', async () => {
+            // Arrange
+            const userData = {
+                name: 'Jane Doe',
+                email: 'jane@example.com',
+                password: 'SecurePass123!'
+            };
+            
+            const createResponse = await request(app)
+                .post('/api/users')
+                .send(userData)
+                .expect(201);
+            
+            const userId = createResponse.body.data.id;
+            
+            // Act
+            const response = await request(app)
+                .get(`/api/users/${userId}`)
+                .expect(200);
+            
+            // Assert
+            expect(response.body).toMatchObject({
+                success: true,
+                data: {
+                    id: userId,
+                    name: userData.name,
+                    email: userData.email
+                }
+            });
+        });
+        
+        it('should return 404 when user not found', async () => {
+            // Arrange
+            const nonExistentUserId = '999999999999999999999999';
+            
+            // Act
+            const response = await request(app)
+                .get(`/api/users/${nonExistentUserId}`)
+                .expect(404);
+            
+            // Assert
+            expect(response.body).toMatchObject({
+                success: false,
+                error: {
+                    code: 'USER_NOT_FOUND',
+                    message: 'User not found'
+                }
+            });
+        });
+    });
+});
+```
+
+### Database Integration Tests
+```python
+# Good: Database integration test with pytest
+import pytest
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from app.database import Base
+from app.models import User
+from app.services import UserService
+
+class TestUserServiceIntegration:
+    @pytest.fixture(scope="class")
+    def engine(self):
+        # Use test database
+        engine = create_engine("sqlite:///test.db")
+        Base.metadata.create_all(engine)
+        yield engine
+        Base.metadata.drop_all(engine)
+    
+    @pytest.fixture
+    def session(self, engine):
+        Session = sessionmaker(bind=engine)
+        session = Session()
+        yield session
+        session.rollback()
+        session.close()
+    
+    @pytest.fixture
+    def user_service(self, session):
+        return UserService(session)
+    
+    async def test_create_and_retrieve_user(self, user_service, session):
+        # Arrange
+        user_data = {
+            "name": "John Doe",
+            "email": "john@example.com",
+            "password": "SecurePass123!"
+        }
+        
+        # Act - Create user
+        created_user = await user_service.create_user(user_data)
+        
+        # Assert - User was created
+        assert created_user.id is not None
+        assert created_user.name == user_data["name"]
+        assert created_user.email == user_data["email"]
+        assert created_user.password != user_data["password"]  # Should be hashed
+        
+        # Act - Retrieve user
+        retrieved_user = await user_service.get_user_by_id(created_user.id)
+        
+        # Assert - User can be retrieved
+        assert retrieved_user.id == created_user.id
+        assert retrieved_user.name == created_user.name
+        assert retrieved_user.email == created_user.email
+    
+    async def test_user_email_uniqueness(self, user_service, session):
+        # Arrange
+        user_data = {
+            "name": "John Doe",
+            "email": "john@example.com",
+            "password": "SecurePass123!"
+        }
+        
+        # Act - Create first user
+        await user_service.create_user(user_data)
+        
+        # Act & Assert - Try to create user with same email
+        with pytest.raises(ValueError, match="Email already exists"):
+            await user_service.create_user(user_data)
+```
+
+## Test Data Management
+
+### Test Fixtures
+```javascript
+// Good: Test fixtures and factories
+class UserFactory {
+    static create(overrides = {}) {
+        return {
+            id: faker.datatype.uuid(),
+            name: faker.name.findName(),
+            email: faker.internet.email(),
+            password: 'SecurePass123!',
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            ...overrides
+        };
+    }
+    
+    static createMany(count, overrides = {}) {
+        return Array.from({ length: count }, () => this.create(overrides));
+    }
+    
+    static createValid() {
+        return this.create({
+            email: 'valid@example.com',
+            password: 'SecurePass123!'
+        });
+    }
+    
+    static createInvalid() {
+        return this.create({
+            email: 'invalid-email',
+            password: 'weak'
+        });
+    }
+}
+
+// Usage in tests
+describe('UserService', () => {
+    it('should create user with valid data', async () => {
+        const userData = UserFactory.createValid();
+        const result = await userService.createUser(userData);
+        expect(result.email).toBe(userData.email);
+    });
+    
+    it('should handle multiple users', async () => {
+        const users = UserFactory.createMany(5);
+        const results = await Promise.all(
+            users.map(user => userService.createUser(user))
+        );
+        expect(results).toHaveLength(5);
+    });
+});
+```
+
+### Test Database Setup
+```javascript
+// Good: Test database utilities
+const mongoose = require('mongoose');
+const { MongoMemoryServer } = require('mongodb-memory-server');
+
+class TestDatabase {
+    static async setup() {
+        this.mongoServer = await MongoMemoryServer.create();
+        const mongoUri = this.mongoServer.getUri();
+        
+        await mongoose.connect(mongoUri, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+    }
+    
+    static async teardown() {
+        await mongoose.disconnect();
+        await this.mongoServer.stop();
+    }
+    
+    static async clearCollections() {
+        const collections = mongoose.connection.collections;
+        
+        for (const key in collections) {
+            const collection = collections[key];
+            await collection.deleteMany();
+        }
+    }
+    
+    static async seedTestData() {
+        const User = require('../models/User');
+        
+        const testUsers = [
+            { name: 'Test User 1', email: 'test1@example.com' },
+            { name: 'Test User 2', email: 'test2@example.com' }
+        ];
+        
+        await User.insertMany(testUsers);
+    }
+}
+
+// Usage in test setup
+beforeAll(async () => {
+    await TestDatabase.setup();
+});
+
+afterAll(async () => {
+    await TestDatabase.teardown();
+});
+
+beforeEach(async () => {
+    await TestDatabase.clearCollections();
+    await TestDatabase.seedTestData();
+});
+```
+
+## Mocking and Stubbing Patterns
+
+### Advanced Mocking
+```javascript
+// Good: Advanced mocking patterns
+describe('OrderService', () => {
+    let orderService;
+    let mockPaymentGateway;
+    let mockInventoryService;
+    let mockNotificationService;
+    
+    beforeEach(() => {
+        mockPaymentGateway = {
+            processPayment: jest.fn(),
+            refundPayment: jest.fn(),
+            validateCard: jest.fn()
+        };
+        
+        mockInventoryService = {
+            checkStock: jest.fn(),
+            reserveItems: jest.fn(),
+            releaseItems: jest.fn()
+        };
+        
+        mockNotificationService = {
+            sendOrderConfirmation: jest.fn(),
+            sendOrderCancellation: jest.fn(),
+            sendPaymentFailure: jest.fn()
+        };
+        
+        orderService = new OrderService(
+            mockPaymentGateway,
+            mockInventoryService,
+            mockNotificationService
+        );
+    });
+    
+    describe('processOrder', () => {
+        it('should process order successfully', async () => {
+            // Arrange
+            const orderData = {
+                items: [{ id: '1', quantity: 2 }],
+                paymentMethod: { type: 'card', token: 'tok_123' },
+                customerEmail: 'customer@example.com'
+            };
+            
+            mockInventoryService.checkStock.mockResolvedValue(true);
+            mockInventoryService.reserveItems.mockResolvedValue(true);
+            mockPaymentGateway.processPayment.mockResolvedValue({
+                success: true,
+                transactionId: 'txn_123'
+            });
+            mockNotificationService.sendOrderConfirmation.mockResolvedValue(true);
+            
+            // Act
+            const result = await orderService.processOrder(orderData);
+            
+            // Assert
+            expect(result.success).toBe(true);
+            expect(result.transactionId).toBe('txn_123');
+            
+            // Verify all interactions
+            expect(mockInventoryService.checkStock).toHaveBeenCalledWith(orderData.items);
+            expect(mockInventoryService.reserveItems).toHaveBeenCalledWith(orderData.items);
+            expect(mockPaymentGateway.processPayment).toHaveBeenCalledWith(orderData.paymentMethod);
+            expect(mockNotificationService.sendOrderConfirmation).toHaveBeenCalledWith(
+                orderData.customerEmail,
+                result
+            );
+        });
+        
+        it('should handle payment failure gracefully', async () => {
+            // Arrange
+            const orderData = {
+                items: [{ id: '1', quantity: 2 }],
+                paymentMethod: { type: 'card', token: 'tok_123' },
+                customerEmail: 'customer@example.com'
+            };
+            
+            mockInventoryService.checkStock.mockResolvedValue(true);
+            mockInventoryService.reserveItems.mockResolvedValue(true);
+            mockPaymentGateway.processPayment.mockRejectedValue(
+                new Error('Payment failed')
+            );
+            mockInventoryService.releaseItems.mockResolvedValue(true);
+            mockNotificationService.sendPaymentFailure.mockResolvedValue(true);
+            
+            // Act & Assert
+            await expect(orderService.processOrder(orderData))
+                .rejects
+                .toThrow('Payment failed');
+            
+            // Verify cleanup was performed
+            expect(mockInventoryService.releaseItems).toHaveBeenCalledWith(orderData.items);
+            expect(mockNotificationService.sendPaymentFailure).toHaveBeenCalledWith(
+                orderData.customerEmail
+            );
+        });
+        
+        it('should handle insufficient stock', async () => {
+            // Arrange
+            const orderData = {
+                items: [{ id: '1', quantity: 100 }],
+                paymentMethod: { type: 'card', token: 'tok_123' },
+                customerEmail: 'customer@example.com'
+            };
+            
+            mockInventoryService.checkStock.mockResolvedValue(false);
+            
+            // Act & Assert
+            await expect(orderService.processOrder(orderData))
+                .rejects
+                .toThrow('Insufficient stock');
+            
+            // Verify payment was not processed
+            expect(mockPaymentGateway.processPayment).not.toHaveBeenCalled();
+        });
+    });
+});
+```
+
+## Test Coverage and Quality
+
+### Coverage Configuration
+```javascript
+// Good: Jest coverage configuration
+module.exports = {
+    collectCoverageFrom: [
+        'src/**/*.{js,ts}',
+        '!src/**/*.d.ts',
+        '!src/**/*.test.{js,ts}',
+        '!src/**/*.spec.{js,ts}',
+        '!src/**/__tests__/**',
+        '!src/**/test/**',
+        '!src/**/tests/**',
+        '!src/**/index.{js,ts}',
+        '!src/**/main.{js,ts}'
+    ],
+    coverageThreshold: {
+        global: {
+            branches: 80,
+            functions: 80,
+            lines: 80,
+            statements: 80
+        },
+        './src/services/': {
+            branches: 90,
+            functions: 90,
+            lines: 90,
+            statements: 90
+        }
+    },
+    coverageReporters: ['text', 'lcov', 'html'],
+    coverageDirectory: 'coverage'
+};
+```
+
+### Test Quality Metrics
+```javascript
+// Good: Test quality checks
+describe('Test Quality Checks', () => {
+    it('should have descriptive test names', () => {
+        // Test names should clearly describe what is being tested
+        // and what the expected outcome is
+    });
+    
+    it('should follow AAA pattern (Arrange, Act, Assert)', () => {
+        // Arrange: Set up test data and conditions
+        const input = 'test data';
+        
+        // Act: Execute the code being tested
+        const result = processData(input);
+        
+        // Assert: Verify the results
+        expect(result).toBe('expected output');
+    });
+    
+    it('should test one thing at a time', () => {
+        // Each test should focus on a single behavior or scenario
+        // Avoid testing multiple things in one test
+    });
+    
+    it('should be independent of other tests', () => {
+        // Tests should not depend on the state or results of other tests
+        // Each test should set up its own data and clean up after itself
+    });
+});
+```
+
+## Performance Testing
+
+### Load Testing
+```javascript
+// Good: Load testing with Artillery
+const { check } = require('k6');
+const http = require('k6/http');
+
+export const options = {
+    stages: [
+        { duration: '2m', target: 100 }, // Ramp up to 100 users
+        { duration: '5m', target: 100 }, // Stay at 100 users
+        { duration: '2m', target: 0 },   // Ramp down to 0 users
+    ],
+    thresholds: {
+        http_req_duration: ['p(95)<500'], // 95% of requests must complete below 500ms
+        http_req_failed: ['rate<0.1'],    // Error rate must be below 10%
+    },
+};
+
+export default function() {
+    const response = http.get('https://api.example.com/users');
+    
+    check(response, {
+        'status is 200': (r) => r.status === 200,
+        'response time < 500ms': (r) => r.timings.duration < 500,
+    });
+}
+```
+
+### Electron Testing
+```javascript
+// Good: Electron app testing with Spectron
+const { Application } = require('spectron');
+const assert = require('assert');
+
+describe('Electron App Tests', () => {
+    let app;
+
+    beforeEach(async () => {
+        app = new Application({
+            path: require('electron'),
+            args: ['.']
+        });
+        await app.start();
+    });
+
+    afterEach(async () => {
+        if (app && app.isRunning()) {
+            await app.stop();
+        }
+    });
+
+    it('should display the main window', async () => {
+        const windowCount = await app.client.getWindowCount();
+        assert.equal(windowCount, 1);
+    });
+
+    it('should handle IPC communication', async () => {
+        // Test IPC communication between main and renderer processes
+        const result = await app.electron.ipcRenderer.invoke('test-channel', 'test-data');
+        assert.equal(result, 'expected-response');
+    });
+
+    it('should handle user interactions', async () => {
+        // Test UI interactions
+        await app.client.click('#login-button');
+        const isVisible = await app.client.isVisible('#login-form');
+        assert.equal(isVisible, true);
+    });
+});
+```
+
+### Flutter Testing
+```dart
+// Good: Flutter widget testing
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:your_app/main.dart';
+
+void main() {
+  group('UserProfile Widget Tests', () {
+    testWidgets('should display user information correctly', (WidgetTester tester) async {
+      // Arrange
+      const user = User(
+        id: '1',
+        name: 'John Doe',
+        email: 'john@example.com',
+      );
+
+      // Act
+      await tester.pumpWidget(
+        MaterialApp(
+          home: UserProfile(user: user),
+        ),
+      );
+
+      // Assert
+      expect(find.text('John Doe'), findsOneWidget);
+      expect(find.text('john@example.com'), findsOneWidget);
+      expect(find.byType(CircleAvatar), findsOneWidget);
+    });
+
+    testWidgets('should handle edit button tap', (WidgetTester tester) async {
+      // Arrange
+      bool editTapped = false;
+      const user = User(id: '1', name: 'John Doe', email: 'john@example.com');
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: UserProfile(
+            user: user,
+            onEdit: () => editTapped = true,
+          ),
+        ),
+      );
+
+      // Act
+      await tester.tap(find.byIcon(Icons.edit));
+      await tester.pump();
+
+      // Assert
+      expect(editTapped, isTrue);
+    });
+
+    testWidgets('should show loading state', (WidgetTester tester) async {
+      // Arrange
+      await tester.pumpWidget(
+        MaterialApp(
+          home: UserProfile(user: null),
+        ),
+      );
+
+      // Assert
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    });
+  });
+
+  group('UserService Tests', () {
+    test('should fetch user successfully', () async {
+      // Arrange
+      final mockRepository = MockUserRepository();
+      final service = UserService(repository: mockRepository);
+      
+      when(mockRepository.getUser('1')).thenAnswer(
+        (_) async => User(id: '1', name: 'John Doe', email: 'john@example.com'),
+      );
+
+      // Act
+      final result = await service.getUser('1');
+
+      // Assert
+      expect(result.name, equals('John Doe'));
+      expect(result.email, equals('john@example.com'));
+      verify(mockRepository.getUser('1')).called(1);
+    });
+
+    test('should handle user not found', () async {
+      // Arrange
+      final mockRepository = MockUserRepository();
+      final service = UserService(repository: mockRepository);
+      
+      when(mockRepository.getUser('999')).thenThrow(UserNotFoundException());
+
+      // Act & Assert
+      expect(
+        () => service.getUser('999'),
+        throwsA(isA<UserNotFoundException>()),
+      );
+    });
+  });
+}
+```
+
+### .NET MAUI Testing
+```csharp
+// Good: .NET MAUI testing with MSTest
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Maui.Controls;
+using Moq;
+
+[TestClass]
+public class UserProfilePageTests
+{
+    [TestMethod]
+    public async Task ShouldDisplayUserInformation()
+    {
+        // Arrange
+        var user = new User
+        {
+            Id = "1",
+            Name = "John Doe",
+            Email = "john@example.com"
+        };
+
+        var mockViewModel = new Mock<IUserProfileViewModel>();
+        mockViewModel.Setup(x => x.User).Returns(user);
+        mockViewModel.Setup(x => x.LoadUserAsync()).Returns(Task.CompletedTask);
+
+        var page = new UserProfilePage
+        {
+            BindingContext = mockViewModel.Object
+        };
+
+        // Act
+        await page.OnAppearing();
+
+        // Assert
+        var nameLabel = page.FindByName<Label>("NameLabel");
+        var emailLabel = page.FindByName<Label>("EmailLabel");
+
+        Assert.IsNotNull(nameLabel);
+        Assert.IsNotNull(emailLabel);
+        Assert.AreEqual("John Doe", nameLabel.Text);
+        Assert.AreEqual("john@example.com", emailLabel.Text);
+    }
+
+    [TestMethod]
+    public async Task ShouldHandleEditButtonClick()
+    {
+        // Arrange
+        var mockViewModel = new Mock<IUserProfileViewModel>();
+        var editTapped = false;
+        mockViewModel.Setup(x => x.EditCommand).Returns(new Command(() => editTapped = true));
+
+        var page = new UserProfilePage
+        {
+            BindingContext = mockViewModel.Object
+        };
+
+        // Act
+        var editButton = page.FindByName<Button>("EditButton");
+        editButton?.SendClicked();
+
+        // Assert
+        Assert.IsTrue(editTapped);
+    }
+
+    [TestMethod]
+    public async Task ShouldShowLoadingState()
+    {
+        // Arrange
+        var mockViewModel = new Mock<IUserProfileViewModel>();
+        mockViewModel.Setup(x => x.IsLoading).Returns(true);
+
+        var page = new UserProfilePage
+        {
+            BindingContext = mockViewModel.Object
+        };
+
+        // Act
+        await page.OnAppearing();
+
+        // Assert
+        var loadingIndicator = page.FindByName<ActivityIndicator>("LoadingIndicator");
+        Assert.IsNotNull(loadingIndicator);
+        Assert.IsTrue(loadingIndicator.IsRunning);
+    }
+}
+
+[TestClass]
+public class UserServiceTests
+{
+    [TestMethod]
+    public async Task GetUser_WithValidId_ShouldReturnUser()
+    {
+        // Arrange
+        var mockRepository = new Mock<IUserRepository>();
+        var expectedUser = new User { Id = "1", Name = "John Doe", Email = "john@example.com" };
+        mockRepository.Setup(x => x.GetUserAsync("1")).ReturnsAsync(expectedUser);
+
+        var service = new UserService(mockRepository.Object);
+
+        // Act
+        var result = await service.GetUserAsync("1");
+
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual("John Doe", result.Name);
+        Assert.AreEqual("john@example.com", result.Email);
+        mockRepository.Verify(x => x.GetUserAsync("1"), Times.Once);
+    }
+
+    [TestMethod]
+    public async Task GetUser_WithInvalidId_ShouldThrowException()
+    {
+        // Arrange
+        var mockRepository = new Mock<IUserRepository>();
+        mockRepository.Setup(x => x.GetUserAsync("999")).ThrowsAsync(new UserNotFoundException());
+
+        var service = new UserService(mockRepository.Object);
+
+        // Act & Assert
+        await Assert.ThrowsExceptionAsync<UserNotFoundException>(
+            () => service.GetUserAsync("999")
+        );
+    }
+}
+```
+
+## Best Practices Summary
+
+### Do's
+- ✅ Write tests before or with the code (TDD)
+- ✅ Keep tests fast, independent, and repeatable
+- ✅ Use descriptive test names
+- ✅ Follow AAA pattern (Arrange, Act, Assert)
+- ✅ Test edge cases and error conditions
+- ✅ Use appropriate mocking and stubbing
+- ✅ Maintain good test coverage
+- ✅ Keep tests simple and focused
+- ✅ Use test data factories and fixtures
+- ✅ Automate test execution in CI/CD
+
+### Don'ts
+- ❌ Write tests after the code is complete
+- ❌ Make tests dependent on each other
+- ❌ Test implementation details
+- ❌ Use hardcoded test data
+- ❌ Skip testing error conditions
+- ❌ Write slow or flaky tests
+- ❌ Test multiple things in one test
+- ❌ Ignore test coverage
+- ❌ Mock everything
+- ❌ Skip integration tests
+description:
+globs:
+alwaysApply: false
+---

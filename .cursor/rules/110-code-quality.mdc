@@ -1,0 +1,603 @@
+---
+name: "Code Quality Standards"
+description: "Comprehensive code quality standards, formatting guidelines, naming conventions, and best practices across multiple programming languages"
+version: "1.0.0"
+author: "Cursor Rules"
+created: "2024-01-01"
+updated: "2024-01-01"
+category: "code-quality"
+priority: "high"
+tags:
+  - "code-quality"
+  - "formatting"
+  - "naming-conventions"
+  - "clean-code"
+  - "best-practices"
+  - "style-guide"
+  - "code-review"
+  - "refactoring"
+  - "maintainability"
+  - "readability"
+
+# Apply Intelligently Settings
+applyIntelligently: true
+alwaysApply: false
+autoApply: false
+
+# Trigger Conditions
+triggers:
+  - "writing new code"
+  - "refactoring existing code"
+  - "code review"
+  - "formatting code"
+  - "naming variables and functions"
+  - "organizing code structure"
+  - "writing clean code"
+  - "improving code readability"
+  - "following coding standards"
+  - "maintaining code quality"
+
+# File Patterns
+filePatterns:
+  - "**/*.js"
+  - "**/*.ts"
+  - "**/*.jsx"
+  - "**/*.tsx"
+  - "**/*.py"
+  - "**/*.java"
+  - "**/*.cs"
+  - "**/*.cpp"
+  - "**/*.h"
+  - "**/*.hpp"
+  - "**/*.c"
+  - "**/*.go"
+  - "**/*.rs"
+  - "**/*.php"
+  - "**/*.rb"
+  - "**/*.swift"
+  - "**/*.kt"
+  - "**/*.scala"
+
+# Language Support
+languages:
+  - "javascript"
+  - "typescript"
+  - "python"
+  - "java"
+  - "csharp"
+  - "cpp"
+  - "c"
+  - "go"
+  - "rust"
+  - "php"
+  - "ruby"
+  - "swift"
+  - "kotlin"
+  - "scala"
+
+# Context Keywords
+keywords:
+  - "code-quality"
+  - "formatting"
+  - "style"
+  - "naming"
+  - "conventions"
+  - "clean-code"
+  - "best-practices"
+  - "readability"
+  - "maintainability"
+  - "refactoring"
+  - "code-review"
+  - "standards"
+  - "guidelines"
+  - "linting"
+  - "formatting"
+  - "indentation"
+  - "spacing"
+  - "comments"
+  - "documentation"
+
+# Exclusions
+excludePatterns:
+  - "node_modules/**"
+  - "dist/**"
+  - "build/**"
+  - ".git/**"
+  - "*.min.js"
+  - "*.bundle.js"
+  - "vendor/**"
+  - "target/**"
+  - "bin/**"
+  - "obj/**"
+
+# Dependencies
+dependencies: []
+
+# Related Rules
+relatedRules:
+  - "210-docs-standards"
+  - "150-security-standards"
+  - "200-testing-patterns"
+
+# Usage Examples
+examples:
+  - "When writing new functions or methods"
+  - "When naming variables, functions, or classes"
+  - "When organizing code structure"
+  - "When formatting code for readability"
+  - "When writing comments and documentation"
+  - "When refactoring existing code"
+  - "When conducting code reviews"
+
+# Notes
+notes:
+  - "This rule provides comprehensive code quality standards across multiple languages"
+  - "Includes formatting, naming conventions, and best practices"
+  - "Covers clean code principles and maintainability guidelines"
+  - "Provides code review standards and refactoring guidance"
+  - "Supports multiple programming languages and frameworks"
+---
+
+# Code Quality Standards
+
+## Core Principles
+
+### Clean Code Fundamentals
+- **Single Responsibility**: Each function/class should have one reason to change
+- **DRY (Don't Repeat Yourself)**: Avoid code duplication
+- **KISS (Keep It Simple, Stupid)**: Prefer simple solutions over complex ones
+- **Readability First**: Code should be self-documenting and easy to understand
+- **Consistency**: Follow consistent patterns throughout the codebase
+
+### Code Organization
+- **Logical Grouping**: Group related functionality together
+- **Separation of Concerns**: Separate business logic from presentation/IO
+- **Dependency Management**: Minimize dependencies and avoid circular references
+- **Modular Design**: Break large functions/classes into smaller, focused units
+
+## Naming Conventions
+
+### General Principles
+- **Descriptive Names**: Names should clearly indicate purpose and intent
+- **Avoid Abbreviations**: Use full words unless abbreviation is widely understood
+- **Consistent Style**: Follow language-specific conventions
+- **Avoid Magic Numbers**: Use named constants instead of literal values
+
+### Variable Naming
+```javascript
+// Good
+const userCount = 0;
+const isAuthenticated = false;
+const MAX_RETRY_ATTEMPTS = 3;
+
+// Bad
+const cnt = 0;
+const auth = false;
+const max = 3;
+```
+
+### Function Naming
+```javascript
+// Good
+function calculateTotalPrice(items) { }
+function validateUserInput(input) { }
+function isUserEligible(user) { }
+
+// Bad
+function calc(items) { }
+function validate(input) { }
+function check(user) { }
+```
+
+### Class Naming
+```javascript
+// Good
+class UserAuthenticationService { }
+class OrderProcessor { }
+class DatabaseConnectionManager { }
+
+// Bad
+class Auth { }
+class Processor { }
+class DBManager { }
+```
+
+## Code Structure
+
+### Function Guidelines
+- **Small Functions**: Keep functions under 20 lines when possible
+- **Single Purpose**: Each function should do one thing well
+- **Clear Input/Output**: Functions should have clear parameters and return values
+- **Error Handling**: Handle errors appropriately at the right level
+
+### Example: Good Function Structure
+```javascript
+/**
+ * Calculates the total price including tax and discounts
+ * @param {Array} items - Array of items with price and quantity
+ * @param {number} taxRate - Tax rate as decimal (e.g., 0.08 for 8%)
+ * @param {number} discountPercent - Discount percentage (0-100)
+ * @returns {number} Total price after tax and discount
+ */
+function calculateTotalPrice(items, taxRate, discountPercent) {
+    // Validate inputs
+    if (!Array.isArray(items) || items.length === 0) {
+        throw new Error('Items array must be non-empty');
+    }
+    
+    if (taxRate < 0 || discountPercent < 0 || discountPercent > 100) {
+        throw new Error('Invalid tax rate or discount percentage');
+    }
+    
+    // Calculate subtotal
+    const subtotal = items.reduce((sum, item) => {
+        return sum + (item.price * item.quantity);
+    }, 0);
+    
+    // Apply discount
+    const discountAmount = subtotal * (discountPercent / 100);
+    const discountedTotal = subtotal - discountAmount;
+    
+    // Apply tax
+    const taxAmount = discountedTotal * taxRate;
+    const finalTotal = discountedTotal + taxAmount;
+    
+    return Math.round(finalTotal * 100) / 100; // Round to 2 decimal places
+}
+```
+
+## Language-Specific Guidelines
+
+### JavaScript/TypeScript
+```javascript
+// Use const by default, let when reassignment is needed
+const config = { apiUrl: 'https://api.example.com' };
+let retryCount = 0;
+
+// Use arrow functions for callbacks
+const users = data.map(user => ({
+    id: user.id,
+    name: user.name.toUpperCase()
+}));
+
+// Use template literals for string interpolation
+const message = `Hello ${user.name}, you have ${user.points} points`;
+
+// Use destructuring for cleaner code
+const { name, email, role } = user;
+const [first, second, ...rest] = array;
+```
+
+### Python
+```python
+# Use snake_case for variables and functions
+user_count = 0
+def calculate_total_price(items):
+    pass
+
+# Use PascalCase for classes
+class UserAuthenticationService:
+    pass
+
+# Use UPPER_CASE for constants
+MAX_RETRY_ATTEMPTS = 3
+
+# Use type hints
+def process_user(user: User) -> bool:
+    pass
+
+# Use list comprehensions when appropriate
+squares = [x**2 for x in numbers if x > 0]
+```
+
+### Java
+```java
+// Use camelCase for variables and methods
+int userCount = 0;
+public void calculateTotalPrice(List<Item> items) { }
+
+// Use PascalCase for classes
+public class UserAuthenticationService { }
+
+// Use UPPER_CASE for constants
+public static final int MAX_RETRY_ATTEMPTS = 3;
+
+// Use meaningful variable names
+for (User user : users) {
+    if (user.isActive()) {
+        processUser(user);
+    }
+}
+```
+
+### C#
+```csharp
+// Use PascalCase for public members
+public int UserCount { get; set; }
+public void CalculateTotalPrice(List<Item> items) { }
+
+// Use camelCase for private fields
+private int _userCount;
+
+// Use meaningful names
+foreach (var user in users)
+{
+    if (user.IsActive)
+    {
+        ProcessUser(user);
+    }
+}
+```
+
+## Code Formatting
+
+### Indentation and Spacing
+- **Consistent Indentation**: Use spaces or tabs consistently (prefer spaces)
+- **Proper Spacing**: Use spaces around operators and after commas
+- **Line Length**: Keep lines under 80-120 characters
+- **Blank Lines**: Use blank lines to separate logical sections
+
+### Example: Good Formatting
+```javascript
+// Good formatting
+function processUserData(userData) {
+    const { name, email, preferences } = userData;
+    
+    if (!name || !email) {
+        throw new Error('Name and email are required');
+    }
+    
+    const processedData = {
+        name: name.trim(),
+        email: email.toLowerCase(),
+        preferences: preferences || {}
+    };
+    
+    return processedData;
+}
+
+// Bad formatting
+function processUserData(userData){
+const {name,email,preferences}=userData;
+if(!name||!email){throw new Error('Name and email are required');}
+const processedData={name:name.trim(),email:email.toLowerCase(),preferences:preferences||{}};
+return processedData;}
+```
+
+## Comments and Documentation
+
+### When to Comment
+- **Complex Logic**: Explain complex algorithms or business rules
+- **API Documentation**: Document public interfaces
+- **Temporary Code**: Explain workarounds or temporary solutions
+- **Why, Not What**: Explain why code exists, not what it does
+
+### Good Comments
+```javascript
+// Calculate compound interest using the formula: A = P(1 + r/n)^(nt)
+// where P = principal, r = rate, n = compounds per year, t = time in years
+function calculateCompoundInterest(principal, rate, compoundsPerYear, years) {
+    const ratePerPeriod = rate / compoundsPerYear;
+    const totalPeriods = compoundsPerYear * years;
+    return principal * Math.pow(1 + ratePerPeriod, totalPeriods);
+}
+
+// Bad comment (obvious)
+function add(a, b) {
+    return a + b; // Adds a and b
+}
+```
+
+## Error Handling
+
+### Best Practices
+- **Fail Fast**: Validate inputs early and fail with clear messages
+- **Appropriate Exceptions**: Use specific exception types
+- **Error Context**: Include relevant information in error messages
+- **Graceful Degradation**: Handle errors gracefully when possible
+
+### Example: Good Error Handling
+```javascript
+function processOrder(orderData) {
+    try {
+        // Validate order data
+        if (!orderData || !orderData.items || orderData.items.length === 0) {
+            throw new ValidationError('Order must contain at least one item');
+        }
+        
+        if (!orderData.customerId) {
+            throw new ValidationError('Customer ID is required');
+        }
+        
+        // Process the order
+        const processedOrder = validateAndProcessItems(orderData.items);
+        const total = calculateTotal(processedOrder);
+        
+        return {
+            orderId: generateOrderId(),
+            total: total,
+            status: 'processed'
+        };
+        
+    } catch (error) {
+        logger.error('Failed to process order', {
+            orderData: orderData,
+            error: error.message
+        });
+        
+        throw new OrderProcessingError(
+            `Failed to process order: ${error.message}`,
+            error
+        );
+    }
+}
+```
+
+## Code Review Checklist
+
+### Functionality
+- [ ] Does the code work as intended?
+- [ ] Are edge cases handled?
+- [ ] Is error handling appropriate?
+- [ ] Are inputs validated?
+
+### Code Quality
+- [ ] Is the code readable and self-documenting?
+- [ ] Are functions small and focused?
+- [ ] Is there code duplication?
+- [ ] Are naming conventions followed?
+
+### Performance
+- [ ] Are there obvious performance issues?
+- [ ] Are algorithms efficient?
+- [ ] Is memory usage reasonable?
+
+### Security
+- [ ] Are inputs sanitized?
+- [ ] Are there security vulnerabilities?
+- [ ] Is sensitive data handled properly?
+
+### Testing
+- [ ] Are there appropriate tests?
+- [ ] Do tests cover edge cases?
+- [ ] Are tests readable and maintainable?
+
+## Refactoring Guidelines
+
+### When to Refactor
+- **Code Duplication**: Extract common functionality
+- **Long Functions**: Break into smaller, focused functions
+- **Complex Conditions**: Simplify conditional logic
+- **Poor Naming**: Rename for clarity
+- **Large Classes**: Split into smaller, focused classes
+
+### Refactoring Techniques
+- **Extract Method**: Move code into a new function
+- **Extract Class**: Move related functionality to a new class
+- **Rename**: Improve names for clarity
+- **Simplify**: Remove unnecessary complexity
+- **Consolidate**: Combine similar functionality
+
+### Example: Before and After Refactoring
+```javascript
+// Before: Long function with multiple responsibilities
+function processUserData(userData) {
+    const result = {};
+    
+    if (userData.name) {
+        result.name = userData.name.trim();
+    }
+    if (userData.email) {
+        result.email = userData.email.toLowerCase();
+    }
+    if (userData.age) {
+        if (userData.age < 0) {
+            throw new Error('Age cannot be negative');
+        }
+        if (userData.age > 150) {
+            throw new Error('Age cannot be greater than 150');
+        }
+        result.age = userData.age;
+    }
+    if (userData.preferences) {
+        result.preferences = userData.preferences;
+    }
+    
+    return result;
+}
+
+// After: Refactored with better separation of concerns
+function processUserData(userData) {
+    return {
+        name: processName(userData.name),
+        email: processEmail(userData.email),
+        age: validateAndProcessAge(userData.age),
+        preferences: userData.preferences || {}
+    };
+}
+
+function processName(name) {
+    return name ? name.trim() : undefined;
+}
+
+function processEmail(email) {
+    return email ? email.toLowerCase() : undefined;
+}
+
+function validateAndProcessAge(age) {
+    if (!age) return undefined;
+    
+    if (age < 0) {
+        throw new Error('Age cannot be negative');
+    }
+    if (age > 150) {
+        throw new Error('Age cannot be greater than 150');
+    }
+    
+    return age;
+}
+```
+
+## Performance Considerations
+
+### General Guidelines
+- **Profile First**: Measure before optimizing
+- **Algorithm Choice**: Use appropriate algorithms for the problem
+- **Memory Management**: Be mindful of memory usage
+- **Caching**: Cache expensive operations when appropriate
+- **Lazy Loading**: Load data only when needed
+
+### Common Performance Anti-patterns
+```javascript
+// Bad: N+1 query problem
+users.forEach(user => {
+    const posts = fetchUserPosts(user.id); // Database call for each user
+});
+
+// Good: Batch the requests
+const allPosts = fetchAllPosts();
+const postsByUser = groupPostsByUser(allPosts);
+users.forEach(user => {
+    const posts = postsByUser[user.id] || [];
+});
+
+// Bad: Inefficient string concatenation
+let result = '';
+for (let i = 0; i < 1000; i++) {
+    result += 'item ' + i + '\n';
+}
+
+// Good: Use array join
+const items = [];
+for (let i = 0; i < 1000; i++) {
+    items.push(`item ${i}`);
+}
+const result = items.join('\n');
+```
+
+## Best Practices Summary
+
+### Do's
+- ✅ Write self-documenting code
+- ✅ Use meaningful names
+- ✅ Keep functions small and focused
+- ✅ Handle errors appropriately
+- ✅ Write tests for your code
+- ✅ Follow consistent formatting
+- ✅ Use appropriate data structures
+- ✅ Validate inputs
+- ✅ Document complex logic
+
+### Don'ts
+- ❌ Write overly complex code
+- ❌ Use magic numbers or strings
+- ❌ Ignore error handling
+- ❌ Write functions that do multiple things
+- ❌ Use unclear or abbreviated names
+- ❌ Duplicate code
+- ❌ Optimize prematurely
+- ❌ Skip code reviews
+description:
+globs:
+alwaysApply: false
+---
