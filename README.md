@@ -1,6 +1,6 @@
 # PowerVibe for Cursor (PV-C)
 
-**A comprehensive project template for Cursor IDE users doing Vibe coding**
+**A turnkey project template for Cursor IDE users doing Vibe coding**
 
 PowerVibe for Cursor (PV-C) is a complete project scaffolding template that provides a solid foundation for starting new development projects in Cursor IDE. Instead of piecing together individual rules, this template offers a comprehensive starting point with best-practice rules and documentation templates for any major language or framework.
 
